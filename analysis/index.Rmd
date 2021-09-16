@@ -1,5 +1,6 @@
 ---
-title: "Home"
+title: "Cassava Breeding Scheme Simulations"
+author: "Wolfemd, LucianoRogerio"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -8,4 +9,25 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+# Optimizers group results
+
+## Objectives:
+
+1. Provide a feasible plan of Variety Development Process with four years
+length for the NextGen Cassava Partners;
+
+2. Optimize the Breeding program costs per stage;
+
+3. Predict the best progenies to optimize crosses activities costs and genetic gain per recurrent selection cycle.
+
+Marnin and I separate the project in two branches:
+
+<br />
+
+|                                           |         |
+| :---------------------------------------: | :-----: |
+| [VDP Optimization](VDP_Optimization.html) | Luciano |
+| Mate Plan Optimization                    | Marnin  |
+|                                           |         |
+
+<br />
