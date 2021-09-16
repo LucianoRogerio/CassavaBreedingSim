@@ -163,33 +163,6 @@ end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ", floor(((en
 saveRDS(burnIn_1,file = here::here("output","BurnInGS_test_nQTL1.rds"))
 rm(burnIn_1); rm(bsp1); rm(start); rm(end)
 
-start <- proc.time()[3]
-burnIn_2 <- runBurnInSchemes(bsp = bsp2,
-                    	       nBurnInCycles=20,
-                           	 selCritPop="selCritIID",
-                         	   selCritPipe="selCritIID",
-                         	   iniFunc="initializeScheme",
-                        	   productFunc="productPipeline",
-                      		   popImprovFunc="popImprov1Cyc",
-            	               nReplications=20,ncores=1,
-                             nBLASthreads=1,nThreadsMacs2=1)
-end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ", floor(((end - start)%%60)), "s elapsed - bsp2"))
-saveRDS(burnIn_2,file = here::here("output","BurnInGS_nQTL2.rds"))
-rm(burnIn_2); rm(bsp2); rm(start); rm(end)
-
-start <- proc.time()[3]
-burnIn_3 <- runBurnInSchemes(bsp = bsp3,
-                    	       BurnInCycles=20,
-                           	 selCritPop="selCritIID",
-                         	   selCritPipe="selCritIID",
-                         	   iniFunc="initializeScheme",
-                        	   productFunc="productPipeline",
-                      		   popImprovFunc="popImprov1Cyc",
-            	               nReplications=20,ncores=1,
-                             nBLASthreads=1,nThreadsMacs2=1)
-end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ", floor(((end - start)%%60)), "s elapsed - bsp3"))
-saveRDS(burnIn_3,file = here::here("output","BurnInGS_nQTL3.rds"))
-rm(burnIn_3); rm(bsp3); rm(start); rm(end)
 
 ```
 
@@ -202,13 +175,6 @@ select <- dplyr::select
 
 forSimPlot<-tibble(bsp="1",nQTL=500) %>%
   bind_rows(tibble(bsp="2",nQTL=750)) %>%
-  #bind_rows(tibble(bsp="3",nQTL=1000)) %>%
-  #bind_rows(tibble(bsp="4",nQTL=1250)) %>%
-  #bind_rows(tibble(bsp="5",nQTL=1500)) %>%
-  #bind_rows(tibble(bsp="6",nQTL=1750)) %>%
-  #bind_rows(tibble(bsp="7",nQTL=2000)) %>%
-  #bind_rows(tibble(bsp="8",nQTL=2250)) %>%
-  #bind_rows(tibble(bsp="9",nQTL=2500)) %>%
   mutate(sims=paste0("BurnInGS_nQTL",bsp,".rds"),
          sims=map(sims,~readRDS(here::here("output",.))))
 forSimPlot %<>% 
