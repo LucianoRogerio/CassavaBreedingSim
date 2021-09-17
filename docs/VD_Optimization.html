@@ -482,16 +482,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree62984da2ab2116a8cdaf472e32a90aa84dbd8e92targetblank62984daa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/62984da2ab2116a8cdaf472e32a90aa84dbd8e92" target="_blank">62984da</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree78c2f1defea1a26a98065c03bbe9d70ad0e006a0targetblank78c2f1da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/78c2f1defea1a26a98065c03bbe9d70ad0e006a0" target="_blank">78c2f1d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree62984da2ab2116a8cdaf472e32a90aa84dbd8e92targetblank62984daa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree78c2f1defea1a26a98065c03bbe9d70ad0e006a0targetblank78c2f1da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/62984da2ab2116a8cdaf472e32a90aa84dbd8e92" target="_blank">62984da</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/78c2f1defea1a26a98065c03bbe9d70ad0e006a0" target="_blank">78c2f1d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -541,6 +541,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/78c2f1defea1a26a98065c03bbe9d70ad0e006a0/analysis/VD_Optimization.Rmd" target="_blank">78c2f1d</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-17
+</td>
+<td>
+Maybe the Last Commit to the Meeting
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/CassavaBreedingSim/78c2f1defea1a26a98065c03bbe9d70ad0e006a0/docs/VD_Optimization.html" target="_blank">78c2f1d</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-17
+</td>
+<td>
+Maybe the Last Commit to the Meeting
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1097,6 +1131,9 @@ forSimPlot &lt;- postBurnInGS %&gt;%
               mutate(YearPostBurnIn = year - 10)
 
 saveRDS(forSimPlot, here::here(&quot;output&quot;, &quot;DataSimPlot1.rds&quot;))</code></pre>
+</div>
+<div id="graph-with-the-genetic-gain-for-f1-stage" class="section level5">
+<h5>Graph with the genetic gain for F1 Stage</h5>
 <pre class="r"><code>forSimPlot &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlot1.rds&quot;))
 
 library(patchwork)
@@ -1127,7 +1164,9 @@ sdGplot1 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 10) %&gt;%
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;
 `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Graph with the genetic gain for UYT2 Stage</p>
+</div>
+<div id="graph-with-the-genetic-gain-for-uyt2-stage" class="section level5">
+<h5>Graph with the genetic gain for UYT2 Stage</h5>
 <pre class="r"><code>forSimPlot &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlot2.rds&quot;))
 
 library(patchwork)
@@ -1322,7 +1361,8 @@ forSimPlot &lt;- postBurnInGS %&gt;%
               mutate(YearPostBurnIn = year - 10)
 
 saveRDS(forSimPlot, &quot;DataSimPlot2.rds&quot;)</code></pre>
-<p>Graph with the genetic gain for F1 Stage</p>
+<div id="graph-with-the-genetic-gain-for-f1-stage-1" class="section level5">
+<h5>Graph with the genetic gain for F1 Stage</h5>
 <pre class="r"><code>forSimPlot &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlot2.rds&quot;))
 
 library(patchwork)
@@ -1353,7 +1393,9 @@ sdGplot2 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 10) %&gt;%
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;
 `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Graph with the genetic gain for UYT1 Stage</p>
+</div>
+<div id="graph-with-the-genetic-gain-for-uyt1-stage" class="section level5">
+<h5>Graph with the genetic gain for UYT1 Stage</h5>
 <pre class="r"><code>forSimPlot &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlot4.rds&quot;))
 
 library(patchwork)
@@ -1384,6 +1426,89 @@ sdGplot2 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 10) %&gt;%
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;
 `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="results" class="section level4">
+<h4>Results</h4>
+<div id="graph-with-the-genetic-gain-for-f1-for-iita-iita---nvdp-schemes" class="section level5">
+<h5>Graph with the genetic gain for F1 for IITA IITA - NVDP Schemes</h5>
+<pre class="r"><code>forSimPlot &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlot1.rds&quot;))
+forSimPlot2 &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlot1.rds&quot;))
+
+library(patchwork)
+meanGplot3 &lt;- forSimPlot %&gt;% mutate(Scheme = rep(&quot;IITA&quot;, nrow(forSimPlot))) %&gt;%
+              bind_rows(forSimPlot2 %&gt;%
+                        mutate(Scheme = rep(&quot;IITA - NVDP&quot;, nrow(forSimPlot2)))) %&gt;%
+              filter(YearPostBurnIn &lt;= 10) %&gt;%
+              group_by(PostBurnIn, YearPostBurnIn, year, stage) %&gt;% 
+#              summarize(meanGenMean = mean(genValMean),
+#              seGenMean = sd(genValMean) / n()) %&gt;% 
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean, fill = Scheme, color = Scheme)) +
+              geom_smooth(method = &quot;loess&quot;, alpha = 0.75)# +
+#              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+#                              ymax = meanGenMean + seGenMean,
+#                              fill = PostBurnIn), 
+#                          alpha=0.75) + 
+#              geom_line(aes(y = meanGenMean, color=PostBurnIn))
+sdGplot3 &lt;- forSimPlot %&gt;% mutate(Scheme = rep(&quot;IITA&quot;, nrow(forSimPlot))) %&gt;%
+              bind_rows(forSimPlot2 %&gt;%
+                        mutate(Scheme = rep(&quot;IITA - NVDP&quot;, nrow(forSimPlot2)))) %&gt;%
+            filter(YearPostBurnIn &lt;= 10) %&gt;%
+            group_by(PostBurnIn, YearPostBurnIn, year, stage) %&gt;% 
+#            summarize(meanGenSD = mean(genValSD),
+#                      seGenSD = sd(genValSD) / n()) %&gt;% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD, fill = Scheme, color = Scheme)) +
+            geom_smooth(method = &quot;loess&quot;, alpha = 0.75)# +
+#            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+#                            ymax = meanGenSD + seGenSD,
+#                            fill = PostBurnIn), 
+#                        alpha = 0.75) + 
+#            geom_line(aes(y = meanGenSD, group = PostBurnIn))
+
+(meanGplot3 | sdGplot3) &amp; theme_bw() &amp; geom_vline(xintercept = 0, color = &#39;darkred&#39;)</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;
+`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-with-the-genetic-gain-for-uyt2-iita-and-uyt1-iita---nvdp-stage" class="section level5">
+<h5>Graph with the genetic gain for UYT2 (IITA) and UYT1 (IITA - NVDP) Stage</h5>
+<pre class="r"><code>forSimPlot &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlot3.rds&quot;))
+forSimPlot2 &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlot4.rds&quot;))
+
+library(patchwork)
+meanGplot4 &lt;- forSimPlot %&gt;% mutate(Scheme = rep(&quot;IITA&quot;, nrow(forSimPlot))) %&gt;%
+              bind_rows(forSimPlot2 %&gt;%
+                        mutate(Scheme = rep(&quot;IITA - NVDP&quot;, nrow(forSimPlot2)))) %&gt;%
+              filter(YearPostBurnIn &lt;= 10) %&gt;%
+              group_by(PostBurnIn, YearPostBurnIn, year, stage) %&gt;% 
+#              summarize(meanGenMean = mean(genValMean),
+#              seGenMean = sd(genValMean) / n()) %&gt;% 
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean, fill = Scheme, color = Scheme)) +
+              geom_smooth(method = &quot;loess&quot;, alpha = 0.75)# +
+#              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+#                              ymax = meanGenMean + seGenMean,
+#                              fill = PostBurnIn), 
+#                          alpha=0.75) + 
+#              geom_line(aes(y = meanGenMean, color=PostBurnIn))
+sdGplot4 &lt;- forSimPlot %&gt;% mutate(Scheme = rep(&quot;IITA&quot;, nrow(forSimPlot))) %&gt;%
+              bind_rows(forSimPlot2 %&gt;%
+                        mutate(Scheme = rep(&quot;IITA - NVDP&quot;, nrow(forSimPlot2)))) %&gt;%
+            filter(YearPostBurnIn &lt;= 10) %&gt;%
+            group_by(PostBurnIn, YearPostBurnIn, year, stage) %&gt;% 
+#            summarize(meanGenSD = mean(genValSD),
+#                      seGenSD = sd(genValSD) / n()) %&gt;% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD, fill = Scheme, color = Scheme)) +
+            geom_smooth(method = &quot;loess&quot;, alpha = 0.75)# +
+#            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+#                            ymax = meanGenSD + seGenSD,
+#                            fill = PostBurnIn), 
+#                        alpha = 0.75) + 
+#            geom_line(aes(y = meanGenSD, group = PostBurnIn))
+
+(meanGplot4 | sdGplot4) &amp; theme_bw() &amp; geom_vline(xintercept = 0, color = &#39;darkred&#39;)</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;
+`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1409,7 +1534,7 @@ attached base packages:
 other attached packages:
  [1] patchwork_1.1.1 reactable_0.2.3 forcats_0.5.1   stringr_1.4.0  
  [5] dplyr_1.0.7     purrr_0.3.4     readr_2.0.1     tidyr_1.1.3    
- [9] tibble_3.1.4    ggplot2_3.3.5   tidyverse_1.3.1 workflowr_1.6.2
+ [9] tibble_3.1.4    ggplot2_3.3.5   tidyverse_1.3.1
 
 loaded via a namespace (and not attached):
  [1] httr_1.4.2        sass_0.4.0        jsonlite_1.7.2    splines_4.1.1    
@@ -1428,9 +1553,10 @@ loaded via a namespace (and not attached):
 [53] rlang_0.4.11      grid_4.1.1        rstudioapi_0.13   htmlwidgets_1.5.3
 [57] crosstalk_1.1.1   labeling_0.4.2    rmarkdown_2.10    gtable_0.3.0     
 [61] DBI_1.1.1         R6_2.5.1          lubridate_1.7.10  knitr_1.33       
-[65] fastmap_1.1.0     utf8_1.2.2        rprojroot_2.0.2   stringi_1.7.4    
-[69] Rcpp_1.0.7        vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1 
-[73] xfun_0.25        </code></pre>
+[65] fastmap_1.1.0     utf8_1.2.2        workflowr_1.6.2   rprojroot_2.0.2  
+[69] stringi_1.7.4     Rcpp_1.0.7        vctrs_0.3.8       dbplyr_2.1.1     
+[73] tidyselect_1.1.1  xfun_0.25        </code></pre>
+</div>
 </div>
 </div>
 </div>
