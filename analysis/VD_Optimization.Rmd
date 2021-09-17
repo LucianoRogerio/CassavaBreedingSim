@@ -22,7 +22,7 @@ editor_options:
   
   Marnin estimated the [genetic and error variances](https://wolfemd.github.io/IITA_2021GS/inputsForSimulationV2.html#Conclusions) for each trial type (CET, PYT, AYT, and UYT)
   
-## IITA breeding Scheme
+## IITA breeding Scheme 1
   
   
   
@@ -39,132 +39,22 @@ IITAScheme %>% reactable()
 
 <br />
 
-| Sim Parameter       | Value  |     | Genetic Parameter | Value         |     | Variances Parameters  | Value |
-| :-----------------: | :----: | :-: | :---------------: | :-----------: | :-: | :-------------------: | :---: |
-| **nTrainPopCycles** | 10     |     | NChr              | 18            |     | **genVar**            | 1,500 |
-| NYrsAsCandidates    | 2      |     | **effPopsize**    | 200           |     | gxeVar                | NULL  |
-| maxTrainingPopSize  | 200    |     | segSites          | 30,000        |     | gxyVar                | 1,500 |
-| stageToGenotype     | CET    |     | **nQTL**          | 1x to 5x nSNP |     | gxlVar                | 750   |
-| nParents            | 100    |     | nSNP              | 500           |     | gxyxlVar              | 300   |
-| nCrosses            | 250    |     |                   |               |     | meanDD                | 0.23  |
-| nProgeny            | 10     |     |                   |               |     | varDD                 | 0.05  |
-| nClonesToNCRP       | 3      |     |                   |               |     | relAA                 | 0.5   |
-| phenoF1toStage1     | FALSE  |     |                   |               |     | errVarPreStage1       | 4,000 |
-|                     |        |     |                   |               |     |                       |       |
+| Sim Parameter       | Value  |     | Genetic Parameter | Value  |     | Variances Parameters  | Value  |
+| :-----------------: | :----: | :-: | :---------------: | :----: | :-: | :-------------------: | :----: |
+| **nTrainPopCycles** | 10     |     | **NChr**          | 10     |     | **genVar**            | 750    |
+| NYrsAsCandidates    | 2      |     | **effPopsize**    | 200    |     | gxeVar                | NULL   |
+| maxTrainingPopSize  | 200    |     | **segSites**      | 1,500  |     | **gxyVar**            | 100    |
+| stageToGenotype     | CET    |     | **nQTL**          | 1,000  |     | gxlVar                | 500    |
+| nParents            | 100    |     | **nSNP**          | 500    |     | **gxyxlVar**          | 300    |
+| nCrosses            | 250    |     |                   |        |     | meanDD                | 0.23   |
+| nProgeny            | 10     |     |                   |        |     | varDD                 | 0.05   |
+| nClonesToNCRP       | 3      |     |                   |        |     | relAA                 | 0.5    |
+| **phenoF1toStage1** | TRUE   |     |                   |        |     | **errVarPreStage1**   | 15,000 |
+|                     |        |     |                   |        |     |                       |        |
   
 <br />  
 
-  For this purpose we need to decide the priori for the following parameters of the IITA burn-in sim:
-  
-  a. **Ne** - Effective Population Size;
-  b. **nQTL** - Number of Quantitative Trait Loci;
-  c. **genVar** - Genetic variance;
-  d. **trainingPopCycles** - Number of Cycles each clone is used as Training Population.
 
-  To estimate the best scenario, I will use the parameters defined as the table above, and create at least five scenarios for Ne, nQTL, genVar, and trainingPopCycles parameters.
-
-#### **Ne** - Effective Population Size
-
-  Marnin made some simulations testing three different **Ne**, *100*, *200*, and *1000*.
-
-  We choose an Effective Population Size of **200**.
-
-[Marnin Results](https://wolfemd.github.io/BreedingSchemeOpt/burnInSims.html#Run_full-scale_burn-in_sims)
-
-
-#### **nQTL** - Number of Quantitative Trait Loci
-
-The simulation for est
-
-<br />
-
-| N°  | nSNP | nQTL  | nQTL/nSNP | check |
-| :-: | :--: | :---: | :-------: | :---: |
-| 1   | 500  | 500   | 1.0x      | [x]   |
-| 2   | 500  | 750   | 1.5x      | [x]   |
-| 3   | 500  | 1,000 | 2.0x      | [ ]   |
-| 4   | 500  | 1,250 | 2.5x      | [ ]   |
-| 5   | 500  | 1,500 | 3.0x      | [ ]   |
-| 6   | 500  | 1,750 | 3.5x      | [ ]   |
-| 7   | 500  | 2,000 | 4.0x      | [ ]   |
-| 8   | 500  | 2,250 | 4.5x      | [ ]   |
-| 9   | 500  | 2,500 | 5.0x      | [ ]   |
-|     |      |       |           |       |
-
-<br/>
-
-```{r, eval = F}
-suppressMessages(library(AlphaSimHlpR))
-suppressMessages(library(tidyverse))
-suppressMessages(library(genomicMateSelectR))
-library(dplyr); library(furrr); library(here)
-select <- dplyr::select
-schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"), 
-                     header = T, stringsAsFactors = F, sep = ";")
-
-bsp1 <- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 200,
-                   nChr = 10, effPopSize = 200, quickHaplo = F,
-                   segSites = 1500, nQTL = 1000, nSNP = 500, genVar = 1500,
-                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
-                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
-                   stageToGenotype = "CET",
-                   nParents = 100, nCrosses = 250, nProgeny = 10, nClonesToNCRP = 3,
-                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
-                   useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 4,
-                   selCritPipeAdv = selCritIID,
-                   selCritPopImprov =  selCritIID)
-
-bsp2 <- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 200,
-                   nChr = 10, effPopSize = 200, quickHaplo = F,
-                   segSites = 1500, nQTL = 1000, nSNP = 500, genVar = 1500,
-                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
-                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
-                   stageToGenotype = "CET",
-                   nParents = 100, nCrosses = 250, nProgeny = 10, nClonesToNCRP = 3,
-                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
-                   useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 4,
-                   selCritPipeAdv = selCritIID,
-                   selCritPopImprov =  selCritIID)
-
-bsp3 <- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 200,
-                   nChr = 10, effPopSize = 200, quickHaplo = F,
-                   segSites = 1500, nQTL = 1000, nSNP = 500, genVar = 1500,
-                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
-                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
-                   stageToGenotype = "CET",
-                   nParents = 100, nCrosses = 250, nProgeny = 10, nClonesToNCRP = 3,
-                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
-                   useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 4,
-                   selCritPipeAdv = selCritIID,
-                   selCritPopImprov =  selCritIID)
-source(here::here("code","runBurnInSchemes.R"))
-```
-
-```{r, eval = FALSE}
-set.seed(501)
-set.seed(501)
-start <- proc.time()[3]
-burnIn_1 <- runBurnInSchemes(bsp = bsp1,
-                    	         nBurnInCycles=20,
-                           	 selCritPop="selCritIID",
-                         	 selCritPipe="selCritIID",
-                         	 iniFunc="initializeScheme",
-                        	 productFunc="productPipeline",
-                      		 popImprovFunc="popImprov1Cyc",
-            	                 nReplications=20,ncores=1,
-                              	 nBLASthreads=1,nThreadsMacs2=1)
-end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ", floor(((end - start)%%60)), "s elapsed - bsp1"))
-saveRDS(burnIn_1,file = here::here("output","BurnInGS_test_nQTL1.rds"))
-rm(burnIn_1); rm(bsp1); rm(start); rm(end)
-
-
-```
 
 
 ```{r, eval = F}

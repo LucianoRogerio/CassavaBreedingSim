@@ -482,16 +482,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree28ee3dc0dc324e72367db5dd839fa08ea7c4edf8targetblank28ee3dca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/28ee3dc0dc324e72367db5dd839fa08ea7c4edf8" target="_blank">28ee3dc</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreef505502df3d63399d64048c8633f0bcae7a5fc23targetblankf505502a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/f505502df3d63399d64048c8633f0bcae7a5fc23" target="_blank">f505502</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree28ee3dc0dc324e72367db5dd839fa08ea7c4edf8targetblank28ee3dca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreef505502df3d63399d64048c8633f0bcae7a5fc23targetblankf505502a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/28ee3dc0dc324e72367db5dd839fa08ea7c4edf8" target="_blank">28ee3dc</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/f505502df3d63399d64048c8633f0bcae7a5fc23" target="_blank">f505502</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -503,6 +503,7 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/VD_Optimization.Rmd
+    Modified:   data/baselineScheme - IITA.csv
 
 </code></pre>
 <p>
@@ -541,6 +542,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/f505502df3d63399d64048c8633f0bcae7a5fc23/analysis/VD_Optimization.Rmd" target="_blank">f505502</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-16
+</td>
+<td>
+Small changes at Luciano Simulations
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/CassavaBreedingSim/f505502df3d63399d64048c8633f0bcae7a5fc23/docs/VD_Optimization.html" target="_blank">f505502</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-16
+</td>
+<td>
+Small changes at Luciano Simulations
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -625,14 +660,14 @@ WorkFlow Luciano Simulations
 <p><br /></p>
 <p>Marnin estimated the <a href="https://wolfemd.github.io/IITA_2021GS/inputsForSimulationV2.html#Conclusions">genetic and error variances</a> for each trial type (CET, PYT, AYT, and UYT)</p>
 </div>
-<div id="iita-breeding-scheme" class="section level2">
-<h2>IITA breeding Scheme</h2>
+<div id="iita-breeding-scheme-1" class="section level2">
+<h2>IITA breeding Scheme 1</h2>
 <pre class="r"><code>library(tidyverse); library(reactable)
 IITAScheme &lt;- read.table(here::here(&quot;data&quot;, &quot;baselineScheme - IITA.csv&quot;),
                          sep = &quot;;&quot;, dec = &quot;.&quot;, header = T)
 IITAScheme %&gt;% reactable()</code></pre>
 <div id="htmlwidget-3624b11195a02e6dab7a" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3624b11195a02e6dab7a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"stageNames":["CET","PYT","AYT","UYT1","UYT2"],"nEntries":[2500,800,80,30,30],"nLocs":[1,2,3,5,5],"nReps":[1,3,3,3,3],"nChks":[5,4,2,2,2],"entryToChkRatio":[50,25,20,20,20],"trainingPopCycles":[20,20,20,20,20],"errVars":[3539.205,1953.093,2881.138,1739.264,1739.264],"PlantsPerPlot":[10,10,25,42,42]},"columns":[{"accessor":"stageNames","name":"stageNames","type":"character"},{"accessor":"nEntries","name":"nEntries","type":"numeric"},{"accessor":"nLocs","name":"nLocs","type":"numeric"},{"accessor":"nReps","name":"nReps","type":"numeric"},{"accessor":"nChks","name":"nChks","type":"numeric"},{"accessor":"entryToChkRatio","name":"entryToChkRatio","type":"numeric"},{"accessor":"trainingPopCycles","name":"trainingPopCycles","type":"numeric"},{"accessor":"errVars","name":"errVars","type":"numeric"},{"accessor":"PlantsPerPlot","name":"PlantsPerPlot","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"a6adc8eeee3093fb74e6df44c55ce8f9","key":"a6adc8eeee3093fb74e6df44c55ce8f9"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-3624b11195a02e6dab7a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"stageNames":["CET","PYT","AYT","UYT1","UYT2"],"nEntries":[2500,800,80,30,20],"nLocs":[1,2,3,5,5],"nReps":[1,3,3,3,3],"nChks":[5,4,2,2,2],"entryToChkRatio":[50,25,20,20,20],"trainingPopCycles":[20,20,20,20,20],"errVars":[3500,2500,2000,1800,1800],"PlantsPerPlot":[10,10,25,42,42]},"columns":[{"accessor":"stageNames","name":"stageNames","type":"character"},{"accessor":"nEntries","name":"nEntries","type":"numeric"},{"accessor":"nLocs","name":"nLocs","type":"numeric"},{"accessor":"nReps","name":"nReps","type":"numeric"},{"accessor":"nChks","name":"nChks","type":"numeric"},{"accessor":"entryToChkRatio","name":"entryToChkRatio","type":"numeric"},{"accessor":"trainingPopCycles","name":"trainingPopCycles","type":"numeric"},{"accessor":"errVars","name":"errVars","type":"numeric"},{"accessor":"PlantsPerPlot","name":"PlantsPerPlot","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"dd9789e9edc67766c686679ffd053f27","key":"dd9789e9edc67766c686679ffd053f27"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <div id="breeding-scheme-simulations-parameters" class="section level3">
 <h3>Breeding Scheme Simulations parameters</h3>
 <p>The burn-in simulation were replicated 20 times, simulating a 30 cycles of operations with the burn-in of the first 20 cycles.</p>
@@ -655,11 +690,11 @@ IITAScheme %&gt;% reactable()</code></pre>
 <td align="center"><strong>nTrainPopCycles</strong></td>
 <td align="center">10</td>
 <td align="center"></td>
-<td align="center">NChr</td>
-<td align="center">18</td>
+<td align="center"><strong>NChr</strong></td>
+<td align="center">10</td>
 <td align="center"></td>
 <td align="center"><strong>genVar</strong></td>
-<td align="center">1,500</td>
+<td align="center">750</td>
 </tr>
 <tr class="even">
 <td align="center">NYrsAsCandidates</td>
@@ -675,30 +710,30 @@ IITAScheme %&gt;% reactable()</code></pre>
 <td align="center">maxTrainingPopSize</td>
 <td align="center">200</td>
 <td align="center"></td>
-<td align="center">segSites</td>
-<td align="center">30,000</td>
-<td align="center"></td>
-<td align="center">gxyVar</td>
+<td align="center"><strong>segSites</strong></td>
 <td align="center">1,500</td>
+<td align="center"></td>
+<td align="center"><strong>gxyVar</strong></td>
+<td align="center">100</td>
 </tr>
 <tr class="even">
 <td align="center">stageToGenotype</td>
 <td align="center">CET</td>
 <td align="center"></td>
 <td align="center"><strong>nQTL</strong></td>
-<td align="center">1x to 5x nSNP</td>
+<td align="center">1,000</td>
 <td align="center"></td>
 <td align="center">gxlVar</td>
-<td align="center">750</td>
+<td align="center">500</td>
 </tr>
 <tr class="odd">
 <td align="center">nParents</td>
 <td align="center">100</td>
 <td align="center"></td>
-<td align="center">nSNP</td>
+<td align="center"><strong>nSNP</strong></td>
 <td align="center">500</td>
 <td align="center"></td>
-<td align="center">gxyxlVar</td>
+<td align="center"><strong>gxyxlVar</strong></td>
 <td align="center">300</td>
 </tr>
 <tr class="even">
@@ -732,14 +767,14 @@ IITAScheme %&gt;% reactable()</code></pre>
 <td align="center">0.5</td>
 </tr>
 <tr class="odd">
-<td align="center">phenoF1toStage1</td>
-<td align="center">FALSE</td>
+<td align="center"><strong>phenoF1toStage1</strong></td>
+<td align="center">TRUE</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">errVarPreStage1</td>
-<td align="center">4,000</td>
+<td align="center"><strong>errVarPreStage1</strong></td>
+<td align="center">15,000</td>
 </tr>
 <tr class="even">
 <td align="center"></td>
@@ -754,173 +789,6 @@ IITAScheme %&gt;% reactable()</code></pre>
 </tbody>
 </table>
 <p><br /></p>
-<p>For this purpose we need to decide the priori for the following parameters of the IITA burn-in sim:</p>
-<ol style="list-style-type: lower-alpha">
-<li><strong>Ne</strong> - Effective Population Size;</li>
-<li><strong>nQTL</strong> - Number of Quantitative Trait Loci;</li>
-<li><strong>genVar</strong> - Genetic variance;</li>
-<li><strong>trainingPopCycles</strong> - Number of Cycles each clone is used as Training Population.</li>
-</ol>
-<p>To estimate the best scenario, I will use the parameters defined as the table above, and create at least five scenarios for Ne, nQTL, genVar, and trainingPopCycles parameters.</p>
-<div id="ne---effective-population-size" class="section level4">
-<h4><strong>Ne</strong> - Effective Population Size</h4>
-<p>Marnin made some simulations testing three different <strong>Ne</strong>, <em>100</em>, <em>200</em>, and <em>1000</em>.</p>
-<p>We choose an Effective Population Size of <strong>200</strong>.</p>
-<p><a href="https://wolfemd.github.io/BreedingSchemeOpt/burnInSims.html#Run_full-scale_burn-in_sims">Marnin Results</a></p>
-</div>
-<div id="nqtl---number-of-quantitative-trait-loci" class="section level4">
-<h4><strong>nQTL</strong> - Number of Quantitative Trait Loci</h4>
-<p>The simulation for est</p>
-<p><br /></p>
-<table>
-<thead>
-<tr class="header">
-<th align="center">N°</th>
-<th align="center">nSNP</th>
-<th align="center">nQTL</th>
-<th align="center">nQTL/nSNP</th>
-<th align="center">check</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">1</td>
-<td align="center">500</td>
-<td align="center">500</td>
-<td align="center">1.0x</td>
-<td align="center">[x]</td>
-</tr>
-<tr class="even">
-<td align="center">2</td>
-<td align="center">500</td>
-<td align="center">750</td>
-<td align="center">1.5x</td>
-<td align="center">[x]</td>
-</tr>
-<tr class="odd">
-<td align="center">3</td>
-<td align="center">500</td>
-<td align="center">1,000</td>
-<td align="center">2.0x</td>
-<td align="center">[ ]</td>
-</tr>
-<tr class="even">
-<td align="center">4</td>
-<td align="center">500</td>
-<td align="center">1,250</td>
-<td align="center">2.5x</td>
-<td align="center">[ ]</td>
-</tr>
-<tr class="odd">
-<td align="center">5</td>
-<td align="center">500</td>
-<td align="center">1,500</td>
-<td align="center">3.0x</td>
-<td align="center">[ ]</td>
-</tr>
-<tr class="even">
-<td align="center">6</td>
-<td align="center">500</td>
-<td align="center">1,750</td>
-<td align="center">3.5x</td>
-<td align="center">[ ]</td>
-</tr>
-<tr class="odd">
-<td align="center">7</td>
-<td align="center">500</td>
-<td align="center">2,000</td>
-<td align="center">4.0x</td>
-<td align="center">[ ]</td>
-</tr>
-<tr class="even">
-<td align="center">8</td>
-<td align="center">500</td>
-<td align="center">2,250</td>
-<td align="center">4.5x</td>
-<td align="center">[ ]</td>
-</tr>
-<tr class="odd">
-<td align="center">9</td>
-<td align="center">500</td>
-<td align="center">2,500</td>
-<td align="center">5.0x</td>
-<td align="center">[ ]</td>
-</tr>
-<tr class="even">
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody>
-</table>
-<p><br/></p>
-<pre class="r"><code>suppressMessages(library(AlphaSimHlpR))
-suppressMessages(library(tidyverse))
-suppressMessages(library(genomicMateSelectR))
-library(dplyr); library(furrr); library(here)
-select &lt;- dplyr::select
-schemeDF &lt;- read.csv(here::here(&quot;data&quot;,&quot;baselineScheme - IITA.csv&quot;), 
-                     header = T, stringsAsFactors = F, sep = &quot;;&quot;)
-
-bsp1 &lt;- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 200,
-                   nChr = 10, effPopSize = 200, quickHaplo = F,
-                   segSites = 1500, nQTL = 1000, nSNP = 500, genVar = 1500,
-                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
-                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
-                   stageToGenotype = &quot;CET&quot;,
-                   nParents = 100, nCrosses = 250, nProgeny = 10, nClonesToNCRP = 3,
-                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
-                   useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 4,
-                   selCritPipeAdv = selCritIID,
-                   selCritPopImprov =  selCritIID)
-
-bsp2 &lt;- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 200,
-                   nChr = 10, effPopSize = 200, quickHaplo = F,
-                   segSites = 1500, nQTL = 1000, nSNP = 500, genVar = 1500,
-                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
-                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
-                   stageToGenotype = &quot;CET&quot;,
-                   nParents = 100, nCrosses = 250, nProgeny = 10, nClonesToNCRP = 3,
-                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
-                   useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 4,
-                   selCritPipeAdv = selCritIID,
-                   selCritPopImprov =  selCritIID)
-
-bsp3 &lt;- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 200,
-                   nChr = 10, effPopSize = 200, quickHaplo = F,
-                   segSites = 1500, nQTL = 1000, nSNP = 500, genVar = 1500,
-                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
-                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
-                   stageToGenotype = &quot;CET&quot;,
-                   nParents = 100, nCrosses = 250, nProgeny = 10, nClonesToNCRP = 3,
-                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
-                   useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 4,
-                   selCritPipeAdv = selCritIID,
-                   selCritPopImprov =  selCritIID)
-source(here::here(&quot;code&quot;,&quot;runBurnInSchemes.R&quot;))</code></pre>
-<pre class="r"><code>set.seed(501)
-set.seed(501)
-start &lt;- proc.time()[3]
-burnIn_1 &lt;- runBurnInSchemes(bsp = bsp1,
-                                 nBurnInCycles=20,
-                             selCritPop=&quot;selCritIID&quot;,
-                             selCritPipe=&quot;selCritIID&quot;,
-                             iniFunc=&quot;initializeScheme&quot;,
-                             productFunc=&quot;productPipeline&quot;,
-                             popImprovFunc=&quot;popImprov1Cyc&quot;,
-                                 nReplications=20,ncores=1,
-                                 nBLASthreads=1,nThreadsMacs2=1)
-end &lt;- proc.time()[3]; print(paste0(floor((end - start)/60), &quot;mins &quot;, floor(((end - start)%%60)), &quot;s elapsed - bsp1&quot;))
-saveRDS(burnIn_1,file = here::here(&quot;output&quot;,&quot;BurnInGS_test_nQTL1.rds&quot;))
-rm(burnIn_1); rm(bsp1); rm(start); rm(end)</code></pre>
 <pre class="r"><code>suppressMessages(library(AlphaSimHlpR))
 suppressMessages(library(tidyverse))
 suppressMessages(library(genomicMateSelectR))
@@ -973,7 +841,7 @@ meanGplot&lt;-forSimPlot %&gt;%
   geom_line(aes(y = meanGenSD))</code></pre>
 <pre><code>`summarise()` has grouped output by &#39;Pop&#39;, &#39;nQTL&#39;, &#39;Year&#39;, &#39;year&#39;. You can override using the `.groups` argument.</code></pre>
 <pre class="r"><code>(meanGplot | sdGplot) &amp; theme_bw()</code></pre>
-<p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1022,7 +890,6 @@ loaded via a namespace (and not attached):
 [57] knitr_1.33        fastmap_1.1.0     utf8_1.2.2        rprojroot_2.0.2  
 [61] stringi_1.7.4     Rcpp_1.0.7        vctrs_0.3.8       dbplyr_2.1.1     
 [65] tidyselect_1.1.1  xfun_0.25        </code></pre>
-</div>
 </div>
 </div>
 </div>
