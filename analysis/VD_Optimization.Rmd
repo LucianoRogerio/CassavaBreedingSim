@@ -46,18 +46,18 @@ IITAScheme %>% reactable()
 
 <br />
 
-| Sim Parameter       | Value  |     | Genetic Parameter | Value  |     | Variances Parameters  | Value  |
-| :-----------------: | :----: | :-: | :---------------: | :----: | :-: | :-------------------: | :----: |
-| **nTrainPopCycles** | 10     |     | **NChr**          | 18     |     | **genVar**            | 1500   |
-| NYrsAsCandidates    | 2      |     | **effPopsize**    | 200    |     | gxeVar                | NULL   |
-| maxTrainingPopSize  | 200    |     | **segSites**      | 1,650  |     | **gxyVar**            | 1500   |
-| stageToGenotype     | CET    |     | **nQTL**          | 1,000  |     | gxlVar                | 750    |
-| nParents            | 100    |     | **nSNP**          | 500    |     | **gxyxlVar**          | 300    |
-| nCrosses            | 340    |     |                   |        |     | meanDD                | 0.23   |
-| nProgeny            | 15     |     |                   |        |     | varDD                 | 0.05   |
-| nClonesToNCRP       | 3      |     |                   |        |     | relAA                 | 0.5    |
-| **phenoF1toStage1** | FALSE  |     |                   |        |     | **errVarPreStage1**   | 17,500 |
-|                     |        |     |                   |        |     |                       |        |
+| Sim Parameter      | Value  |     | Genetic Parameter | Value  |     | Variances Parameters | Value  |
+| :----------------: | :----: | :-: | :---------------: | :----: | :-: | :------------------: | :----: |
+| nTrainPopCycles    | 4      |     | NChr              | 18     |     | genVar               | 1,500  |
+| NYrsAsCandidates   | 2      |     | effPopsize        | 200    |     | gxeVar               | NULL   |
+| maxTrainingPopSize | 200    |     | segSites          | 1,650  |     | gxyVar               | 1,500  |
+| stageToGenotype    | CET    |     | nQTL              | 1,000  |     | gxlVar               | 750    |
+| nParents           | 100    |     | nSNP              | 500    |     | gxyxlVar             | 300    |
+| nCrosses           | 400    |     |                   |        |     | meanDD               | 0.23   |
+| nProgeny           | 25     |     |                   |        |     | varDD                | 0.05   |
+| nClonesToNCRP      | 3      |     |                   |        |     | relAA                | 0.5    |
+| phenoF1toStage1    | FALSE  |     |                   |        |     | errVarPreStage1      | 17,500 |
+|                    |        |     |                   |        |     |                      |        |
   
 <br />  
 
