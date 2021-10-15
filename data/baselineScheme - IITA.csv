@@ -1,4 +1,5 @@
 stageNames;nEntries;nLocs;nReps;nChks;entryToChkRatio;trainingPopCycles;errVars;PlantsPerPlot
+SDN;10000;1;1;5;1500;20;10000;1
 CET;2500;1;1;5;50;20;3500;10
 PYT;800;2;3;4;25;20;2500;10
 AYT;80;3;3;2;20;20;2000;25

@@ -15,8 +15,8 @@
 
 <title>Variety Development Process Optimization</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -41,7 +41,7 @@
 <script src="site_libs/react-17.0.0/react.min.js"></script>
 <script src="site_libs/react-17.0.0/react-dom.min.js"></script>
 <script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
-<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="site_libs/reactable-binding-0.2.3/reactable.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
@@ -391,7 +391,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-09-17
+<strong>Last updated:</strong> 2021-10-14
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -482,16 +482,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree78c2f1defea1a26a98065c03bbe9d70ad0e006a0targetblank78c2f1da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/78c2f1defea1a26a98065c03bbe9d70ad0e006a0" target="_blank">78c2f1d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree0a6baada6223ad06ef4abaceed54d3dc06f1ac0btargetblank0a6baada"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/0a6baada6223ad06ef4abaceed54d3dc06f1ac0b" target="_blank">0a6baad</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree78c2f1defea1a26a98065c03bbe9d70ad0e006a0targetblank78c2f1da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree0a6baada6223ad06ef4abaceed54d3dc06f1ac0btargetblank0a6baada" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/78c2f1defea1a26a98065c03bbe9d70ad0e006a0" target="_blank">78c2f1d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/0a6baada6223ad06ef4abaceed54d3dc06f1ac0b" target="_blank">0a6baad</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -501,8 +501,17 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
 
+Untracked files:
+    Untracked:  data/baselineScheme - IITA - LA3y1.csv
+    Untracked:  data/baselineScheme - IITA - LA4y1.csv
+    Untracked:  data/baselineScheme - IITA - LA4y2.csv
+    Untracked:  data/baselineScheme - IITA - LA4y3.csv
+    Untracked:  data/baselineScheme - IITA - LA4y4.csv
+
 Unstaged changes:
     Modified:   analysis/VD_Optimization.Rmd
+    Modified:   data/baselineScheme - IITA - NVDP1.csv
+    Modified:   data/baselineScheme - IITA.csv
 
 </code></pre>
 <p>
@@ -541,6 +550,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/0a6baada6223ad06ef4abaceed54d3dc06f1ac0b/analysis/VD_Optimization.Rmd" target="_blank">0a6baad</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-17
+</td>
+<td>
+Last Commit of Luciano Simulation Results for Meeting with Jean-Luc and Marnin
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/CassavaBreedingSim/0a6baada6223ad06ef4abaceed54d3dc06f1ac0b/docs/VD_Optimization.html" target="_blank">0a6baad</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-17
+</td>
+<td>
+Last Commit of Luciano Simulation Results for Meeting with Jean-Luc and Marnin
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -838,7 +881,7 @@ IITAScheme &lt;- read.table(here::here(&quot;data&quot;, &quot;baselineScheme - 
                          sep = &quot;;&quot;, dec = &quot;.&quot;, header = T)
 IITAScheme %&gt;% reactable()</code></pre>
 <div id="htmlwidget-3624b11195a02e6dab7a" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3624b11195a02e6dab7a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"stageNames":["CET","PYT","AYT","UYT1","UYT2"],"nEntries":[2500,800,80,30,20],"nLocs":[1,2,3,5,5],"nReps":[1,3,3,3,3],"nChks":[5,4,2,2,2],"entryToChkRatio":[50,25,20,20,20],"trainingPopCycles":[20,20,20,20,20],"errVars":[3500,2500,2000,1800,1800],"PlantsPerPlot":[10,10,25,42,42]},"columns":[{"accessor":"stageNames","name":"stageNames","type":"character"},{"accessor":"nEntries","name":"nEntries","type":"numeric"},{"accessor":"nLocs","name":"nLocs","type":"numeric"},{"accessor":"nReps","name":"nReps","type":"numeric"},{"accessor":"nChks","name":"nChks","type":"numeric"},{"accessor":"entryToChkRatio","name":"entryToChkRatio","type":"numeric"},{"accessor":"trainingPopCycles","name":"trainingPopCycles","type":"numeric"},{"accessor":"errVars","name":"errVars","type":"numeric"},{"accessor":"PlantsPerPlot","name":"PlantsPerPlot","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"dd9789e9edc67766c686679ffd053f27","key":"dd9789e9edc67766c686679ffd053f27"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-3624b11195a02e6dab7a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"stageNames":["SDN","CET","PYT","AYT","UYT1","UYT2"],"nEntries":[10000,2500,800,80,30,20],"nLocs":[1,1,2,3,5,5],"nReps":[1,1,3,3,3,3],"nChks":[5,5,4,2,2,2],"entryToChkRatio":[1500,50,25,20,20,20],"trainingPopCycles":[20,20,20,20,20,20],"errVars":[10000,3500,2500,2000,1800,1800],"PlantsPerPlot":[1,10,10,25,42,42]},"columns":[{"accessor":"stageNames","name":"stageNames","type":"character"},{"accessor":"nEntries","name":"nEntries","type":"numeric"},{"accessor":"nLocs","name":"nLocs","type":"numeric"},{"accessor":"nReps","name":"nReps","type":"numeric"},{"accessor":"nChks","name":"nChks","type":"numeric"},{"accessor":"entryToChkRatio","name":"entryToChkRatio","type":"numeric"},{"accessor":"trainingPopCycles","name":"trainingPopCycles","type":"numeric"},{"accessor":"errVars","name":"errVars","type":"numeric"},{"accessor":"PlantsPerPlot","name":"PlantsPerPlot","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"651b5634f36db4d075ac7e1b16d73e9f","key":"651b5634f36db4d075ac7e1b16d73e9f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="iita-breeding-scheme-1º-alternative-four-years-vdp" class="section level3">
 <h3>IITA breeding Scheme 1º alternative (Four years VDP)</h3>
@@ -847,11 +890,11 @@ IITAScheme &lt;- read.table(here::here(&quot;data&quot;, &quot;baselineScheme - 
                          sep = &quot;;&quot;, dec = &quot;.&quot;, header = T)
 IITAScheme %&gt;% reactable()</code></pre>
 <div id="htmlwidget-5728cd89669a869ad063" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5728cd89669a869ad063">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"stageNames":["CET","PYT","AYT","UYT1"],"nEntries":[2617,838,84,32],"nLocs":[1,2,3,5],"nReps":[1,3,3,3],"nChks":[5,4,2,2],"entryToChkRatio":[50,25,20,20],"trainingPopCycles":[20,20,20,20],"errVars":[3500,2500,2000,1800],"PlantsPerPlot":[10,10,25,42]},"columns":[{"accessor":"stageNames","name":"stageNames","type":"character"},{"accessor":"nEntries","name":"nEntries","type":"numeric"},{"accessor":"nLocs","name":"nLocs","type":"numeric"},{"accessor":"nReps","name":"nReps","type":"numeric"},{"accessor":"nChks","name":"nChks","type":"numeric"},{"accessor":"entryToChkRatio","name":"entryToChkRatio","type":"numeric"},{"accessor":"trainingPopCycles","name":"trainingPopCycles","type":"numeric"},{"accessor":"errVars","name":"errVars","type":"numeric"},{"accessor":"PlantsPerPlot","name":"PlantsPerPlot","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"26d9708d931a2f288d9132bd8d99eff9","key":"26d9708d931a2f288d9132bd8d99eff9"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5728cd89669a869ad063">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"stageNames":["SDN","CET","PYT","AYT","UYT1"],"nEntries":[10208,2604,834,84,32],"nLocs":[1,1,2,3,5],"nReps":[1,1,3,3,3],"nChks":[5,5,4,2,2],"entryToChkRatio":[1500,50,25,20,20],"trainingPopCycles":[20,20,20,20,20],"errVars":[10000,3500,2500,2000,1800],"PlantsPerPlot":[1,10,10,25,42]},"columns":[{"accessor":"stageNames","name":"stageNames","type":"character"},{"accessor":"nEntries","name":"nEntries","type":"numeric"},{"accessor":"nLocs","name":"nLocs","type":"numeric"},{"accessor":"nReps","name":"nReps","type":"numeric"},{"accessor":"nChks","name":"nChks","type":"numeric"},{"accessor":"entryToChkRatio","name":"entryToChkRatio","type":"numeric"},{"accessor":"trainingPopCycles","name":"trainingPopCycles","type":"numeric"},{"accessor":"errVars","name":"errVars","type":"numeric"},{"accessor":"PlantsPerPlot","name":"PlantsPerPlot","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"7cabb97f79e78960c2d4cd9722da5e5c","key":"7cabb97f79e78960c2d4cd9722da5e5c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="breeding-scheme-simulations-parameters" class="section level3">
 <h3>Breeding Scheme Simulations parameters</h3>
-<p>The burn-in simulation were replicated 20 times, simulating a 30 cycles of operations with the burn-in of the first 20 cycles.</p>
+<p>The burn-in simulation were replicated 20 times, simulating a 26 cycles of operations with the burn-in of the first 20 cycles.</p>
 <p><br /></p>
 <table>
 <thead>
@@ -872,10 +915,10 @@ IITAScheme %&gt;% reactable()</code></pre>
 <td align="center">10</td>
 <td align="center"></td>
 <td align="center"><strong>NChr</strong></td>
-<td align="center">10</td>
+<td align="center">18</td>
 <td align="center"></td>
 <td align="center"><strong>genVar</strong></td>
-<td align="center">750</td>
+<td align="center">1500</td>
 </tr>
 <tr class="even">
 <td align="center">NYrsAsCandidates</td>
@@ -892,10 +935,10 @@ IITAScheme %&gt;% reactable()</code></pre>
 <td align="center">200</td>
 <td align="center"></td>
 <td align="center"><strong>segSites</strong></td>
-<td align="center">1,500</td>
+<td align="center">1,650</td>
 <td align="center"></td>
 <td align="center"><strong>gxyVar</strong></td>
-<td align="center">100</td>
+<td align="center">1500</td>
 </tr>
 <tr class="even">
 <td align="center">stageToGenotype</td>
@@ -905,7 +948,7 @@ IITAScheme %&gt;% reactable()</code></pre>
 <td align="center">1,000</td>
 <td align="center"></td>
 <td align="center">gxlVar</td>
-<td align="center">500</td>
+<td align="center">750</td>
 </tr>
 <tr class="odd">
 <td align="center">nParents</td>
@@ -919,7 +962,7 @@ IITAScheme %&gt;% reactable()</code></pre>
 </tr>
 <tr class="even">
 <td align="center">nCrosses</td>
-<td align="center">250</td>
+<td align="center">340</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -929,7 +972,7 @@ IITAScheme %&gt;% reactable()</code></pre>
 </tr>
 <tr class="odd">
 <td align="center">nProgeny</td>
-<td align="center">10</td>
+<td align="center">15</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -949,13 +992,13 @@ IITAScheme %&gt;% reactable()</code></pre>
 </tr>
 <tr class="odd">
 <td align="center"><strong>phenoF1toStage1</strong></td>
-<td align="center">TRUE</td>
+<td align="center">FALSE</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"><strong>errVarPreStage1</strong></td>
-<td align="center">15,000</td>
+<td align="center">17,500</td>
 </tr>
 <tr class="even">
 <td align="center"></td>
@@ -1020,12 +1063,12 @@ schemeDF &lt;- read.csv(here::here(&quot;data&quot;,&quot;baselineScheme - IITA.
 
 bsp1 &lt;- specifyBSP(schemeDF = schemeDF,
                    nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 200,
-                   nChr = 10, effPopSize = 200, quickHaplo = F,
+                   nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
-                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
+                   meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = &quot;CET&quot;,
-                   nParents = 100, nCrosses = 250, nProgeny = 15, nClonesToNCRP = 3,
+                   nParents = 100, nCrosses = 340, nProgeny = 15, nClonesToNCRP = 3,
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
                    nCyclesToKeepRecords = 4,
@@ -1102,7 +1145,7 @@ rm(postBurnIn)</code></pre>
 <pre class="r"><code>start &lt;- proc.time()[3]
 postBurnIn_test&lt;-runSchemesPostBurnIn(simulations = burnIn_1,
                                       newBSP=NULL, # so you can change the scheme after burn-in
-                                      nPostBurnInCycles=10,
+                                      nPostBurnInCycles=12,
                                       selCritPop=&quot;parentSelCritGEBV&quot;,
                                       selCritPipe=&quot;selCritIID&quot;,
                                       productFunc=&quot;productPipeline&quot;,
@@ -1137,7 +1180,7 @@ saveRDS(forSimPlot, here::here(&quot;output&quot;, &quot;DataSimPlot1.rds&quot;)
 <pre class="r"><code>forSimPlot &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlot1.rds&quot;))
 
 library(patchwork)
-meanGplot1 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 10) %&gt;%
+meanGplot1 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 12) %&gt;%
               group_by(PostBurnIn, YearPostBurnIn, year, stage) %&gt;% 
 #              summarize(meanGenMean = mean(genValMean),
 #              seGenMean = sd(genValMean) / n()) %&gt;% 
@@ -1148,7 +1191,7 @@ meanGplot1 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 10) %&gt;%
 #                              fill = PostBurnIn), 
 #                          alpha=0.75) + 
 #              geom_line(aes(y = meanGenMean, color=PostBurnIn))
-sdGplot1 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 10) %&gt;%
+sdGplot1 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 12) %&gt;%
             group_by(PostBurnIn, YearPostBurnIn, year, stage) %&gt;% 
 #            summarize(meanGenSD = mean(genValSD),
 #                      seGenSD = sd(genValSD) / n()) %&gt;% 
@@ -1170,7 +1213,7 @@ sdGplot1 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 10) %&gt;%
 <pre class="r"><code>forSimPlot &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlot2.rds&quot;))
 
 library(patchwork)
-meanGplot2 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 10) %&gt;%
+meanGplot2 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 12) %&gt;%
               group_by(PostBurnIn, YearPostBurnIn, year, stage) %&gt;% 
 #              summarize(meanGenMean = mean(genValMean),
 #              seGenMean = sd(genValMean) / n()) %&gt;% 
@@ -1181,7 +1224,7 @@ meanGplot2 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 10) %&gt;%
 #                              fill = PostBurnIn), 
 #                          alpha=0.75) + 
 #              geom_line(aes(y = meanGenMean, color=PostBurnIn))
-sdGplot2 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 10) %&gt;%
+sdGplot2 &lt;- forSimPlot %&gt;% filter(YearPostBurnIn &lt;= 12) %&gt;%
             group_by(PostBurnIn, YearPostBurnIn, year, stage) %&gt;% 
 #            summarize(meanGenSD = mean(genValSD),
 #                      seGenSD = sd(genValSD) / n()) %&gt;% 
@@ -1533,29 +1576,29 @@ attached base packages:
 
 other attached packages:
  [1] patchwork_1.1.1 reactable_0.2.3 forcats_0.5.1   stringr_1.4.0  
- [5] dplyr_1.0.7     purrr_0.3.4     readr_2.0.1     tidyr_1.1.3    
- [9] tibble_3.1.4    ggplot2_3.3.5   tidyverse_1.3.1
+ [5] dplyr_1.0.7     purrr_0.3.4     readr_2.0.2     tidyr_1.1.4    
+ [9] tibble_3.1.5    ggplot2_3.3.5   tidyverse_1.3.1
 
 loaded via a namespace (and not attached):
  [1] httr_1.4.2        sass_0.4.0        jsonlite_1.7.2    splines_4.1.1    
- [5] here_1.0.1        modelr_0.1.8      bslib_0.2.5.1     assertthat_0.2.1 
- [9] highr_0.9         cellranger_1.1.0  yaml_2.2.1        pillar_1.6.2     
-[13] backports_1.2.1   lattice_0.20-44   glue_1.4.2        digest_0.6.27    
+ [5] here_1.0.1        modelr_0.1.8      bslib_0.3.1       assertthat_0.2.1 
+ [9] highr_0.9         cellranger_1.1.0  yaml_2.2.1        pillar_1.6.3     
+[13] backports_1.2.1   lattice_0.20-44   glue_1.4.2        digest_0.6.28    
 [17] promises_1.2.0.1  rvest_1.0.1       colorspace_2.0-2  htmltools_0.5.2  
-[21] httpuv_1.6.2      Matrix_1.3-4      reactR_0.4.4      pkgconfig_2.0.3  
+[21] httpuv_1.6.3      Matrix_1.3-4      reactR_0.4.4      pkgconfig_2.0.3  
 [25] broom_0.7.9       haven_2.4.3       scales_1.1.1      whisker_0.4      
 [29] later_1.3.0       tzdb_0.1.2        git2r_0.28.0      mgcv_1.8-36      
 [33] farver_2.1.0      generics_0.1.0    ellipsis_0.3.2    withr_2.4.2      
 [37] cli_3.0.1         magrittr_2.0.1    crayon_1.4.1      readxl_1.3.1     
 [41] evaluate_0.14     fs_1.5.0          fansi_0.5.0       nlme_3.1-152     
-[45] xml2_1.3.2        tools_4.1.1       hms_1.1.0         lifecycle_1.0.0  
+[45] xml2_1.3.2        tools_4.1.1       hms_1.1.1         lifecycle_1.0.1  
 [49] munsell_0.5.0     reprex_2.0.1      compiler_4.1.1    jquerylib_0.1.4  
-[53] rlang_0.4.11      grid_4.1.1        rstudioapi_0.13   htmlwidgets_1.5.3
-[57] crosstalk_1.1.1   labeling_0.4.2    rmarkdown_2.10    gtable_0.3.0     
-[61] DBI_1.1.1         R6_2.5.1          lubridate_1.7.10  knitr_1.33       
+[53] rlang_0.4.11      grid_4.1.1        rstudioapi_0.13   htmlwidgets_1.5.4
+[57] crosstalk_1.1.1   labeling_0.4.2    rmarkdown_2.11    gtable_0.3.0     
+[61] DBI_1.1.1         R6_2.5.1          lubridate_1.8.0   knitr_1.36       
 [65] fastmap_1.1.0     utf8_1.2.2        workflowr_1.6.2   rprojroot_2.0.2  
-[69] stringi_1.7.4     Rcpp_1.0.7        vctrs_0.3.8       dbplyr_2.1.1     
-[73] tidyselect_1.1.1  xfun_0.25        </code></pre>
+[69] stringi_1.7.5     Rcpp_1.0.7        vctrs_0.3.8       dbplyr_2.1.1     
+[73] tidyselect_1.1.1  xfun_0.26        </code></pre>
 </div>
 </div>
 </div>

@@ -42,21 +42,21 @@ IITAScheme %>% reactable()
 
 ### Breeding Scheme Simulations parameters
 
-  The burn-in simulation were replicated 20 times, simulating a 30 cycles of operations with the burn-in of the first 20 cycles.
+  The burn-in simulation were replicated 20 times, simulating a 26 cycles of operations with the burn-in of the first 20 cycles.
 
 <br />
 
 | Sim Parameter       | Value  |     | Genetic Parameter | Value  |     | Variances Parameters  | Value  |
 | :-----------------: | :----: | :-: | :---------------: | :----: | :-: | :-------------------: | :----: |
-| **nTrainPopCycles** | 10     |     | **NChr**          | 10     |     | **genVar**            | 750    |
+| **nTrainPopCycles** | 10     |     | **NChr**          | 18     |     | **genVar**            | 1500   |
 | NYrsAsCandidates    | 2      |     | **effPopsize**    | 200    |     | gxeVar                | NULL   |
-| maxTrainingPopSize  | 200    |     | **segSites**      | 1,500  |     | **gxyVar**            | 100    |
-| stageToGenotype     | CET    |     | **nQTL**          | 1,000  |     | gxlVar                | 500    |
+| maxTrainingPopSize  | 200    |     | **segSites**      | 1,650  |     | **gxyVar**            | 1500   |
+| stageToGenotype     | CET    |     | **nQTL**          | 1,000  |     | gxlVar                | 750    |
 | nParents            | 100    |     | **nSNP**          | 500    |     | **gxyxlVar**          | 300    |
-| nCrosses            | 250    |     |                   |        |     | meanDD                | 0.23   |
-| nProgeny            | 10     |     |                   |        |     | varDD                 | 0.05   |
+| nCrosses            | 340    |     |                   |        |     | meanDD                | 0.23   |
+| nProgeny            | 15     |     |                   |        |     | varDD                 | 0.05   |
 | nClonesToNCRP       | 3      |     |                   |        |     | relAA                 | 0.5    |
-| **phenoF1toStage1** | TRUE   |     |                   |        |     | **errVarPreStage1**   | 15,000 |
+| **phenoF1toStage1** | FALSE  |     |                   |        |     | **errVarPreStage1**   | 17,500 |
 |                     |        |     |                   |        |     |                       |        |
   
 <br />  
@@ -92,12 +92,12 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"),
 
 bsp1 <- specifyBSP(schemeDF = schemeDF,
                    nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 200,
-                   nChr = 10, effPopSize = 200, quickHaplo = F,
+                   nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
-                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
+                   meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "CET",
-                   nParents = 100, nCrosses = 250, nProgeny = 15, nClonesToNCRP = 3,
+                   nParents = 100, nCrosses = 340, nProgeny = 15, nClonesToNCRP = 3,
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
                    nCyclesToKeepRecords = 4,
@@ -159,7 +159,7 @@ rm(postBurnIn)
 start <- proc.time()[3]
 postBurnIn_test<-runSchemesPostBurnIn(simulations = burnIn_1,
                                       newBSP=NULL, # so you can change the scheme after burn-in
-                                      nPostBurnInCycles=10,
+                                      nPostBurnInCycles=12,
                                       selCritPop="parentSelCritGEBV",
                                       selCritPipe="selCritIID",
                                       productFunc="productPipeline",
@@ -200,7 +200,7 @@ saveRDS(forSimPlot, here::here("output", "DataSimPlot1.rds"))
 forSimPlot <- readRDS(here::here("output", "DataSimPlot1.rds"))
 
 library(patchwork)
-meanGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
+meanGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
               group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
 #              summarize(meanGenMean = mean(genValMean),
 #              seGenMean = sd(genValMean) / n()) %>% 
@@ -211,7 +211,7 @@ meanGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
 #                              fill = PostBurnIn), 
 #                          alpha=0.75) + 
 #              geom_line(aes(y = meanGenMean, color=PostBurnIn))
-sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
+sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
             group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
 #            summarize(meanGenSD = mean(genValSD),
 #                      seGenSD = sd(genValSD) / n()) %>% 
@@ -234,7 +234,7 @@ sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
 forSimPlot <- readRDS(here::here("output", "DataSimPlot2.rds"))
 
 library(patchwork)
-meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
+meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
               group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
 #              summarize(meanGenMean = mean(genValMean),
 #              seGenMean = sd(genValMean) / n()) %>% 
@@ -245,7 +245,7 @@ meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
 #                              fill = PostBurnIn), 
 #                          alpha=0.75) + 
 #              geom_line(aes(y = meanGenMean, color=PostBurnIn))
-sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
+sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
             group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
 #            summarize(meanGenSD = mean(genValSD),
 #                      seGenSD = sd(genValSD) / n()) %>% 
