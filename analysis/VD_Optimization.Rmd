@@ -49,12 +49,12 @@ IITAScheme %>% reactable()
 | Sim Parameter      | Value  |     | Genetic Parameter | Value  |     | Variances Parameters | Value  |
 | :----------------: | :----: | :-: | :---------------: | :----: | :-: | :------------------: | :----: |
 | nTrainPopCycles    | 4      |     | NChr              | 18     |     | genVar               | 1,500  |
-| NYrsAsCandidates   | 2      |     | effPopsize        | 200    |     | gxeVar               | NULL   |
-| maxTrainingPopSize | 200    |     | segSites          | 1,650  |     | gxyVar               | 1,500  |
+| NYrsAsCandidates   | 3      |     | effPopsize        | 200    |     | gxeVar               | NULL   |
+| maxTrainingPopSize | 1500   |     | segSites          | 1,650  |     | gxyVar               | 1,500  |
 | stageToGenotype    | CET    |     | nQTL              | 1,000  |     | gxlVar               | 750    |
 | nParents           | 100    |     | nSNP              | 500    |     | gxyxlVar             | 300    |
 | nCrosses           | 400    |     |                   |        |     | meanDD               | 0.23   |
-| nProgeny           | 25     |     |                   |        |     | varDD                | 0.05   |
+| nProgeny           | 30     |     |                   |        |     | varDD                | 0.05   |
 | nClonesToNCRP      | 3      |     |                   |        |     | relAA                | 0.5    |
 | phenoF1toStage1    | FALSE  |     |                   |        |     | errVarPreStage1      | 17,500 |
 |                    |        |     |                   |        |     |                      |        |
@@ -66,13 +66,13 @@ IITAScheme %>% reactable()
 
 <br />
 
-| FunctionsArg  | FunctionName    |
-| :-----------: | :-------------: |
-| selCritPop    | selCritIID      |
-| selCritPipe   | selCritIID      |
-| productFunc   | productPipeline |
-| popImprovFunc | popImprov1Cyc   |
-|               |                 |
+| FunctionsArg  | FunctionName         |
+| :-----------: | :-------------------:|
+| selCritPop    | parentSelCritBLUP    |
+| selCritPipe   | productSelCritBLUP   |
+| productFunc   | productPipeline      |
+| popImprovFunc | popImprovByParentSel |
+|               |                      |
 
 <br />
 
@@ -91,16 +91,16 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"),
                      header = T, stringsAsFactors = F, sep = ";")
 
 bsp1 <- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 200,
+                   nTrainPopCycles = 4, nYrsAsCandidates = 3, maxTrainingPopSize = 1500,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "CET",
-                   nParents = 100, nCrosses = 340, nProgeny = 15, nClonesToNCRP = 3,
+                   nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 4,
+                   nCyclesToKeepRecords = 6,
                    selCritPipeAdv = selCritIID,
                    selCritPopImprov =  selCritIID)
 
@@ -108,35 +108,69 @@ source(here::here("code","runBurnInSchemes.R"))
 
 set.seed(501)
 start <- proc.time()[3]
-burnIn_1 <- runBurnInSchemes(bsp = bsp1,
-                    	         nBurnInCycles=20,
-                           	 selCritPop="selCritIID",
-                         	 selCritPipe="selCritIID",
-                         	 iniFunc="initializeScheme",
-                        	 productFunc="productPipeline",
-                      		 popImprovFunc="popImprov1Cyc",
-            	                 nReplications=20,ncores=4,
-                              	 nBLASthreads=1,nThreadsMacs2=1)
+burnIn_IITA_PS <- runBurnInSchemes(bsp = bsp1,
+                    	             nBurnInCycles=26,
+                           	       selCritPop="parentSelCritBLUP",
+                         	         selCritPipe="productSelCritBLUP",
+                         	         iniFunc="initializeScheme",
+                        	         productFunc="productPipeline",
+                      		         popImprovFunc="popImprovByParentSel",
+            	                     nReplications=30,nSimCores=10,
+                              	   nBLASthreads=1,nThreadsMacs2=1)
 end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ", floor(((end - start)%%60)), "s elapsed - bsp1"))
-saveRDS(burnIn_1,file = here::here("output","BurnIn_1.rds"))
+saveRDS(burnIn_IITA_PS,file = here::here("output","BurnIn_IITA.rds"))
 rm(start); rm(end)
 
 source(here::here("code","runSchemesPostBurnIn.R"))
-
+burnIn_IITA_PS <- readRDS(here::here("output", "BurnIn_IITA.rds"))
 start <- proc.time()[3]
-postBurnIn_test<-runSchemesPostBurnIn(simulations = burnIn_1,
-                                      newBSP=NULL, # so you can change the scheme after burn-in
-                                      nPostBurnInCycles=10,
-                                      selCritPop="selCritIID",
-                                      selCritPipe="selCritIID",
-                                      productFunc="productPipeline",
-                                      popImprovFunc="popImprov1Cyc",
-                                      ncores=4,
-                                      nBLASthreads=1,nThreadsMacs2=1)
+postBurnIn_IITA_PS <- runSchemesPostBurnIn(simulations = burnIn_IITA_PS,
+                                           nPostBurnInCycles=12,
+                                           selCritPop="parentSelCritBLUP",
+                                           selCritPipe="productSelCritBLUP",
+                                           productFunc="productPipelinePostBurnIn",
+                                           popImprovFunc="popImprovByParentSel",
+                                           ncores=1,
+                                           nBLASthreads=1)
 end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ",
                                     floor(((end - start)%%60)), "s elapsed - bspP"))
-saveRDS(postBurnIn,file = here::here("output","postBurnIn_1.rds"))
-rm(postBurnIn)
+saveRDS(postBurnIn_IITA_PS,file = here::here("output","postBurnIn_IITA_PS.rds"))
+rm(postBurnIn_IITA_PS)
+```
+
+####  Removing the last Stage UYT2
+
+```{r, eval = FALSE}
+
+bsp2 <- specifyBSP(schemeDF = schemeDF %>% filter(stageNames!="UYT2"),
+                   nTrainPopCycles = 4, nYrsAsCandidates = 3, maxTrainingPopSize = 1500,
+                   nChr = 18, effPopSize = 200, quickHaplo = F,
+                   segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
+                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
+                   meanDD = 0.23, varDD = 0.05, relAA = 0.5,
+                   stageToGenotype = "CET",
+                   nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
+                   useCurrentPhenoTrain = F,
+                   nCyclesToKeepRecords = 6,
+                   selCritPipeAdv = selCritIID,
+                   selCritPopImprov =  selCritIID)
+
+
+start <- proc.time()[3]
+postBurnIn_NVDP1_IITA_PS <- runSchemesPostBurnIn(simulations = burnIn_IITA_PS,
+                                                 newBSP = bsp2,
+                                                 nPostBurnInCycles=12,
+                                                 selCritPop="parentSelCritBLUP",
+                                                 selCritPipe="productSelCritBLUP",
+                                                 productFunc="productPipelinePostBurnIn",
+                                                 popImprovFunc="popImprovByParentSel",
+                                                 ncores=1,
+                                                 nBLASthreads=1)
+end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ",
+                                    floor(((end - start)%%60)), "s elapsed - bspP"))
+saveRDS(postBurnIn_NVDP1_IITA_PS,file = here::here("output","postBurnIn_NVDP1_IITA_PS.rds"))
+rm(postBurnIn_NVDP1_IITA_PS)
 
 ```
 
@@ -173,11 +207,11 @@ rm(postBurnIn)
 
 ```
 
-##### Results IITA Breeding Scheme Simulation with and without Genomic Selection
+##### Graph with the genetic gain for  Stage
 
 ```{r, eval = F}
-postBurnInGS <- readRDS(here::here("output", "postBurnIn2.rds"))
-postBurnInPS <- readRDS(here::here("output", "postBurnIn1.rds"))
+postBurnInPS <- readRDS(here::here("output", "postBurnIn_IITA_PS.rds"))
+postBurnInPS_NDVP1 <- readRDS(here::here("output", "postBurnIn_NVDP1_IITA_PS.rds"))
 
 forSimPlot <- postBurnInGS %>% 
               mutate(PostBurnIn = "GS") %>% 
@@ -191,21 +225,24 @@ forSimPlot <- postBurnInGS %>%
               filter(stage == "F1") %>% 
               mutate(YearPostBurnIn = year - 10)
 
-saveRDS(forSimPlot, here::here("output", "DataSimPlot1.rds"))
+saveRDS(forSimPlot, "DataSimPlot2.rds")
 ```
 
-##### Graph with the genetic gain for F1 Stage
+
 ```{r, fig.width=10} 
 
-forSimPlot <- readRDS(here::here("output", "DataSimPlot1.rds"))
+forSimPlot <- readRDS(here::here("output", "DataSimPlot.rds"))
 
-library(patchwork)
+forSimPlot <- forSimPlot[!(forSimPlot$PostBurnIn == "IITA" & forSimPlot$stage == "UYT1"),]
+forSimPlot <- forSimPlot[!(forSimPlot$year <= 25 & forSimPlot$stage == "UYT1"),]
+
+library(ggpubr)
 meanGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
               group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
 #              summarize(meanGenMean = mean(genValMean),
 #              seGenMean = sd(genValMean) / n()) %>% 
-              ggplot(., aes(x = YearPostBurnIn, y = genValMean)) +
-              geom_smooth(method = "loess", alpha = 0.75)# +
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean, colour = PostBurnIn)) +
+              geom_smooth(method = "loess", alpha = 0.5)# +
 #              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
 #                              ymax = meanGenMean + seGenMean,
 #                              fill = PostBurnIn), 
@@ -215,15 +252,18 @@ sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
             group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
 #            summarize(meanGenSD = mean(genValSD),
 #                      seGenSD = sd(genValSD) / n()) %>% 
-            ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
-            geom_smooth(method = "loess", alpha = 0.75)# +
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD, colour = PostBurnIn)) +
+            geom_smooth(method = "loess", alpha = 0.5)# +
 #            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
 #                            ymax = meanGenSD + seGenSD,
 #                            fill = PostBurnIn), 
 #                        alpha = 0.75) + 
 #            geom_line(aes(y = meanGenSD, group = PostBurnIn))
 
-(meanGplot1 | sdGplot1) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+tiff(filename = here::here("output", "SimResults.tiff"), units = "cm", compression = "lzw",
+     res = 350, height = 10, width = 20)
+ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "bottom")
+dev.off()
 ```
 
 
