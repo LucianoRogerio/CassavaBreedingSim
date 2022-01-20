@@ -1,0 +1,76 @@
+---
+title: "Singularity Image"
+author: "LucianoRogerio"
+date: "2022-01-19"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+
+
+## Install all the packages in our home library in BIOHPC home directory.
+
+```{bash, eval = FALSE}
+R
+```
+
+```{r, eval = FALSE}
+library(devtools)
+
+install_github(repo = "LucianoRogerio/AlphaSimHlpR", ref = "MarninPkg", force = TRUE)
+path.package("AlphaSimHlpR")
+# "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.0/AlphaSimHlpR"
+
+# If you are going to use the asreml package for the genomic selection follow the following steps
+
+library("asreml")
+path.package("asreml")
+# "/programs/R-4.0.5/library/asreml"
+
+library(ASRgenomics)
+path.package("ASRgenomics")
+# "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.0/ASRgenomics"
+```
+
+## Create a Singularity Image from docker library of Images
+
+```{bash, eval = FALSE}
+
+screen -R LucianoSim;
+
+# as I runned on Robbins Server I got to ask access to slurm
+
+salloc -n 8 --mem 80G;
+
+# Make a directory to save your Singularity image as backup
+cd home/lbraatz/Desktop/;
+mkdr Singularity;
+
+singularity pull rocker2.sif docker://rocker/tidyverse:latest;
+
+cp rocker2.sif /workdir/lbraatz/rocker2.sif
+
+cd /workdir/lbraatz
+
+singularity shell -B /programs rocker2.sif
+
+R
+
+```
+
+## Add new R packages library to the R on the Singularity container
+
+We are going to open R and add the your personal R packages libraries and the library of the High
+
+```{r, eval = FALSE}
+
+.libPaths(.libPaths(), "/programs/R-4.0.5/library/", "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.0/")
+
+# Then try to call the asreml package from the Robbin's Server
+library(asreml); library(ASRgenomics)
+
+```
+With all this codes we will be able to have access to the programs directory in Robbins Server, this will allows us to use asreml R package in our Simulations.
+
+[Home](VD_Optimization.html)

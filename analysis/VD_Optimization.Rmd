@@ -22,6 +22,10 @@ editor_options:
   
   Marnin estimated the [genetic and error variances](https://wolfemd.github.io/IITA_2021GS/inputsForSimulationV2.html#Conclusions) for each trial type (CET, PYT, AYT, and UYT)
   
+## Prepare the Singularity Image to run the Simulations on BioHPC servers
+
+The steps to create the singularity image with all the required packages are described at this [link](SingularityIm.html).
+  
 ## IITA breeding Scheme
 
 ### IITA breeding Scheme
@@ -50,7 +54,7 @@ IITAScheme %>% reactable()
 | :----------------: | :----: | :-: | :---------------: | :----: | :-: | :------------------: | :----: |
 | nTrainPopCycles    | 4      |     | NChr              | 18     |     | genVar               | 1,500  |
 | NYrsAsCandidates   | 2      |     | effPopsize        | 200    |     | gxeVar               | NULL   |
-| maxTrainingPopSize | 200    |     | segSites          | 1,650  |     | gxyVar               | 1,500  |
+| maxTrainingPopSize | 1000   |     | segSites          | 1,650  |     | gxyVar               | 1,500  |
 | stageToGenotype    | CET    |     | nQTL              | 1,000  |     | gxlVar               | 750    |
 | nParents           | 100    |     | nSNP              | 500    |     | gxyxlVar             | 300    |
 | nCrosses           | 400    |     |                   |        |     | meanDD               | 0.23   |
@@ -61,6 +65,7 @@ IITAScheme %>% reactable()
   
 <br />  
 
+###
 
 ### Simulations with the IITA Breeding Scheme (1)
 
@@ -68,7 +73,7 @@ IITAScheme %>% reactable()
 
 | FunctionsArg  | FunctionName    |
 | :-----------: | :-------------: |
-| selCritPop    | selCritIID      |
+| selCritPop    | ParentSelCritBLUP |
 | selCritPipe   | selCritIID      |
 | productFunc   | productPipeline |
 | popImprovFunc | popImprov1Cyc   |
@@ -91,7 +96,7 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"),
                      header = T, stringsAsFactors = F, sep = ";")
 
 bsp1 <- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 200,
+                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 1000,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
