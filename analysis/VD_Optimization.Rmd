@@ -71,23 +71,52 @@ IITAScheme %>% reactable()
 
 <br />
 
-| FunctionsArg  | FunctionName    |
-| :-----------: | :-------------: |
-| selCritPop    | ParentSelCritBLUP |
-| selCritPipe   | selCritIID      |
-| productFunc   | productPipeline |
-| popImprovFunc | popImprov1Cyc   |
-|               |                 |
+| FunctionsArg  | FunctionName         |
+| :-----------: | :-------------------:|
+| selCritPop    | parentSelCritBLUP    |
+| selCritPipe   | productSelCritBLUP   |
+| productFunc   | productPipeline      |
+| popImprovFunc | popImprovByParentSel |
+|               |                      |
 
 <br />
 
+#### Open R inside a singularity container
+
+```{bash, eval = F}
+screen -R LucianoSim;
+
+# as I runned on Robbins Server I got to ask access to slurm
+
+salloc -n 8 --mem 80G;
+
+cd /workdir/lbraatz
+
+singularity shell -B /programs rocker2.sif
+
+R
+```
+
+
+#### Run R inside a singularity container
+
 ```{r, eval = F}
+
+
 library(devtools)
 
-suppressMessages(library(AlphaSimHlpR))
+libPath<-"/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1"
+withr::with_libpaths(new=libPath, devtools::install_github(repo = "LucianoRogerio/AlphaSimHlpR", ref = "MarninPkg", force = TRUE))
+withr::with_libpaths(new=libPath, install.packages("RhpcBLASctl"))
+
+library(AlphaSimR, lib.loc = "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.0/")
+install_github(repo = "LucianoRogerio/AlphaSimHlpR", ref = "MarninPkg", force = TRUE)
+library(AlphaSimHlpR, lib.loc = "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.0/")
+
 suppressMessages(library(tidyverse))
 suppressMessages(library(genomicMateSelectR))
 library(dplyr); library(furrr); library(here)
+library(RhpcBLASctl)
 
 select <- dplyr::select
 mutate <- dplyr::mutate
@@ -102,7 +131,7 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "CET",
-                   nParents = 100, nCrosses = 340, nProgeny = 15, nClonesToNCRP = 3,
+                   nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
                    nCyclesToKeepRecords = 4,
@@ -114,17 +143,19 @@ source(here::here("code","runBurnInSchemes.R"))
 set.seed(501)
 start <- proc.time()[3]
 burnIn_1 <- runBurnInSchemes(bsp = bsp1,
-                    	         nBurnInCycles=20,
-                           	 selCritPop="selCritIID",
-                         	 selCritPipe="selCritIID",
-                         	 iniFunc="initializeScheme",
-                        	 productFunc="productPipeline",
-                      		 popImprovFunc="popImprov1Cyc",
-            	                 nReplications=20,ncores=4,
-                              	 nBLASthreads=1,nThreadsMacs2=1)
+                    	       nBurnInCycles=20,
+                           	 selCritPop="parentSelCritBLUP",
+                         	   selCritPipe="productSelCritBLUP",
+                         	   iniFunc="initializeScheme",
+                        	   productFunc="productPipeline",
+                      		   popImprovFunc="popImprovByParentSel",
+            	               nReplications=40,nSimCores=2,
+                             nBLASthreads=4)
 end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ", floor(((end - start)%%60)), "s elapsed - bsp1"))
-saveRDS(burnIn_1,file = here::here("output","BurnIn_1.rds"))
+saveRDS(burnIn_1,file = here::here("output","BurnIn_IITA.rds"))
 rm(start); rm(end)
+
+#### terminei aqui ontem
 
 source(here::here("code","runSchemesPostBurnIn.R"))
 
@@ -150,9 +181,9 @@ rm(postBurnIn)
 <br />
 
 | FunctionsArg  | FunctionName         |
-| :-----------: | :------------------: |
-| selCritPop    | ParentSelCritGEBV    |
-| selCritPipe   | selCritIID           |
+| :-----------: | :-------------------:|
+| selCritPop    | parentSelCritGEBV    |
+| selCritPipe   | productSelCritBLUP   |
 | productFunc   | productPipeline      |
 | popImprovFunc | popImprovByParentSel |
 |               |                      |
@@ -200,7 +231,7 @@ saveRDS(forSimPlot, here::here("output", "DataSimPlot1.rds"))
 ```
 
 ##### Graph with the genetic gain for F1 Stage
-```{r, fig.width=10} 
+```{r, eval = FALSE, fig.width=10} 
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlot1.rds"))
 
@@ -234,7 +265,7 @@ sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
 
 ##### Graph with the genetic gain for UYT2 Stage
 
-```{r, fig.width=10} 
+```{r, eval = FALSE, fig.width=10} 
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlot2.rds"))
 
@@ -273,13 +304,13 @@ sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
 ####  Without Genomic Selection
 <br />
 
-| FunctionsArg  | FunctionName    |
-| :-----------: | :-------------: |
-| selCritPop    | selCritIID      |
-| selCritPipe   | selCritIID      |
-| productFunc   | productPipeline |
-| popImprovFunc | popImprov1Cyc   |
-|               |                 |
+| FunctionsArg  | FunctionName         |
+| :-----------: | :-------------------:|
+| selCritPop    | parentSelCritBLUP    |
+| selCritPipe   | productSelCritBLUP   |
+| productFunc   | productPipeline      |
+| popImprovFunc | popImprovByParentSel |
+|               |                      |
 
 <br />
 
@@ -351,9 +382,9 @@ rm(postBurnIn)
 <br />
 
 | FunctionsArg  | FunctionName         |
-| :-----------: | :------------------: |
-| selCritPop    | ParentSelCritGEBV    |
-| selCritPipe   | selCritIID           |
+| :-----------: | :-------------------:|
+| selCritPop    | parentSelCritGEBV    |
+| selCritPipe   | productSelCritBLUP   |
 | productFunc   | productPipeline      |
 | popImprovFunc | popImprovByParentSel |
 |               |                      |
@@ -401,7 +432,7 @@ saveRDS(forSimPlot, "DataSimPlot2.rds")
 
 ##### Graph with the genetic gain for F1 Stage
 
-```{r, fig.width=10} 
+```{r, eval = FALSE, fig.width=10} 
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlot2.rds"))
 
@@ -435,7 +466,7 @@ sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
 
 ##### Graph with the genetic gain for UYT1 Stage
 
-```{r, fig.width=10} 
+```{r, eval = FALSE, fig.width=10} 
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlot4.rds"))
 
@@ -469,7 +500,7 @@ sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
 #### Results 
 
 ##### Graph with the genetic gain for F1 for IITA IITA - NVDP Schemes
-```{r, fig.width = 10}
+```{r, eval = FALSE, fig.width = 10}
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlot1.rds"))
 forSimPlot2 <- readRDS(here::here("output", "DataSimPlot1.rds"))
@@ -510,7 +541,7 @@ sdGplot3 <- forSimPlot %>% mutate(Scheme = rep("IITA", nrow(forSimPlot))) %>%
 ```
 
 ##### Graph with the genetic gain for UYT2 (IITA) and UYT1 (IITA - NVDP) Stage
-```{r, fig.width = 10}
+```{r, eval = FALSE, fig.width = 10}
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlot3.rds"))
 forSimPlot2 <- readRDS(here::here("output", "DataSimPlot4.rds"))
