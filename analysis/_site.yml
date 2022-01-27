@@ -5,6 +5,20 @@ navbar:
   left:
   - text: Home
     href: index.html
+  - text: VDs Simulations
+    href: VD_Optimization.html
+  - text: Simulations Scripts
+    menu:
+    - text: IITA Breeding Scheme
+      href: IITABS.html
+    - text: IITA NVDP1
+      href: NVDP1.html
+    - text: IITA NVDP2
+      href: NVD3.html
+    - text: '1-3 Years Candidate'
+      href: '1-3YrsIITABS.html'
+  - text: Figures
+    href: graphics.html
   - text: About
     href: about.html
   - text: License

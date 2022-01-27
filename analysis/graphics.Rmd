@@ -1,0 +1,270 @@
+---
+title: "Figure Scripts"
+author: "LucianoRogerio"
+date: "2022-01-25"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+
+
+##### Results IITA Breeding Scheme Simulation with and without Genomic Selection
+
+```{r, eval = F}
+postBurnInGS <- readRDS(here::here("output", "postBurnIn2.rds"))
+postBurnInPS <- readRDS(here::here("output", "postBurnIn1.rds"))
+
+forSimPlot <- postBurnInGS %>% 
+              mutate(PostBurnIn = "GS") %>% 
+              bind_rows(postBurnInPS %>% 
+              mutate(PostBurnIn = "PS")) %>% 
+              unnest_wider(SimOutput) %>% 
+              select(SimRep, PostBurnIn, records) %>% 
+              unnest_wider(records) %>% 
+              select(SimRep, PostBurnIn, stageOutputs) %>% 
+              unnest() %>% 
+              filter(stage == "F1") %>% 
+              mutate(YearPostBurnIn = year - 10)
+
+saveRDS(forSimPlot, here::here("output", "DataSimPlot1.rds"))
+```
+
+##### Graph with the genetic gain for F1 Stage
+```{r, eval = FALSE, fig.width=10} 
+
+forSimPlot <- readRDS(here::here("output", "DataSimPlot1.rds"))
+
+library(patchwork)
+meanGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
+              group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#              summarize(meanGenMean = mean(genValMean),
+#              seGenMean = sd(genValMean) / n()) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean)) +
+              geom_smooth(method = "loess", alpha = 0.75)# +
+#              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+#                              ymax = meanGenMean + seGenMean,
+#                              fill = PostBurnIn), 
+#                          alpha=0.75) + 
+#              geom_line(aes(y = meanGenMean, color=PostBurnIn))
+sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
+            group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#            summarize(meanGenSD = mean(genValSD),
+#                      seGenSD = sd(genValSD) / n()) %>% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
+            geom_smooth(method = "loess", alpha = 0.75)# +
+#            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+#                            ymax = meanGenSD + seGenSD,
+#                            fill = PostBurnIn), 
+#                        alpha = 0.75) + 
+#            geom_line(aes(y = meanGenSD, group = PostBurnIn))
+
+(meanGplot1 | sdGplot1) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+```
+
+
+##### Graph with the genetic gain for UYT2 Stage
+
+```{r, eval = FALSE, fig.width=10} 
+
+forSimPlot <- readRDS(here::here("output", "DataSimPlot2.rds"))
+
+library(patchwork)
+meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
+              group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#              summarize(meanGenMean = mean(genValMean),
+#              seGenMean = sd(genValMean) / n()) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean)) +
+              geom_smooth(method = "loess", alpha = 0.75)# +
+#              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+#                              ymax = meanGenMean + seGenMean,
+#                              fill = PostBurnIn), 
+#                          alpha=0.75) + 
+#              geom_line(aes(y = meanGenMean, color=PostBurnIn))
+sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 12) %>%
+            group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#            summarize(meanGenSD = mean(genValSD),
+#                      seGenSD = sd(genValSD) / n()) %>% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
+            geom_smooth(method = "loess", alpha = 0.75)# +
+#            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+#                            ymax = meanGenSD + seGenSD,
+#                            fill = PostBurnIn), 
+#                        alpha = 0.75) + 
+#            geom_line(aes(y = meanGenSD, group = PostBurnIn))
+
+(meanGplot2 | sdGplot2) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+```
+
+
+```{r, eval = F}
+postBurnInGS <- readRDS(here::here("output", "postBurnIn4.rds"))
+postBurnInPS <- readRDS(here::here("output", "postBurnIn3.rds"))
+
+forSimPlot <- postBurnInGS %>% 
+              mutate(PostBurnIn = "GS") %>% 
+              bind_rows(postBurnInPS %>% 
+              mutate(PostBurnIn = "PS")) %>% 
+              unnest_wider(SimOutput) %>% 
+              select(SimRep, PostBurnIn, records) %>% 
+              unnest_wider(records) %>% 
+              select(SimRep, PostBurnIn, stageOutputs) %>% 
+              unnest() %>% 
+              filter(stage == "F1") %>% 
+              mutate(YearPostBurnIn = year - 10)
+
+saveRDS(forSimPlot, "DataSimPlot2.rds")
+```
+
+##### Graph with the genetic gain for F1 Stage
+
+```{r, eval = FALSE, fig.width=10} 
+
+forSimPlot <- readRDS(here::here("output", "DataSimPlot2.rds"))
+
+library(patchwork)
+meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
+              group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#              summarize(meanGenMean = mean(genValMean),
+#              seGenMean = sd(genValMean) / n()) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean)) +
+              geom_smooth(method = "loess", alpha = 0.75)# +
+#              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+#                              ymax = meanGenMean + seGenMean,
+#                              fill = PostBurnIn), 
+#                          alpha=0.75) + 
+#              geom_line(aes(y = meanGenMean, color=PostBurnIn))
+sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
+            group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#            summarize(meanGenSD = mean(genValSD),
+#                      seGenSD = sd(genValSD) / n()) %>% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
+            geom_smooth(method = "loess", alpha = 0.75)# +
+#            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+#                            ymax = meanGenSD + seGenSD,
+#                            fill = PostBurnIn), 
+#                        alpha = 0.75) + 
+#            geom_line(aes(y = meanGenSD, group = PostBurnIn))
+
+(meanGplot2 | sdGplot2) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+```
+
+
+##### Graph with the genetic gain for UYT1 Stage
+
+```{r, eval = FALSE, fig.width=10} 
+
+forSimPlot <- readRDS(here::here("output", "DataSimPlot4.rds"))
+
+library(patchwork)
+meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
+              group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#              summarize(meanGenMean = mean(genValMean),
+#              seGenMean = sd(genValMean) / n()) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean)) +
+              geom_smooth(method = "loess", alpha = 0.75)# +
+#              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+#                              ymax = meanGenMean + seGenMean,
+#                              fill = PostBurnIn), 
+#                          alpha=0.75) + 
+#              geom_line(aes(y = meanGenMean, color=PostBurnIn))
+sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn <= 10) %>%
+            group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#            summarize(meanGenSD = mean(genValSD),
+#                      seGenSD = sd(genValSD) / n()) %>% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
+            geom_smooth(method = "loess", alpha = 0.75)# +
+#            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+#                            ymax = meanGenSD + seGenSD,
+#                            fill = PostBurnIn), 
+#                        alpha = 0.75) + 
+#            geom_line(aes(y = meanGenSD, group = PostBurnIn))
+
+(meanGplot2 | sdGplot2) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+```
+
+#### Results 
+
+##### Graph with the genetic gain for F1 for IITA IITA - NVDP Schemes
+```{r, eval = FALSE, fig.width = 10}
+
+forSimPlot <- readRDS(here::here("output", "DataSimPlot1.rds"))
+forSimPlot2 <- readRDS(here::here("output", "DataSimPlot1.rds"))
+
+library(patchwork)
+meanGplot3 <- forSimPlot %>% mutate(Scheme = rep("IITA", nrow(forSimPlot))) %>%
+              bind_rows(forSimPlot2 %>%
+                        mutate(Scheme = rep("IITA - NVDP", nrow(forSimPlot2)))) %>%
+              filter(YearPostBurnIn <= 10) %>%
+              group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#              summarize(meanGenMean = mean(genValMean),
+#              seGenMean = sd(genValMean) / n()) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean, fill = Scheme, color = Scheme)) +
+              geom_smooth(method = "loess", alpha = 0.75)# +
+#              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+#                              ymax = meanGenMean + seGenMean,
+#                              fill = PostBurnIn), 
+#                          alpha=0.75) + 
+#              geom_line(aes(y = meanGenMean, color=PostBurnIn))
+sdGplot3 <- forSimPlot %>% mutate(Scheme = rep("IITA", nrow(forSimPlot))) %>%
+              bind_rows(forSimPlot2 %>%
+                        mutate(Scheme = rep("IITA - NVDP", nrow(forSimPlot2)))) %>%
+            filter(YearPostBurnIn <= 10) %>%
+            group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#            summarize(meanGenSD = mean(genValSD),
+#                      seGenSD = sd(genValSD) / n()) %>% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD, fill = Scheme, color = Scheme)) +
+            geom_smooth(method = "loess", alpha = 0.75)# +
+#            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+#                            ymax = meanGenSD + seGenSD,
+#                            fill = PostBurnIn), 
+#                        alpha = 0.75) + 
+#            geom_line(aes(y = meanGenSD, group = PostBurnIn))
+
+(meanGplot3 | sdGplot3) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+
+
+```
+
+##### Graph with the genetic gain for UYT2 (IITA) and UYT1 (IITA - NVDP) Stage
+```{r, eval = FALSE, fig.width = 10}
+
+forSimPlot <- readRDS(here::here("output", "DataSimPlot3.rds"))
+forSimPlot2 <- readRDS(here::here("output", "DataSimPlot4.rds"))
+
+library(patchwork)
+meanGplot4 <- forSimPlot %>% mutate(Scheme = rep("IITA", nrow(forSimPlot))) %>%
+              bind_rows(forSimPlot2 %>%
+                        mutate(Scheme = rep("IITA - NVDP", nrow(forSimPlot2)))) %>%
+              filter(YearPostBurnIn <= 10) %>%
+              group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#              summarize(meanGenMean = mean(genValMean),
+#              seGenMean = sd(genValMean) / n()) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean, fill = Scheme, color = Scheme)) +
+              geom_smooth(method = "loess", alpha = 0.75)# +
+#              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+#                              ymax = meanGenMean + seGenMean,
+#                              fill = PostBurnIn), 
+#                          alpha=0.75) + 
+#              geom_line(aes(y = meanGenMean, color=PostBurnIn))
+sdGplot4 <- forSimPlot %>% mutate(Scheme = rep("IITA", nrow(forSimPlot))) %>%
+              bind_rows(forSimPlot2 %>%
+                        mutate(Scheme = rep("IITA - NVDP", nrow(forSimPlot2)))) %>%
+            filter(YearPostBurnIn <= 10) %>%
+            group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
+#            summarize(meanGenSD = mean(genValSD),
+#                      seGenSD = sd(genValSD) / n()) %>% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD, fill = Scheme, color = Scheme)) +
+            geom_smooth(method = "loess", alpha = 0.75)# +
+#            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+#                            ymax = meanGenSD + seGenSD,
+#                            fill = PostBurnIn), 
+#                        alpha = 0.75) + 
+#            geom_line(aes(y = meanGenSD, group = PostBurnIn))
+
+(meanGplot4 | sdGplot4) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+
+
+```

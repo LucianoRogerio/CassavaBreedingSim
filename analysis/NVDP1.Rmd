@@ -1,0 +1,184 @@
+---
+title: "New Variety Development Product 1"
+author: "LucianoRogerio"
+date: "2022-01-26"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+
+## Simulations with the IITA 1º alternative breeding Scheme (Five years VDP)
+
+
+###  Without Genomic Selection
+<br />
+
+| FunctionsArg  | FunctionName         |
+| :-----------: | :------------------: |
+| selCritPop    | parentSelCritBLUP    |
+| selCritPipe   | productSelCritBLUP   |
+| productFunc   | productPipeline      |
+| popImprovFunc | popImprovByParentSel |
+|               |                      |
+
+<br />
+
+```{r, eval = FALSE}
+
+.libPaths(.libPaths(), "/programs/R-4.0.5/library/", "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.0/")
+
+library(devtools)
+library(progress); library(AlphaSimHlpR)
+suppressMessages(library(tidyverse))
+suppressMessages(library(genomicMateSelectR))
+library(dplyr); library(furrr); library(here)
+
+select <- dplyr::select
+mutate <- dplyr::mutate
+
+source(here::here("code","runSchemesPostBurnIn.R"))
+
+NschemeDF1 <- read.csv(here::here("data","baselineScheme - IITA - NVDP1.csv"),
+                     header = T, stringsAsFactors = F, sep = ";")
+
+bsp2 <- specifyBSP(schemeDF = NschemeDF1,
+                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 1000,
+                   nChr = 18, effPopSize = 200, quickHaplo = F,
+                   segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
+                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
+                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
+                   stageToGenotype = "CET",
+                   nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
+                   useCurrentPhenoTrain = F,
+                   nCyclesToKeepRecords = 4,
+                   selCritPipeAdv = selCritIID,
+                   selCritPopImprov =  selCritIID)
+
+nRepMap <- 5
+nRepT <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% nrow()
+reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
+NCT <- RhpcBLASctl::get_num_procs()
+
+
+for(i in 1:ceiling(nRepT/nRepMap)) {
+
+burnIn_IITA_PS <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% .[reps==i,]
+start <- proc.time()[3]
+postBurnIn_NVDP_IITA_PS <- runSchemesPostBurnIn(simulations = burnIn_IITA_PS,
+                                           newBSP = bsp2,
+                                           nPostBurnInCycles = 12,
+                                           selCritPop = "parentSelCritBLUP",
+                                           selCritPipe = "productSelCritBLUP",
+                                           productFunc = "productPipelinePostBurnIn",
+                                           popImprovFunc = "popImprovByParentSel",
+                                           nSimCores = nRepMap,
+                                           nBLASthreads = ifelse(test = ((NCT %% nrow(burnIn_IITA_PS)) == 0),
+                                                            yes = floor((NCT - 1) / nrow(burnIn_IITA_PS)),
+                                                            no = floor(NCT / nrow(burnIn_IITA_PS))))
+end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ", floor(((end - start)%%60)), "s elapsed - bspP"))
+
+RdsName <- paste("postBurnIn_NVDP_IITA_PS", i, ".rds", sep = "")
+saveRDS(postBurnIn_NVDP_IITA_PS,file = here::here("output", RdsName))
+rm(postBurnIn_NVDP_IITA_PS); rm(RdsName); rm(burnIn_IITA_PS)
+}
+
+```
+
+```
+ ****** 36 to 40
+[1] "16mins 18s elapsed - bspP"
+```
+
+
+###  With Genomic Selection
+<br />
+
+| FunctionsArg  | FunctionName         |
+| :-----------: | :------------------: |
+| selCritPop    | parentSelCritGEBV    |
+| selCritPipe   | productSelCritBLUP   |
+| productFunc   | productPipeline      |
+| popImprovFunc | popImprovByParentSel |
+|               |                      |
+
+<br />
+
+```{r, eval = FALSE}
+
+library(progress); library(AlphaSimHlpR)
+suppressMessages(library(tidyverse))
+suppressMessages(library(genomicMateSelectR))
+library(dplyr); library(furrr); library(here)
+
+select <- dplyr::select
+mutate <- dplyr::mutate
+
+source(here::here("code","runSchemesPostBurnIn.R"))
+
+NschemeDF1 <- read.csv(here::here("data","baselineScheme - IITA - NVDP1.csv"),
+                     header = T, stringsAsFactors = F, sep = ";")
+
+bsp2 <- specifyBSP(schemeDF = NschemeDF1,
+                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 1000,
+                   nChr = 18, effPopSize = 200, quickHaplo = F,
+                   segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
+                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
+                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
+                   stageToGenotype = "CET",
+                   nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
+                   useCurrentPhenoTrain = F,
+                   nCyclesToKeepRecords = 4,
+                   selCritPipeAdv = selCritIID,
+                   selCritPopImprov =  selCritIID)
+
+nRepMap <- 8
+nRepT <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% nrow()
+reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
+NCT <- RhpcBLASctl::get_num_procs()  ## 112 cores
+
+
+
+for(i in 3:ceiling(nRepT/nRepMap)) {
+
+burnIn_IITA_PS <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% .[reps==i,]
+start <- proc.time()[3]
+postBurnIn_NVDP_IITA_GS <- runSchemesPostBurnIn(simulations = burnIn_IITA_PS,
+                                           newBSP = bsp2,
+                                           nPostBurnInCycles = 12,
+                                           selCritPop = "parentSelCritGEBV",
+                                           selCritPipe = "productSelCritBLUP",
+                                           productFunc = "productPipelinePostBurnIn",
+                                           popImprovFunc = "popImprovByParentSel",
+                                           nSimCores = nRepMap,
+                                           nBLASthreads = ifelse(test = ((NCT %% nrow(burnIn_IITA_PS)) == 0),
+                                                            yes = floor((NCT - 1) / nrow(burnIn_IITA_PS)),
+                                                            no = floor(NCT / nrow(burnIn_IITA_PS))))
+end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ", floor(((end - start)%%60)), "s elapsed - bspP"))
+
+RdsName <- paste("postBurnIn_NVDP_IITA_GS", i, ".rds", sep = "")
+saveRDS(postBurnIn_NVDP_IITA_GS,file = here::here("output", RdsName))
+rm(postBurnIn_NVDP_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
+}
+```
+
+```
+ ****** 1 to 8
+[1] "142mins 35s elapsed - bspP"
+
+ ****** 9 to 16
+[1] "138mins 39s elapsed - bspP"
+
+ ****** 17 to 24
+[1] "143mins 47s elapsed - bspP"
+
+ ****** 25 to 32
+[1] "146mins 21s elapsed - bspP"
+
+ ****** 33 to 40
+[1] "153mins 56s elapsed - bspP"
+```
+
+[Back](VD_Optimization.html)
