@@ -412,7 +412,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-01-27
+<strong>Last updated:</strong> 2022-01-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -503,16 +503,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreefb5483506c7ab6e9d56990ff02b90df05d6ae77atargetblankfb54835a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/fb5483506c7ab6e9d56990ff02b90df05d6ae77a" target="_blank">fb54835</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreea78cfcb3e0d439c40f047686bdd288245c5bdff6targetblanka78cfcba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/a78cfcb3e0d439c40f047686bdd288245c5bdff6" target="_blank">a78cfcb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreefb5483506c7ab6e9d56990ff02b90df05d6ae77atargetblankfb54835a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreea78cfcb3e0d439c40f047686bdd288245c5bdff6targetblanka78cfcba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/fb5483506c7ab6e9d56990ff02b90df05d6ae77a" target="_blank">fb54835</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/a78cfcb3e0d439c40f047686bdd288245c5bdff6" target="_blank">a78cfcb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -524,22 +524,12 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    output/.Rhistory
 
-Untracked files:
-    Untracked:  output/DataSimPlotIITA_F1.rds
-    Untracked:  output/DataSimPlotIITA_NVDP2_AYT.rds
-    Untracked:  output/DataSimPlotIITA_NVDP2_F1.rds
-    Untracked:  output/DataSimPlotIITA_NVDP_F1.rds
-    Untracked:  output/DataSimPlotIITA_NVDP_UYT1.rds
-    Untracked:  output/DataSimPlotIITA_UYT2.rds
-    Untracked:  output/F1ResultsIITA.rds
-    Untracked:  output/LastStageResultsIITA.rds
-
 Unstaged changes:
-    Modified:   analysis/IITABS.Rmd
-    Modified:   analysis/NVDP1.Rmd
-    Modified:   analysis/NVDP2.Rmd
+    Modified:   analysis/1-3YrsIITABS.Rmd
     Modified:   analysis/VD_Optimization.Rmd
     Modified:   analysis/graphics.Rmd
+    Modified:   output/F1ResultsIITA.rds
+    Modified:   output/LastStageResultsIITA.rds
 
 </code></pre>
 <p>
@@ -578,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/93d96138687aaa1ee86970a0293a97dfa7d9aa11/analysis/graphics.Rmd" target="_blank">93d9613</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-01-27
+</td>
+<td>
+New Results from first Simulations with NVDP
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/CassavaBreedingSim/93d96138687aaa1ee86970a0293a97dfa7d9aa11/docs/graphics.html" target="_blank">93d9613</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-01-27
+</td>
+<td>
+New Results from first Simulations with NVDP
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -799,10 +823,10 @@ rm(postBurnInIITAGS); rm(postBurnInIITAPS); rm(forSimPlotIITA_NVDP2_AYT)</code><
 NVDP1_F1 &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlotIITA_NVDP_F1.rds&quot;))
 NVDP2_F1 &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlotIITA_NVDP2_F1.rds&quot;))
 
-F1Res &lt;- IITA_F1 %&gt;% mutate(BS = &quot;IITA&quot;) %&gt;%
+F1Res &lt;- IITA_F1 %&gt;% mutate(BreedScheme = &quot;IITA&quot;) %&gt;%
   bind_rows(NVDP1_F1 %&gt;%
-              mutate(BS = &quot;NVDP1&quot;)) %&gt;%
-  bind_rows(NVDP2_F1 %&gt;% mutate(BS = &quot;NVDP2&quot;))
+              mutate(BreedScheme = &quot;NVDP1&quot;)) %&gt;%
+  bind_rows(NVDP2_F1 %&gt;% mutate(BreedScheme = &quot;NVDP2&quot;))
 
 saveRDS(F1Res, file = here::here(&quot;output&quot;, &quot;F1ResultsIITA.rds&quot;))</code></pre>
 </div>
@@ -812,10 +836,10 @@ saveRDS(F1Res, file = here::here(&quot;output&quot;, &quot;F1ResultsIITA.rds&quo
 NVDP1_UYT1 &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlotIITA_NVDP_UYT1.rds&quot;))
 NVDP2_AYT &lt;- readRDS(here::here(&quot;output&quot;, &quot;DataSimPlotIITA_NVDP2_AYT.rds&quot;))
 
-LSRes &lt;- IITA_UYT2 %&gt;% mutate(BS = &quot;IITA&quot;) %&gt;%
+LSRes &lt;- IITA_UYT2 %&gt;% mutate(BreedScheme = &quot;IITA&quot;) %&gt;%
   bind_rows(NVDP1_UYT1 %&gt;%
-              mutate(BS = &quot;NVDP1&quot;)) %&gt;%
-  bind_rows(NVDP2_AYT %&gt;% mutate(BS = &quot;NVDP2&quot;))
+              mutate(BreedScheme = &quot;NVDP1&quot;)) %&gt;%
+  bind_rows(NVDP2_AYT %&gt;% mutate(BreedScheme = &quot;NVDP2&quot;))
 
 saveRDS(LSRes, file = here::here(&quot;output&quot;, &quot;LastStageResultsIITA.rds&quot;))</code></pre>
 <p><a href="VD_Optimization.html">Home</a></p>

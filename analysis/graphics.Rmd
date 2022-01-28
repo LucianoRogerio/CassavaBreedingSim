@@ -170,10 +170,10 @@ IITA_F1 <- readRDS(here::here("output", "DataSimPlotIITA_F1.rds"))
 NVDP1_F1 <- readRDS(here::here("output", "DataSimPlotIITA_NVDP_F1.rds"))
 NVDP2_F1 <- readRDS(here::here("output", "DataSimPlotIITA_NVDP2_F1.rds"))
 
-F1Res <- IITA_F1 %>% mutate(BS = "IITA") %>%
+F1Res <- IITA_F1 %>% mutate(BreedScheme = "IITA") %>%
   bind_rows(NVDP1_F1 %>%
-              mutate(BS = "NVDP1")) %>%
-  bind_rows(NVDP2_F1 %>% mutate(BS = "NVDP2"))
+              mutate(BreedScheme = "NVDP1")) %>%
+  bind_rows(NVDP2_F1 %>% mutate(BreedScheme = "NVDP2"))
 
 saveRDS(F1Res, file = here::here("output", "F1ResultsIITA.rds"))
 ```
@@ -185,10 +185,10 @@ IITA_UYT2 <- readRDS(here::here("output", "DataSimPlotIITA_UYT2.rds"))
 NVDP1_UYT1 <- readRDS(here::here("output", "DataSimPlotIITA_NVDP_UYT1.rds"))
 NVDP2_AYT <- readRDS(here::here("output", "DataSimPlotIITA_NVDP2_AYT.rds"))
 
-LSRes <- IITA_UYT2 %>% mutate(BS = "IITA") %>%
+LSRes <- IITA_UYT2 %>% mutate(BreedScheme = "IITA") %>%
   bind_rows(NVDP1_UYT1 %>%
-              mutate(BS = "NVDP1")) %>%
-  bind_rows(NVDP2_AYT %>% mutate(BS = "NVDP2"))
+              mutate(BreedScheme = "NVDP1")) %>%
+  bind_rows(NVDP2_AYT %>% mutate(BreedScheme = "NVDP2"))
 
 saveRDS(LSRes, file = here::here("output", "LastStageResultsIITA.rds"))
 ```

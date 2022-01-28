@@ -291,13 +291,13 @@ rm(postBurnIn_IITA3yr_GS); rm(RdsName); rm(burnIn_IITA_PS)
   [1] "331mins 7s elapsed - bspP"
 
  ****** 6 to 10
- 
+  [1] "330mins 22s elapsed - bspP"
  
  ****** 11 to 15
- 
+  [1] "354mins 50s elapsed - bspP"
  
  ****** 16 to 20
- 
+ [1] "342mins 35s elapsed - bspP"
  
  ****** 21 to 25
  
