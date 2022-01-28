@@ -86,3 +86,109 @@ Simulations for IITA [2º alternative breeding Scheme](NVDP2.html) (Four years V
 ### Simulations of IITA Breeding Scheme with clones selected as parent from different years as candidate
 
 Scripts at this [link](1-3YrsIITABS.html)
+
+
+
+
+## Simulation Results
+
+### F1
+
+#### Figure 1
+```{r, fig.width=10, echo = FALSE, message = FALSE}
+library(here); suppressMessages(library(tidyverse))
+
+forSimPlot <- readRDS(here::here("output", "F1ResultsIITA.rds")) %>%
+  mutate(ParentSel = PostBurnIn, .keep = "unused")
+
+library(patchwork)
+meanGplot1 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+              group_by(BS, ParentSel, YearPostBurnIn, year) %>% 
+              summarize(meanGenMean = mean(genValMean),
+              seGenMean = sd(genValMean) / n()) %>% 
+              ggplot(., aes(x = YearPostBurnIn)) +
+              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+                              ymax = meanGenMean + seGenMean,
+                              fill = BS, alpha = ParentSel)) + 
+              geom_line(aes(y = meanGenMean, color = BS, linetype = ParentSel))
+
+sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+            group_by(BS, ParentSel, YearPostBurnIn, year) %>% 
+            summarize(meanGenSD = mean(genValSD),
+                      seGenSD = sd(genValSD) / n()) %>% 
+            ggplot(., aes(x = YearPostBurnIn)) +
+            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+                            ymax = meanGenSD + seGenSD,
+                            fill = BS, alpha = ParentSel)) + 
+            geom_line(aes(y = meanGenSD, color = BS, linetype = ParentSel))
+
+(meanGplot1 | sdGplot1) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+```
+
+#### Figure 2
+```{r, fig.width=10, echo = FALSE, message = FALSE}
+meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+              group_by(BS, ParentSel, YearPostBurnIn, year) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean)) +
+              geom_smooth(method = "loess", alpha = 0.25,
+                          aes(color = BS, linetype = ParentSel))
+
+sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+            group_by(BS, ParentSel, YearPostBurnIn, year, stage) %>% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
+            geom_smooth(method = "loess", alpha = 0.25,
+                        aes(color = BS, linetype = ParentSel))
+
+(meanGplot2 | sdGplot2) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+```
+
+
+### Last Stages
+
+#### Figure 1
+```{r, fig.width=10, echo = FALSE, message = FALSE}
+library(here); suppressMessages(library(tidyverse))
+
+forSimPlot <- readRDS(here::here("output", "LastStageResultsIITA.rds")) %>%
+  mutate(ParentSel = PostBurnIn, .keep = "unused")
+
+library(patchwork)
+meanGplot1 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+              group_by(BS, ParentSel, YearPostBurnIn, year) %>% 
+              summarize(meanGenMean = mean(genValMean),
+              seGenMean = sd(genValMean) / n()) %>% 
+              ggplot(., aes(x = YearPostBurnIn)) +
+              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+                              ymax = meanGenMean + seGenMean,
+                              fill = BS, alpha = ParentSel)) + 
+              geom_line(aes(y = meanGenMean, color = BS, linetype = ParentSel))
+
+sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+            group_by(BS, ParentSel, YearPostBurnIn, year) %>% 
+            summarize(meanGenSD = mean(genValSD),
+                      seGenSD = sd(genValSD) / n()) %>% 
+            ggplot(., aes(x = YearPostBurnIn)) +
+            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+                            ymax = meanGenSD + seGenSD,
+                            fill = BS, alpha = ParentSel)) + 
+            geom_line(aes(y = meanGenSD, color = BS, linetype = ParentSel))
+
+(meanGplot1 | sdGplot1) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+```
+
+#### Figure 2
+```{r, fig.width=10, echo = FALSE, message = FALSE}
+meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+              group_by(BS, ParentSel, YearPostBurnIn, year) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = genValMean)) +
+              geom_smooth(method = "loess", alpha = 0.25,
+                          aes(color = BS, linetype = ParentSel))
+
+sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+            group_by(BS, ParentSel, YearPostBurnIn, year, stage) %>% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
+            geom_smooth(method = "loess", alpha = 0.25,
+                        aes(color = BS, linetype = ParentSel))
+
+(meanGplot2 | sdGplot2) & theme_bw() & geom_vline(xintercept = 0, color = 'darkred')
+```

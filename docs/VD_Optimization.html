@@ -400,7 +400,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -409,7 +409,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -418,10 +418,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-01-26
+<strong>Last updated:</strong> 2022-01-27
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>CassavaBreedingSim/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -437,12 +437,12 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -509,16 +509,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree99148164874d9ab03e76350bb0f13578e0c4935atargetblank9914816a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/99148164874d9ab03e76350bb0f13578e0c4935a" target="_blank">9914816</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreefb5483506c7ab6e9d56990ff02b90df05d6ae77atargetblankfb54835a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/fb5483506c7ab6e9d56990ff02b90df05d6ae77a" target="_blank">fb54835</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree99148164874d9ab03e76350bb0f13578e0c4935atargetblank9914816a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreefb5483506c7ab6e9d56990ff02b90df05d6ae77atargetblankfb54835a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/99148164874d9ab03e76350bb0f13578e0c4935a" target="_blank">9914816</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/fb5483506c7ab6e9d56990ff02b90df05d6ae77a" target="_blank">fb54835</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -531,7 +531,21 @@ Ignored files:
     Ignored:    output/.Rhistory
 
 Untracked files:
-    Untracked:  data/baselineScheme - IITA - NVDP2.csv
+    Untracked:  output/DataSimPlotIITA_F1.rds
+    Untracked:  output/DataSimPlotIITA_NVDP2_AYT.rds
+    Untracked:  output/DataSimPlotIITA_NVDP2_F1.rds
+    Untracked:  output/DataSimPlotIITA_NVDP_F1.rds
+    Untracked:  output/DataSimPlotIITA_NVDP_UYT1.rds
+    Untracked:  output/DataSimPlotIITA_UYT2.rds
+    Untracked:  output/F1ResultsIITA.rds
+    Untracked:  output/LastStageResultsIITA.rds
+
+Unstaged changes:
+    Modified:   analysis/IITABS.Rmd
+    Modified:   analysis/NVDP1.Rmd
+    Modified:   analysis/NVDP2.Rmd
+    Modified:   analysis/VD_Optimization.Rmd
+    Modified:   analysis/graphics.Rmd
 
 </code></pre>
 <p>
@@ -570,6 +584,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/CassavaBreedingSim/69e0b17c8fecab6a8e2e527fef47b02ec89d6cb1/docs/VD_Optimization.html" target="_blank">69e0b17</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-01-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1189,6 +1220,272 @@ IITAScheme %&gt;% reactable()</code></pre>
 <div id="simulations-of-iita-breeding-scheme-with-clones-selected-as-parent-from-different-years-as-candidate" class="section level3">
 <h3>Simulations of IITA Breeding Scheme with clones selected as parent from different years as candidate</h3>
 <p>Scripts at this <a href="1-3YrsIITABS.html">link</a></p>
+</div>
+</div>
+<div id="simulation-results" class="section level2">
+<h2>Simulation Results</h2>
+<div id="f1" class="section level3">
+<h3>F1</h3>
+<div id="figure-1" class="section level4">
+<h4>Figure 1</h4>
+<pre><code>Warning: Using alpha for a discrete variable is not advised.
+
+Warning: Using alpha for a discrete variable is not advised.</code></pre>
+<p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/69e0b17c8fecab6a8e2e527fef47b02ec89d6cb1/docs/figure/VD_Optimization.Rmd/unnamed-chunk-4-1.png" target="_blank">69e0b17</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-01-26
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/49d28e8e9b976713aac4c4d05000fd0a03225e31/docs/figure/VD_Optimization.Rmd/unnamed-chunk-4-1.png" target="_blank">49d28e8</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="figure-2" class="section level4">
+<h4>Figure 2</h4>
+<p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/69e0b17c8fecab6a8e2e527fef47b02ec89d6cb1/docs/figure/VD_Optimization.Rmd/unnamed-chunk-5-1.png" target="_blank">69e0b17</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-01-26
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/e73bf6ebddc581f567954021bcd43a90a0b17497/docs/figure/VD_Optimization.Rmd/unnamed-chunk-5-1.png" target="_blank">e73bf6e</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="last-stages" class="section level3">
+<h3>Last Stages</h3>
+<div id="figure-1-1" class="section level4">
+<h4>Figure 1</h4>
+<pre><code>Warning: Using alpha for a discrete variable is not advised.
+
+Warning: Using alpha for a discrete variable is not advised.</code></pre>
+<p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/69e0b17c8fecab6a8e2e527fef47b02ec89d6cb1/docs/figure/VD_Optimization.Rmd/unnamed-chunk-6-1.png" target="_blank">69e0b17</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-01-26
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/b1680a6cb72bb63dedf1f37ec9d86645ac01fab9/docs/figure/VD_Optimization.Rmd/unnamed-chunk-6-1.png" target="_blank">b1680a6</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-10-14
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/62984da2ab2116a8cdaf472e32a90aa84dbd8e92/docs/figure/VD_Optimization.Rmd/unnamed-chunk-6-1.png" target="_blank">62984da</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-17
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/436a30e17ac396b2452cf24c5f5f147be18fbbc1/docs/figure/VD_Optimization.Rmd/unnamed-chunk-6-1.png" target="_blank">436a30e</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-17
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/49d28e8e9b976713aac4c4d05000fd0a03225e31/docs/figure/VD_Optimization.Rmd/unnamed-chunk-6-1.png" target="_blank">49d28e8</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="figure-2-1" class="section level4">
+<h4>Figure 2</h4>
+<p><img src="figure/VD_Optimization.Rmd/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/69e0b17c8fecab6a8e2e527fef47b02ec89d6cb1/docs/figure/VD_Optimization.Rmd/unnamed-chunk-7-1.png" target="_blank">69e0b17</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-01-26
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/b1680a6cb72bb63dedf1f37ec9d86645ac01fab9/docs/figure/VD_Optimization.Rmd/unnamed-chunk-7-1.png" target="_blank">b1680a6</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-10-14
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/62984da2ab2116a8cdaf472e32a90aa84dbd8e92/docs/figure/VD_Optimization.Rmd/unnamed-chunk-7-1.png" target="_blank">62984da</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1211,29 +1508,31 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] reactable_0.2.3 forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7    
- [5] purrr_0.3.4     readr_2.1.1     tidyr_1.1.4     tibble_3.1.6   
- [9] ggplot2_3.3.5   tidyverse_1.3.1 workflowr_1.7.0
+ [1] patchwork_1.1.1 here_1.0.1      reactable_0.2.3 forcats_0.5.1  
+ [5] stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4     readr_2.1.1    
+ [9] tidyr_1.1.4     tibble_3.1.6    ggplot2_3.3.5   tidyverse_1.3.1
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8        here_1.0.1        lubridate_1.8.0   getPass_0.2-2    
- [5] ps_1.6.0          assertthat_0.2.1  rprojroot_2.0.2   digest_0.6.29    
- [9] utf8_1.2.2        reactR_0.4.4      R6_2.5.1          cellranger_1.1.0 
-[13] backports_1.4.1   reprex_2.0.1      evaluate_0.14     httr_1.4.2       
-[17] pillar_1.6.4      rlang_0.4.12      readxl_1.3.1      rstudioapi_0.13  
-[21] whisker_0.4       callr_3.7.0       jquerylib_0.1.4   rmarkdown_2.11   
-[25] htmlwidgets_1.5.4 munsell_0.5.0     broom_0.7.11      compiler_4.1.1   
-[29] httpuv_1.6.5      modelr_0.1.8      xfun_0.29         pkgconfig_2.0.3  
-[33] htmltools_0.5.2   tidyselect_1.1.1  fansi_1.0.2       crayon_1.4.2     
-[37] tzdb_0.2.0        dbplyr_2.1.1      withr_2.4.3       later_1.3.0      
-[41] grid_4.1.1        jsonlite_1.7.3    gtable_0.3.0      lifecycle_1.0.1  
-[45] DBI_1.1.2         git2r_0.29.0      magrittr_2.0.1    scales_1.1.1     
-[49] cli_3.1.0         stringi_1.7.6     fs_1.5.2          promises_1.2.0.1 
-[53] xml2_1.3.3        bslib_0.3.1       ellipsis_0.3.2    generics_0.1.1   
-[57] vctrs_0.3.8       tools_4.1.1       glue_1.6.0        crosstalk_1.2.0  
-[61] hms_1.1.1         processx_3.5.2    fastmap_1.1.0     yaml_2.2.1       
-[65] colorspace_2.0-2  rvest_1.0.2       knitr_1.37        haven_2.4.3      
-[69] sass_0.4.0       </code></pre>
+ [1] httr_1.4.2        sass_0.4.0        jsonlite_1.7.3    splines_4.1.1    
+ [5] modelr_0.1.8      bslib_0.3.1       assertthat_0.2.1  highr_0.9        
+ [9] cellranger_1.1.0  yaml_2.2.1        lattice_0.20-45   pillar_1.6.4     
+[13] backports_1.4.1   glue_1.6.0        digest_0.6.29     promises_1.2.0.1 
+[17] rvest_1.0.2       colorspace_2.0-2  Matrix_1.4-0      htmltools_0.5.2  
+[21] httpuv_1.6.5      reactR_0.4.4      pkgconfig_2.0.3   broom_0.7.11     
+[25] haven_2.4.3       scales_1.1.1      whisker_0.4       later_1.3.0      
+[29] tzdb_0.2.0        git2r_0.29.0      mgcv_1.8-38       generics_0.1.1   
+[33] farver_2.1.0      ellipsis_0.3.2    withr_2.4.3       cli_3.1.0        
+[37] magrittr_2.0.1    crayon_1.4.2      readxl_1.3.1      evaluate_0.14    
+[41] fs_1.5.2          fansi_1.0.2       nlme_3.1-153      xml2_1.3.3       
+[45] tools_4.1.1       hms_1.1.1         lifecycle_1.0.1   munsell_0.5.0    
+[49] reprex_2.0.1      compiler_4.1.1    jquerylib_0.1.4   rlang_0.4.12     
+[53] grid_4.1.1        rstudioapi_0.13   htmlwidgets_1.5.4 crosstalk_1.2.0  
+[57] labeling_0.4.2    rmarkdown_2.11    gtable_0.3.0      DBI_1.1.2        
+[61] R6_2.5.1          lubridate_1.8.0   knitr_1.37        fastmap_1.1.0    
+[65] utf8_1.2.2        workflowr_1.7.0   rprojroot_2.0.2   stringi_1.7.6    
+[69] Rcpp_1.0.8        vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1 
+[73] xfun_0.29        </code></pre>
+</div>
 </div>
 </div>
 </div>

@@ -93,7 +93,7 @@ rm(postBurnIn_NVDP_IITA_PS); rm(RdsName); rm(burnIn_IITA_PS)
 
 joint all the Results in a same rds File
 ```{r, eval = FALSE}
-library(tidyverse)
+suppressMessages(library(tidyverse))
 RhpcBLASctl::blas_set_num_threads(4)
 files <- dir()[grep(pattern = "postBurnIn_NVDP_IITA_PS*", dir())]
 SimResults <- NULL
@@ -198,7 +198,7 @@ rm(postBurnIn_NVDP_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
 
 joint all the Results in a same rds File
 ```{r, eval = FALSE}
-library(tidyverse)
+suppressMessages(library(tidyverse))
 RhpcBLASctl::blas_set_num_threads(4)
 files <- dir()[grep(pattern = "postBurnIn_NVDP_IITA_GS*", dir())]
 SimResults <- NULL
