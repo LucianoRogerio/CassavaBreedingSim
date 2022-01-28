@@ -9,6 +9,108 @@ editor_options:
 
 ## Simulations with the IITA Breeding Scheme for different years for clones to be candidates for the population improvement
 
+####  One Year as Candidates without Genomic Selection
+<br />
+
+| FunctionsArg  | FunctionName         |
+| :-----------: | :------------------: |
+| selCritPop    | parentSelCritBLUP    |
+| selCritPipe   | productSelCritBLUP   |
+| productFunc   | productPipeline      |
+| popImprovFunc | popImprovByParentSel |
+|               |                      |
+
+<br />
+
+```{r, eval = FALSE}
+
+library(progress); library(AlphaSimHlpR)
+suppressMessages(library(tidyverse))
+suppressMessages(library(genomicMateSelectR))
+library(dplyr); library(furrr); library(here)
+
+select <- dplyr::select
+mutate <- dplyr::mutate
+
+source(here::here("code","runSchemesPostBurnIn.R"))
+
+NschemeDF2 <- read.csv(here::here("data","baselineScheme - IITA.csv"),
+                     header = T, stringsAsFactors = F, sep = ";")
+
+bsp2 <- specifyBSP(schemeDF = NschemeDF2,
+                   nTrainPopCycles = 10, nYrsAsCandidates = 1, maxTrainingPopSize = 1000,
+                   nChr = 18, effPopSize = 200, quickHaplo = F,
+                   segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
+                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
+                   meanDD = 0.23, varDD = 0.06, relAA = 0.5,
+                   stageToGenotype = "CET",
+                   nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
+                   useCurrentPhenoTrain = F,
+                   nCyclesToKeepRecords = 4,
+                   selCritPipeAdv = selCritIID,
+                   selCritPopImprov =  selCritIID)
+
+nRepMap <- 8
+nRepT <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% nrow()
+reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
+NCT <- RhpcBLASctl::get_num_procs()  ## 40 cores
+
+
+
+for(i in 1:ceiling(nRepT/nRepMap)) {
+
+burnIn_IITA_PS <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% .[reps==i,]
+start <- proc.time()[3]
+postBurnIn_IITA1yr_PS <- runSchemesPostBurnIn(simulations = burnIn_IITA_PS,
+                                           newBSP = bsp2,
+                                           nPostBurnInCycles = 12,
+                                           selCritPop = "parentSelCritBLUP",
+                                           selCritPipe = "productSelCritBLUP",
+                                           productFunc = "productPipelinePostBurnIn",
+                                           popImprovFunc = "popImprovByParentSel",
+                                           nSimCores = nRepMap,
+                                           nBLASthreads = ifelse(test = ((NCT %% nrow(burnIn_IITA_PS)) == 0),
+                                                            yes = floor((NCT - 1) / nrow(burnIn_IITA_PS)),
+                                                            no = floor(NCT / nrow(burnIn_IITA_PS))))
+end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ", floor(((end - start)%%60)), "s elapsed - bspP"))
+
+RdsName <- paste("postBurnIn_IITA1yr_PS", i, ".rds", sep = "")
+saveRDS(postBurnIn_IITA1yr_PS,file = here::here("output", RdsName))
+rm(postBurnIn_IITA1yr_PS); rm(RdsName); rm(burnIn_IITA_PS)
+}
+```
+
+```
+ ****** 9 to 16
+
+
+ ****** 17 to 24
+
+
+ ****** 25 to 32
+
+
+ ****** 33 to 40
+
+```
+
+
+joint all the Results in a same rds File
+```{r, eval = FALSE}
+library(tidyverse)
+RhpcBLASctl::blas_set_num_threads(4)
+files <- dir()[grep(pattern = "postBurnIn_IITA1yr_PS*", dir())]
+SimResults <- NULL
+for(i in files){
+  Results <- readRDS(i)
+  SimResults <- rbind(SimResults, Results)  
+  rm(Results)
+}
+
+saveRDS(SimResults, file = "postBurnIn_IITA1yr_PS.rds")
+rm(SimResults)
+```
 
 ####  One Year as Candidates with Genomic Selection
 <br />
@@ -96,6 +198,22 @@ rm(postBurnIn_IITA1yr_GS); rm(RdsName); rm(burnIn_IITA_PS)
   [1] "27mins 0s elapsed - bspP"
 ```
 
+joint all the Results in a same rds File
+```{r, eval = FALSE}
+library(tidyverse)
+RhpcBLASctl::blas_set_num_threads(4)
+files <- dir()[grep(pattern = "postBurnIn_IITA1yr_GS*", dir())]
+SimResults <- NULL
+for(i in files){
+  Results <- readRDS(i)
+  SimResults <- rbind(SimResults, Results)  
+  rm(Results)
+}
+
+saveRDS(SimResults, file = "postBurnIn_IITA1yr_GS.rds")
+rm(SimResults)
+```
+
 ####  Three Years as Candidates with Genomic Selection
 <br />
 
@@ -138,10 +256,10 @@ bsp2 <- specifyBSP(schemeDF = NschemeDF2,
                    selCritPipeAdv = selCritIID,
                    selCritPopImprov =  selCritIID)
 
-nRepMap <- 8
+nRepMap <- 5
 nRepT <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% nrow()
 reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
-NCT <- RhpcBLASctl::get_num_procs()  ## 40 cores
+NCT <- RhpcBLASctl::get_num_procs()  ## 112 cores
 
 
 
@@ -169,18 +287,45 @@ rm(postBurnIn_IITA3yr_GS); rm(RdsName); rm(burnIn_IITA_PS)
 ```
 
 ```
- ****** 9 to 16
+ ****** 1 to 5
+  [1] "331mins 7s elapsed - bspP"
+
+ ****** 6 to 10
+ 
+ 
+ ****** 11 to 15
+ 
+ 
+ ****** 16 to 20
+ 
+ 
+ ****** 21 to 25
+ 
+ 
+ ****** 26 to 30
 
 
- ****** 17 to 24
+ ****** 31 to 35
 
 
- ****** 25 to 32
-
-
- ****** 33 to 40
+ ****** 36 to 40
 
 ```
 
+joint all the Results in a same rds File
+```{r, eval = FALSE}
+library(tidyverse)
+RhpcBLASctl::blas_set_num_threads(4)
+files <- dir()[grep(pattern = "postBurnIn_IITA3yr_GS*", dir())]
+SimResults <- NULL
+for(i in files){
+  Results <- readRDS(i)
+  SimResults <- rbind(SimResults, Results)  
+  rm(Results)
+}
+
+saveRDS(SimResults, file = "postBurnIn_IITA3yr_GS.rds")
+rm(SimResults)
+```
 
 [back](VD_Optimization.html)

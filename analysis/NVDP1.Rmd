@@ -91,6 +91,21 @@ rm(postBurnIn_NVDP_IITA_PS); rm(RdsName); rm(burnIn_IITA_PS)
 [1] "16mins 18s elapsed - bspP"
 ```
 
+joint all the Results in a same rds File
+```{r, eval = FALSE}
+library(tidyverse)
+RhpcBLASctl::blas_set_num_threads(4)
+files <- dir()[grep(pattern = "postBurnIn_NVDP_IITA_PS*", dir())]
+SimResults <- NULL
+for(i in files){
+  Results <- readRDS(i)
+  SimResults <- rbind(SimResults, Results)  
+  rm(Results)
+}
+
+saveRDS(SimResults, file = "postBurnIn_NVDP_IITA_PS.rds")
+rm(SimResults)
+```
 
 ###  With Genomic Selection
 <br />
@@ -179,6 +194,22 @@ rm(postBurnIn_NVDP_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
 
  ****** 33 to 40
 [1] "153mins 56s elapsed - bspP"
+```
+
+joint all the Results in a same rds File
+```{r, eval = FALSE}
+library(tidyverse)
+RhpcBLASctl::blas_set_num_threads(4)
+files <- dir()[grep(pattern = "postBurnIn_NVDP_IITA_GS*", dir())]
+SimResults <- NULL
+for(i in files){
+  Results <- readRDS(i)
+  SimResults <- rbind(SimResults, Results)  
+  rm(Results)
+}
+
+saveRDS(SimResults, file = "postBurnIn_NVDP_IITA_GS.rds")
+rm(SimResults)
 ```
 
 [Back](VD_Optimization.html)

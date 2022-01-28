@@ -7,30 +7,75 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
+
+## Results IITA Breeding Scheme Simulation with and without Genomic Selection
 
 
-
-##### Results IITA Breeding Scheme Simulation with and without Genomic Selection
+### F1
 
 ```{r, eval = F}
-postBurnInGS <- readRDS(here::here("output", "postBurnIn2.rds"))
-postBurnInPS <- readRDS(here::here("output", "postBurnIn1.rds"))
+library(here); library(tidyverse)
 
-forSimPlot <- postBurnInGS %>% 
+postBurnInIITAGS <- readRDS(here::here("output", "postBurnIn_IITA_GS.rds"))
+postBurnInIITAPS <- readRDS(here::here("output", "postBurnIn_IITA_PS.rds"))
+
+forSimPlotIITAF1 <- postBurnInIITAGS %>% 
               mutate(PostBurnIn = "GS") %>% 
-              bind_rows(postBurnInPS %>% 
+              bind_rows(postBurnInIITAPS %>% 
               mutate(PostBurnIn = "PS")) %>% 
               unnest_wider(SimOutput) %>% 
               select(SimRep, PostBurnIn, records) %>% 
               unnest_wider(records) %>% 
               select(SimRep, PostBurnIn, stageOutputs) %>% 
-              unnest() %>% 
-              filter(stage == "F1") %>% 
-              mutate(YearPostBurnIn = year - 10)
+              unnest(cols = stageOutputs) %>% 
+              filter(stage == "F1") %>%
+  mutate(YearPostBurnIn = year - 20)
 
-saveRDS(forSimPlot, here::here("output", "DataSimPlot1.rds"))
+saveRDS(forSimPlotIITAF1, here::here("output", "DataSimPlotIITAF1.rds"))
+rm(postBurnInIITAGS); rm(postBurnInIITAPS); rm(forSimPlotIITAF1)
 ```
+
+### Last Stage
+
+```{r, eval = F}
+forSimPlotIITAF1 <- postBurnInIITAGS %>% 
+              mutate(PostBurnIn = "GS") %>% 
+              bind_rows(postBurnInIITAPS %>% 
+              mutate(PostBurnIn = "PS")) %>% 
+              unnest_wider(SimOutput) %>% 
+              select(SimRep, PostBurnIn, records) %>% 
+              unnest_wider(records) %>% 
+              select(SimRep, PostBurnIn, stageOutputs) %>% 
+              unnest(cols = stageOutputs) %>% 
+              filter(stage == "UYT2") %>%
+  mutate(YearPostBurnIn = year - 20)
+
+saveRDS(forSimPlotIITAF1, here::here("output", "DataSimPlotIITAF1.rds"))
+rm(postBurnInIITAGS); rm(postBurnInIITAPS); rm(forSimPlotIITAF1)
+```
+## Results IITA 1º alternative Breeding Scheme Simulation with and without Genomic Selection
+
+```{r, eval = F}
+library(here); library(tidyverse)
+
+postBurnInIITAGS <- readRDS(here::here("output", "postBurnIn_NVDP_IITA_GS.rds"))
+postBurnInIITAPS <- readRDS(here::here("output", "postBurnIn_NVDP_IITA_PS.rds"))
+
+forSimPlotIITA_NVDP_F1 <- postBurnInIITAGS %>% 
+              mutate(PostBurnIn = "GS") %>% 
+              bind_rows(postBurnInIITAPS %>% 
+              mutate(PostBurnIn = "PS")) %>% 
+              unnest_wider(SimOutput) %>% 
+              select(SimRep, PostBurnIn, records) %>% 
+              unnest_wider(records) %>% 
+              select(SimRep, PostBurnIn, stageOutputs) %>% 
+              unnest(cols = stageOutputs) %>% 
+              filter(stage == "F1") %>%
+  mutate(YearPostBurnIn = year - 20)
+
+saveRDS(forSimPlotIITAF1, here::here("output", "DataSimPlotIITAF1.rds"))
+```
+
 
 ##### Graph with the genetic gain for F1 Stage
 ```{r, eval = FALSE, fig.width=10} 
