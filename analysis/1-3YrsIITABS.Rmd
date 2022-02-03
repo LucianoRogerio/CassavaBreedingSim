@@ -22,7 +22,7 @@ editor_options:
 
 <br />
 
-```{r, eval = FALSE}
+```{r Simulation PS IITA 1Yrs Candidate, eval = FALSE}
 
 library(progress); library(AlphaSimHlpR)
 suppressMessages(library(tidyverse))
@@ -97,7 +97,7 @@ rm(postBurnIn_IITA1yr_PS); rm(RdsName); rm(burnIn_IITA_PS)
 
 
 joint all the Results in a same rds File
-```{r, eval = FALSE}
+```{r Joint Results PS IITA 1Yrs Candidate, eval = FALSE}
 library(tidyverse)
 RhpcBLASctl::blas_set_num_threads(4)
 files <- dir()[grep(pattern = "postBurnIn_IITA1yr_PS*", dir())]
@@ -125,7 +125,7 @@ rm(SimResults)
 
 <br />
 
-```{r, eval = FALSE}
+```{r Simulation GS IITA 1Yrs Candidate, eval = FALSE}
 
 library(progress); library(AlphaSimHlpR)
 suppressMessages(library(tidyverse))
@@ -199,7 +199,7 @@ rm(postBurnIn_IITA1yr_GS); rm(RdsName); rm(burnIn_IITA_PS)
 ```
 
 joint all the Results in a same rds File
-```{r, eval = FALSE}
+```{r  Joint results GS IITA 1Yrs Candidate, eval = FALSE}
 library(tidyverse)
 RhpcBLASctl::blas_set_num_threads(4)
 files <- dir()[grep(pattern = "postBurnIn_IITA1yr_GS*", dir())]
@@ -227,7 +227,7 @@ rm(SimResults)
 
 <br />
 
-```{r, eval = FALSE}
+```{r Simulation GS IITA 3Yrs Candidate, eval = FALSE}
 
 library(progress); library(AlphaSimHlpR)
 suppressMessages(library(tidyverse))
@@ -243,7 +243,7 @@ NschemeDF2 <- read.csv(here::here("data","baselineScheme - IITA.csv"),
                      header = T, stringsAsFactors = F, sep = ";")
 
 bsp2 <- specifyBSP(schemeDF = NschemeDF2,
-                   nTrainPopCycles = 10, nYrsAsCandidates = 3, maxTrainingPopSize = 1000,
+                   nTrainPopCycles = 3, nYrsAsCandidates = 3, maxTrainingPopSize = 1000,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
@@ -297,23 +297,23 @@ rm(postBurnIn_IITA3yr_GS); rm(RdsName); rm(burnIn_IITA_PS)
   [1] "354mins 50s elapsed - bspP"
  
  ****** 16 to 20
- [1] "342mins 35s elapsed - bspP"
+  [1] "342mins 35s elapsed - bspP"
  
  ****** 21 to 25
  
  
  ****** 26 to 30
-
+  [1] "339mins 9s elapsed - bspP"
 
  ****** 31 to 35
-
+  [1] "332mins 33s elapsed - bspP"
 
  ****** 36 to 40
-
+  [1] "332mins 14s elapsed - bspP"
 ```
 
 joint all the Results in a same rds File
-```{r, eval = FALSE}
+```{r Joint results GS IITA 3Yrs Candidate, eval = FALSE}
 library(tidyverse)
 RhpcBLASctl::blas_set_num_threads(4)
 files <- dir()[grep(pattern = "postBurnIn_IITA3yr_GS*", dir())]

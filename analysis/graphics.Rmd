@@ -193,4 +193,44 @@ LSRes <- IITA_UYT2 %>% mutate(BreedScheme = "IITA") %>%
 saveRDS(LSRes, file = here::here("output", "LastStageResultsIITA.rds"))
 ```
 
+
+## Simulations IITA Breeding Scheme - 1-3 Years as candidates
+```{r Joint data of Sim 1-3 years, eval = FALSE}
+
+IITA1Yr <- readRDS(here::here("output", "postBurnIn_IITA1yr_GS.rds"))
+IITA2Yr <- readRDS(here::here("output", "postBurnIn_IITA_GS.rds"))
+IITA3Yr <- readRDS(here::here("output", "postBurnIn_IITA3yr_GS.rds"))
+
+forSimPlotIITA_1_3_F1 <- IITA1Yr %>%
+  mutate(YearAsCand = 1) %>%
+  bind_rows(IITA2Yr %>% 
+              mutate(YearAsCand = 2)) %>%
+  bind_rows(IITA3Yr %>% 
+              mutate(YearAsCand = 3)) %>%
+  unnest_wider(SimOutput) %>%
+  select(SimRep, YearAsCand, records) %>% 
+  unnest_wider(records) %>%
+  select(SimRep, YearAsCand, stageOutputs) %>%
+  unnest(cols = stageOutputs) %>%
+  filter(stage == "F1") %>%
+  mutate(YearPostBurnIn = year - 20)
+
+forSimPlotIITA_1_3_UYT <- IITA1Yr %>%
+  mutate(YearAsCand = 1) %>%
+  bind_rows(IITA2Yr %>% 
+              mutate(PYearAsCand = 2)) %>%
+  bind_rows(IITA3Yr %>% 
+              mutate(PYearAsCand = 3)) %>%
+  unnest_wider(SimOutput) %>%
+  select(SimRep, YearAsCand, records) %>% 
+  unnest_wider(records) %>%
+  select(SimRep, YearAsCand, stageOutputs) %>%
+  unnest(cols = stageOutputs) %>%
+  filter(stage == "UYT2") %>%
+  mutate(YearPostBurnIn = year - 20)
+
+saveRDS(forSimPlotIITA_1_3_F1, file = here::here("output", "DataSimPlotIITA1_3_F1.rds"))
+saveRDS(forSimPlotIITA_1_3_UYT, file = here::here("output", "DataSimPlotIITA1_3_UYT2.rds"))
+```
+
 [Home](VD_Optimization.html)
