@@ -153,6 +153,10 @@ rm(SimResults)
 | popImprovFunc | popImprovByParentSel |
 |               |                      |
 
+###### Parameters Changuing in different scenarios
+
+- nTrainPoCycles -> 4 to 5
+
 <br />
 
 ```{r, eval = F}
@@ -161,7 +165,7 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"),
                      header = T, stringsAsFactors = F, sep = ";")
 
 bsp1 <- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 4, nYrsAsCandidates = 3, maxTrainingPopSize = 1500,
+                   nTrainPopCycles = 5, nYrsAsCandidates = 3, maxTrainingPopSize = 1500,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
@@ -247,7 +251,7 @@ library(tidyverse); library(AlphaSimR)
 library(here)
 schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"), 
                      header = T, stringsAsFactors = F, sep = ";")
-simulations <- readRDS(here::here("output", "SimJan", "postBurnIn_IITA_GS.rds"))
+simulations <- readRDS(here::here("output", "postBurnIn_IITA_GS.rds"))
 
 RelPar <- tibble()
 for(repl in 1:nrow(simulations)){
@@ -275,7 +279,7 @@ for(repl in 1:nrow(simulations)){
   }
 }
 
-write.table(x = RelPar, file = here::here("output", "SimJan", "ParentOrigin2Yrs.csv"),
+write.table(x = RelPar, file = here::here("output", "ParentOrigin.csv"),
             sep = ",", quote = FALSE,
             row.names = FALSE, col.names = TRUE)
 ```

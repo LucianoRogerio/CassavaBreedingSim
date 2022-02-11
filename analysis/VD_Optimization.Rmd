@@ -92,7 +92,16 @@ Scripts at this [link](1-3YrsIITABS.html)
 
 ## Simulation Results
 
-This Results reduced so drastically the GS accuracy, due to the reduction of the genomic prediction
+This Results reduced so drastically the GS accuracy, due to the reduction of the G matrix size.
+The next simulation results were obtained with a G matrix of 4,882 clones.
+While the Results of the simulations increasing the number of years [as candidate](#BreedingScheme1-3) have:
+
+| YrsAsCand | G size |
+| :-------: | :----: |
+| 1         | 3,502  |
+| 2         | 6,002  |
+| 3         | 8,502  |
+|           |        |
 
 
 #### Figure F1
@@ -148,14 +157,18 @@ ggarrange(meanGplot, sdGplot, common.legend = TRUE, legend = "right")
 #### Origin of the parents in each year
 
 ```{r Origin Parents, echo = FALSE, message = FALSE, warning = FALSE}
-PO <- read.table(file = here::here("output", "ParentOrigin.csv"), sep = ",", header = T)
+PO <- read.table(file = here::here("output", "ParentOrigin.csv"), sep = ",", header = T) %>%
+  filter(YearProgeny != 20)
 PO$StageParents <- factor(PO$StageParents, levels = c("CET", "PYT", "AYT"))
 
 
 PO %>% ggplot(aes(x = YearProgeny, fill = StageParents, y = NumberParents)) +
-  geom_bar(position = "fill", stat = "identity") + xlab("Year") + ylab("Percentage (%)")
+  geom_bar(position = "fill", stat = "identity") + xlab("Year") + ylab("Percentage (%)") +
+  scale_x_continuous(breaks = seq(21,31,1))
 
 ```
+
+<div id="BreedingScheme1-3" />
 
 ### Simulations IITA Breeding Scheme - 1-3 Years as Candidate
 
@@ -218,7 +231,8 @@ PO$StageParents <- factor(PO$StageParents, levels = c("CET", "PYT", "AYT"))
 
 
 PO %>% ggplot(aes(x = YearProgeny, fill = StageParents, y = NumberParents)) +
-  geom_bar(position = "fill", stat = "identity") + xlab("Year") + ylab("Percentage (%)")
+  geom_bar(position = "fill", stat = "identity") + xlab("Year") + ylab("Percentage (%)") +
+  scale_x_continuous(breaks = seq(21,31,1))
 
 ```
 
@@ -231,6 +245,7 @@ PO$StageParents <- factor(PO$StageParents, levels = c("CET", "PYT", "AYT"))
 
 
 PO %>% ggplot(aes(x = YearProgeny, fill = StageParents, y = NumberParents)) +
-  geom_bar(position = "fill", stat = "identity") + xlab("Year") + ylab("Percentage (%)")
+  geom_bar(position = "fill", stat = "identity") + xlab("Year") + ylab("Percentage (%)") +
+  scale_x_continuous(breaks = seq(21,31,1))
 
 ```
