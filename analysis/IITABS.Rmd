@@ -62,12 +62,12 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"),
                      header = T, stringsAsFactors = F, sep = ";")
 
 bsp1 <- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 3, nYrsAsCandidates = 2, maxTrainingPopSize = 1000,
+                   nTrainPopCycles = 3, nYrsAsCandidates = 3, maxTrainingPopSize = 1500,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
-                   stageToGenotype = "CET",
+                   stageToGenotype = "AYT",  RmStagePhen = "SDN",
                    nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
@@ -75,16 +75,17 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    selCritPipeAdv = selCritIID,
                    selCritPopImprov =  selCritIID)
 
-source(here::here("code","runBurnInSchemes.R"))
+source(here::here("code","runSchemesPostBurnIn.R"))
 
-nRepMap <- 8
 nRepT <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% nrow()
-reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
 NCT <- RhpcBLASctl::get_num_procs()
+nRepMap <- 8
+reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
+
 
 set.seed(501)
 
-for(i in 1:ceiling(nRepT/nRepMap)) {
+for(i in 1:max(reps)) {
 
 burnIn_IITA_PS <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% .[reps==i,]
 start <- proc.time()[3]
@@ -107,10 +108,29 @@ rm(postBurnIn_IITA_PS); rm(RdsName); rm(burnIn_IITA_PS)
 }
 ```
 
+```
+ ****** 1 to 8
+ [1] "25mins 45s elapsed - bspP"
+
+ ****** 9 to 16
+ [1] "25mins 52s elapsed - bspP"
+
+ ****** 17 to 24
+
+
+ ****** 25 to 32
+ [1] "26mins 18s elapsed - bspP"
+
+ ****** 33 to 40
+ [1] "25mins 54s elapsed - bspP"
+ 
+```
+
+
 joint all the Results in a same rds File
 ```{r, eval = FALSE}
 suppressMessages(library(tidyverse))
-RhpcBLASctl::blas_set_num_threads(4)
+RhpcBLASctl::blas_set_num_threads(80)
 files <- dir()[grep(pattern = "postBurnIn_IITA_PS*", dir())]
 SimResults <- NULL
 for(i in files){
@@ -141,7 +161,7 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"),
                      header = T, stringsAsFactors = F, sep = ";")
 
 bsp1 <- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 10, nYrsAsCandidates = 2, maxTrainingPopSize = 1000,
+                   nTrainPopCycles = 4, nYrsAsCandidates = 3, maxTrainingPopSize = 1500,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
@@ -150,17 +170,16 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 4,
+                   nCyclesToKeepRecords = 12,
                    selCritPipeAdv = selCritIID,
                    selCritPopImprov =  selCritIID)
 
 source(here::here("code","runBurnInSchemes.R"))
 
-nRepMap <- 5
 nRepT <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% nrow()
-reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
 NCT <- RhpcBLASctl::get_num_procs()
-
+nRepMap <- 7
+reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
 
 for(i in 1:ceiling(nRepT/nRepMap)) {
 
@@ -186,30 +205,29 @@ rm(postBurnIn_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
 ```
 
 ```
- ****** 1 to 5
- [1] "283mins 37s elapsed - bspP"
+ ****** 1 to 7
+ [1] "112mins 19s elapsed - bspP"
 
- ****** 6 to 10
- [1] "251mins 47s elapsed - bspP"
+ ****** 8 to 14
+ [1] "102mins 12s elapsed - bspP"
 
- ****** 11 to 15
- [1] "290mins 11s elapsed - bspP"
+ ****** 15 to 21
+ [1] "106mins 50s elapsed - bspP"
 
- ****** 16 to 20
- [1] "300mins 51s elapsed - bspP"
+ ****** 22 to 28
+ [1] "120mins 1s elapsed - bspP"
 
- ****** 21 to 25
- [1] "222mins 38s elapsed - bspP"
- 
- ****** 36 to 40
- [1] "218mins 31s elapsed - bspP"
+ ****** 29 to 35
+ [1] "118mins 11s elapsed - bspP"
 
+ ****** 36 to 40 
+ [1] "91mins 51s elapsed - bspP"
 ```
 
 joint all the Results in a same rds File
 ```{r, eval = FALSE}
 suppressMessages(library(tidyverse))
-RhpcBLASctl::blas_set_num_threads(4)
+RhpcBLASctl::blas_set_num_threads(80)
 files <- dir()[grep(pattern = "postBurnIn_IITA_GS*", dir())]
 SimResults <- NULL
 for(i in files){
@@ -220,6 +238,46 @@ for(i in files){
 
 saveRDS(SimResults, file = "postBurnIn_IITA_GS.rds")
 rm(SimResults)
+```
+
+### Obtain the ratio of Parent selected per stage
+
+```{r Parent Selection origin, eval = FALSE}
+library(tidyverse); library(AlphaSimR)
+library(here)
+schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"), 
+                     header = T, stringsAsFactors = F, sep = ";")
+simulations <- readRDS(here::here("output", "SimJan", "postBurnIn_IITA_GS.rds"))
+
+RelPar <- tibble()
+for(repl in 1:nrow(simulations)){
+  
+  F1s <- tibble(id = simulations$SimOutput[[repl]]$records$F1@id,
+                mother = simulations$SimOutput[[repl]]$records$F1@mother,
+                father = simulations$SimOutput[[repl]]$records$F1@father,
+                Year = simulations$SimOutput[[repl]]$records$F1@fixEff)
+  
+  
+  for(year in 1:length(simulations$SimOutput[[repl]]$records$SDN)){
+    
+    progeny <- tibble(simulations$SimOutput[[repl]]$records$SDN[[year]],
+                      Year = year) %>% filter(isChk != "check")
+    parents <- tibble(id = unique(c(progeny$father,progeny$mother)) %>% .[order(as.numeric(.))])
+    
+    ProgenyInfo <- progeny %>% select(id) %>% left_join(F1s, by = "id") %>% select(c(id,Year))
+    ParentsInfo <- parents %>% left_join(F1s, by = "id") %>% select(c(id, Year))
+    
+    RelParent <- tibble(Replicate = repl, 
+                        YearProgeny = unique(ProgenyInfo$Year),
+                        StageParents = schemeDF$stageNames[unique(ProgenyInfo$Year) - as.numeric(names(table(ParentsInfo$Year)))],
+                        NumberParents = table(ParentsInfo$Year))
+    RelPar <- bind_rows(RelPar, RelParent)
+  }
+}
+
+write.table(x = RelPar, file = here::here("output", "SimJan", "ParentOrigin2Yrs.csv"),
+            sep = ",", quote = FALSE,
+            row.names = FALSE, col.names = TRUE)
 ```
 
 [back](VD_Optimization.html)

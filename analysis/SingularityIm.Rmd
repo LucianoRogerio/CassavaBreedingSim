@@ -49,7 +49,7 @@ mkdr Singularity;
 
 singularity pull rocker2.sif docker://rocker/tidyverse:latest;
 
-cp rocker2.sif /workdir/lbraatz/rocker2.sif
+cp rocker2.sif /workdir/lbraatz/.
 
 cd /workdir/lbraatz
 
@@ -65,7 +65,7 @@ We are going to open R and add the your personal R packages libraries and the li
 
 ```{r, eval = FALSE}
 
-.libPaths(.libPaths(), "/programs/R-4.0.5/library/", "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.0/")
+.libPaths(c("/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.0/", .libPaths(), "/programs/R-4.0.5/library/"))
 
 # Then try to call the asreml package from the Robbin's Server
 library(asreml); library(ASRgenomics)
