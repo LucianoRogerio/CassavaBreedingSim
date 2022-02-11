@@ -104,54 +104,115 @@ While the Results of the simulations increasing the number of years [as candidat
 |           |        |
 
 
-#### Figure F1
-```{r, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
+#### Figures F1
+
+##### Figure 1
+```{r Figure 1 F1 IITA Breeding Scheme, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
 library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA_F1.rds"))
 
+meanGplot1 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+              group_by(PostBurnIn, YearPostBurnIn, year) %>% 
+              summarize(meanGenMean = mean(genValMean),
+              seGenMean = sd(genValMean) / sqrt(n())) %>% 
+              ggplot(., aes(x = YearPostBurnIn)) +
+              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+                              ymax = meanGenMean + seGenMean,
+                              fill = PostBurnIn), alpha = 0.25) + 
+              geom_line(aes(y = meanGenMean, color = PostBurnIn)) + 
+              theme_minimal()
 
-meanGplot <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+            group_by(PostBurnIn, YearPostBurnIn, year) %>% 
+            summarize(meanGenSD = mean(genValSD),
+                      seGenSD = sd(genValSD) / sqrt(n())) %>% 
+            ggplot(., aes(x = YearPostBurnIn)) +
+            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+                            ymax = meanGenSD + seGenSD,
+                            fill = PostBurnIn), alpha = 0.25) + 
+            geom_line(aes(y = meanGenSD, color = PostBurnIn)) + 
+            theme_minimal()
+
+ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "right")
+```
+
+
+##### Figure 2
+```{r Figure 2 F1 IITA Breeding Scheme, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
+forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA_F1.rds"))
+
+meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
               group_by(PostBurnIn, YearPostBurnIn, year) %>% 
               ggplot(., aes(x = YearPostBurnIn, y = genValMean)) +
               geom_smooth(method = "loess", alpha = 0.25,
                           aes(color = PostBurnIn)) + 
               theme_minimal()
 
-sdGplot <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
             group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
             ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
             geom_smooth(method = "loess", alpha = 0.25,
                         aes(color = PostBurnIn)) + 
             theme_minimal()
 
-ggarrange(meanGplot, sdGplot, common.legend = TRUE, legend = "right")
+ggarrange(meanGplot2, sdGplot2, common.legend = TRUE, legend = "right")
 ```
 
 
 ### Last Stages
 
-#### Figure UYT2
-```{r Figure UYT2, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
+#### Figure 1
+```{r Figure 1 UYT2 IITA Breeding Scheme, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
 library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA_UYT2.rds"))
 
-meanGplot <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+meanGplot1 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+              group_by(PostBurnIn, YearPostBurnIn, year) %>% 
+              summarize(meanGenMean = mean(genValMean),
+              seGenMean = sd(genValMean) / sqrt(n())) %>% 
+              ggplot(., aes(x = YearPostBurnIn)) +
+              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+                              ymax = meanGenMean + seGenMean,
+                              fill = PostBurnIn), alpha = 0.25) + 
+              geom_line(aes(y = meanGenMean, color = PostBurnIn)) + 
+              theme_minimal()
+
+sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+            group_by(PostBurnIn, YearPostBurnIn, year) %>% 
+            summarize(meanGenSD = mean(genValSD),
+                      seGenSD = sd(genValSD) / sqrt(n())) %>% 
+            ggplot(., aes(x = YearPostBurnIn)) +
+            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+                            ymax = meanGenSD + seGenSD,
+                            fill = PostBurnIn), alpha = 0.25) + 
+            geom_line(aes(y = meanGenSD, color = PostBurnIn)) + 
+            theme_minimal()
+
+ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "right")
+```
+
+
+##### Figure 2
+```{r Figure 2 UYT2 IITA Breeding Scheme, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
+forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA_UYT2.rds"))
+
+meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
               group_by(PostBurnIn, YearPostBurnIn, year) %>% 
               ggplot(., aes(x = YearPostBurnIn, y = genValMean)) +
               geom_smooth(method = "loess", alpha = 0.25,
                           aes(color = PostBurnIn)) + 
               theme_minimal()
 
-sdGplot <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
             group_by(PostBurnIn, YearPostBurnIn, year, stage) %>% 
             ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
             geom_smooth(method = "loess", alpha = 0.25,
                         aes(color = PostBurnIn)) + 
             theme_minimal()
 
-ggarrange(meanGplot, sdGplot, common.legend = TRUE, legend = "right")
+ggarrange(meanGplot2, sdGplot2, common.legend = TRUE, legend = "right")
 ```
 
 #### Origin of the parents in each year
@@ -172,13 +233,46 @@ PO %>% ggplot(aes(x = YearProgeny, fill = StageParents, y = NumberParents)) +
 
 ### Simulations IITA Breeding Scheme - 1-3 Years as Candidate
 
-#### Figure F1
+#### Figure 1
+
 ```{r, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
 library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_F1.rds"))
 
-meanGplot <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+
+meanGplot1 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+              mutate(YearAsCand = as.factor(YearAsCand)) %>%
+              group_by(YearAsCand, YearPostBurnIn, year) %>% 
+              summarize(meanGenMean = mean(genValMean),
+              seGenMean = sd(genValMean) / sqrt(n())) %>% 
+              ggplot(., aes(x = YearPostBurnIn)) +
+              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+                              ymax = meanGenMean + seGenMean,
+                              fill = YearAsCand), alpha = 0.25) + 
+              geom_line(aes(y = meanGenMean, color = YearAsCand)) + 
+              theme_minimal()
+
+sdGplot1 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+            mutate(YearAsCand = as.factor(YearAsCand)) %>%
+            group_by(YearAsCand, YearPostBurnIn, year) %>% 
+            summarize(meanGenSD = mean(genValSD),
+                      seGenSD = sd(genValSD) / sqrt(n())) %>% 
+            ggplot(., aes(x = YearPostBurnIn)) +
+            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+                            ymax = meanGenSD + seGenSD,
+                            fill = YearAsCand), alpha = 0.25) + 
+            geom_line(aes(y = meanGenSD, color = YearAsCand)) + 
+            theme_minimal()
+
+ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "right")
+```
+
+```{r smooth graph F1, echo = FALSE}
+library(here); suppressMessages(library(tidyverse)); library(ggpubr)
+
+forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_F1.rds"))
+meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
   mutate(YearAsCand = as.factor(YearAsCand)) %>%
   group_by(YearAsCand, YearPostBurnIn, year) %>% 
   ggplot(., aes(x = YearPostBurnIn, y = genValMean)) +
@@ -186,7 +280,7 @@ meanGplot <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
               aes(color = YearAsCand)) + 
   theme_minimal()
 
-sdGplot <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
+sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
   mutate(YearAsCand = as.factor(YearAsCand)) %>%
   group_by(YearAsCand, YearPostBurnIn, year) %>%
   ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
@@ -194,7 +288,7 @@ sdGplot <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
               aes(color = YearAsCand)) + 
   theme_minimal()
 
-ggarrange(meanGplot, sdGplot, common.legend = TRUE, legend = "right")
+ggarrange(meanGplot2, sdGplot2, common.legend = TRUE, legend = "right")
 ```
 
 #### Figure UYT2
