@@ -185,7 +185,7 @@ ggarrange(Accuracyplot2, Neplot2, common.legend = TRUE, legend = "right")
 
 #### Origin of the parents in each year
 
-```{r Origin Parents, eval = FALSE, message = FALSE, warning = FALSE}
+```{r, eval = FALSE, message = FALSE, warning = FALSE}
 IITA_F1s <- readRDS(here::here("output", "ParentOriginGS.rds")) %>%
   select(Replicate, YearProgeny, ParentsDt) %>% unique %>%
   unnest(ParentsDt) %>% filter((!is.na(Year) | !is.na(gv)) & YearProgeny != 20)
@@ -199,7 +199,7 @@ IITA_F1s %>% mutate(YearProgeny = as.factor(YearProgeny)) %>%
 
 ```
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
+```{r Origin Parents, echo = FALSE, warning = FALSE, message = FALSE}
 PO <- read.table(file = here::here("output", "ParentOriginGS.csv"), sep = ",", header = T) %>%
   filter(YearProgeny != 20) %>% filter(!is.na(StageParents))
 PO$StageParents <- factor(PO$StageParents, levels = c("CET", "PYT", "AYT", "UYT1", "UYT2"))
