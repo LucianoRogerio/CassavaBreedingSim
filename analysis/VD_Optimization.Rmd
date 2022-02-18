@@ -162,7 +162,7 @@ ggarrange(meanGplot2, sdGplot2, common.legend = TRUE, legend = "right")
 
 ##### Genomic Prediction Accuracy for the Candidates
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r Accuracies, echo = FALSE, message = FALSE, warning = FALSE}
 
 Accuracyplot2 <- forSimPlot %>% mutate(YearPostBurnIn = Year - 20) %>%
               filter(YearPostBurnIn >= -3) %>%
