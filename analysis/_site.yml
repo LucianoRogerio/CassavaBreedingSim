@@ -9,6 +9,8 @@ navbar:
     href: VD_Optimization.html
   - text: Simulations Scripts
     menu:
+    - text: Singularity Image
+      href: SingularityIm.html
     - text: IITA BurnIn Breeding Scheme
       href: BurnIn_IITA.html
     - text: IITA Breeding Scheme

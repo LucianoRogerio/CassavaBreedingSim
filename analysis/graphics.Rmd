@@ -16,8 +16,8 @@ editor_options:
 ```{r, eval = F}
 library(here); suppressMessages(library(tidyverse))
 
-postBurnInIITAGS <- readRDS(here::here("output", "SimFeb", "postBurnIn_IITA_GS.rds"))
-postBurnInIITAPS <- readRDS(here::here("output", "SimFeb", "postBurnIn_IITA_PS.rds"))
+postBurnInIITAGS <- readRDS(here::here("output", "postBurnIn_IITA_GS.rds"))
+postBurnInIITAPS <- readRDS(here::here("output", "postBurnIn_IITA_PS.rds"))
 
 forSimPlotIITAF1 <- postBurnInIITAGS %>% 
               mutate(PostBurnIn = "GS") %>% 
@@ -39,6 +39,27 @@ saveRDS(forSimPlotIITAF1, here::here("output", "DataSimPlotIITA_F1.rds"))
 rm(forSimPlotIITAF1)
 ```
 
+### Parents
+
+```{r, eval = FALSE}
+
+forSimPlotIITAPar <- postBurnInIITAGS %>% 
+              mutate(PostBurnIn = "GS") %>% 
+              bind_rows(postBurnInIITAPS %>% 
+              mutate(PostBurnIn = "PS")) %>% 
+              unnest_longer(SimOutput) %>%
+              filter(SimOutput_id == "records") %>%
+              mutate(records = SimOutput) %>%
+              select(SimRep, PostBurnIn, records) %>% 
+              unnest_longer(records) %>%
+              filter(records_id == "GS") %>%
+              select(SimRep, PostBurnIn, records) %>% 
+              unnest(cols = records) %>% 
+  mutate(YearPostBurnIn = year - 20)
+
+saveRDS(forSimPlotIITAPar, here::here("output", "DataSimPlotIITA_Par.rds"))
+rm(forSimPlotIITAPar)
+```
 ### Last Stage
 
 ```{r, eval = F}

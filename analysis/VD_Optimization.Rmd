@@ -103,8 +103,116 @@ While the Results of the simulations increasing the number of years [as candidat
 | 3         | 8,502  |
 |           |        |
 
+#### Parents Figure
 
-#### Figures F1
+##### Figure 1
+```{r Figure 1 Parents IITA Breeding Scheme, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
+library(here); suppressMessages(library(tidyverse)); library(ggpubr)
+
+forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA_Par.rds"))
+
+meanGplot1 <- forSimPlot %>% mutate(YearPostBurnIn = Year - 20) %>%
+              filter(YearPostBurnIn >= -3) %>%
+              group_by(PostBurnIn, YearPostBurnIn, Year) %>% 
+              summarize(meanGenMean = mean(genoValMean),
+              seGenMean = sd(genoValMean) / sqrt(n())) %>% 
+              ggplot(., aes(x = YearPostBurnIn)) +
+              geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
+                              ymax = meanGenMean + seGenMean,
+                              fill = PostBurnIn), alpha = 0.25) + 
+              geom_line(aes(y = meanGenMean, color = PostBurnIn)) + 
+              theme_minimal()
+
+sdGplot1 <- forSimPlot %>% mutate(YearPostBurnIn = Year - 20) %>%
+            filter(YearPostBurnIn >= -3) %>%
+            group_by(PostBurnIn, YearPostBurnIn, Year) %>% 
+            summarize(meanGenSD = mean(genValSD),
+                      seGenSD = sd(genValSD) / sqrt(n())) %>% 
+            ggplot(., aes(x = YearPostBurnIn)) +
+            geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
+                            ymax = meanGenSD + seGenSD,
+                            fill = PostBurnIn), alpha = 0.25) + 
+            geom_line(aes(y = meanGenSD, color = PostBurnIn)) + 
+            theme_minimal()
+
+ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "right")
+```
+
+
+##### Figure 2
+```{r Figure 2 Parents IITA Breeding Scheme, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
+meanGplot2 <- forSimPlot %>% mutate(YearPostBurnIn = Year - 20) %>%
+              filter(YearPostBurnIn >= -3) %>%
+              group_by(PostBurnIn, YearPostBurnIn, Year) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = genoValMean)) +
+              geom_smooth(method = "loess", alpha = 0.25,
+                          aes(color = PostBurnIn)) + 
+              theme_minimal()
+
+sdGplot2 <- forSimPlot %>% mutate(YearPostBurnIn = Year - 20) %>%
+            filter(YearPostBurnIn >= -3) %>%
+            group_by(PostBurnIn, YearPostBurnIn, Year) %>% 
+            ggplot(., aes(x = YearPostBurnIn, y = genValSD)) +
+            geom_smooth(method = "loess", alpha = 0.25,
+                        aes(color = PostBurnIn)) + 
+            theme_minimal()
+
+ggarrange(meanGplot2, sdGplot2, common.legend = TRUE, legend = "right")
+```
+
+##### Genomic Prediction Accuracy for the Candidates
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+
+Accuracyplot2 <- forSimPlot %>% mutate(YearPostBurnIn = Year - 20) %>%
+              filter(YearPostBurnIn >= -3) %>%
+              group_by(PostBurnIn, YearPostBurnIn, Year) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = accAtSel)) +
+              geom_smooth(method = "loess", alpha = 0.25,
+                          aes(color = PostBurnIn)) + 
+              theme_minimal()
+
+Neplot2 <- forSimPlot %>% mutate(YearPostBurnIn = Year - 20) %>%
+              filter(YearPostBurnIn >= -3) %>%
+              group_by(PostBurnIn, YearPostBurnIn, Year) %>% 
+              ggplot(., aes(x = YearPostBurnIn, y = NeCan)) +
+              geom_smooth(method = "loess", alpha = 0.25,
+                          aes(color = PostBurnIn)) + 
+              theme_minimal()
+
+ggarrange(Accuracyplot2, Neplot2, common.legend = TRUE, legend = "right")
+```
+
+#### Origin of the parents in each year
+
+```{r Origin Parents, eval = FALSE, message = FALSE, warning = FALSE}
+IITA_F1s <- readRDS(here::here("output", "ParentOriginGS.rds")) %>%
+  select(Replicate, YearProgeny, ParentsDt) %>% unique %>%
+  unnest(ParentsDt) %>% filter((!is.na(Year) | !is.na(gv)) & YearProgeny != 20)
+
+IITA_F1s %>% mutate(YearProgeny = as.factor(YearProgeny)) %>%
+  ggplot( aes(x = YearProgeny, y=gv)) +
+  geom_boxplot() +
+  scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  geom_jitter(aes(color=Stage), size=0.4, alpha=0.9) +
+  theme_ipsum()
+
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+PO <- read.table(file = here::here("output", "ParentOriginGS.csv"), sep = ",", header = T) %>%
+  filter(YearProgeny != 20) %>% filter(!is.na(StageParents))
+PO$StageParents <- factor(PO$StageParents, levels = c("CET", "PYT", "AYT", "UYT1", "UYT2"))
+
+
+PO %>% ggplot(aes(x = YearProgeny, fill = StageParents, y = NumberParents)) +
+  geom_bar(position = "fill", stat = "identity") + xlab("Year") + ylab("Percentage (%)") +
+  scale_x_continuous(breaks = seq(21,31,1))
+
+```
+
+
+#### F1
 
 ##### Figure 1
 ```{r Figure 1 F1 IITA Breeding Scheme, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
@@ -140,7 +248,6 @@ ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "right")
 
 ##### Figure 2
 ```{r Figure 2 F1 IITA Breeding Scheme, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
-forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA_F1.rds"))
 
 meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
               group_by(PostBurnIn, YearPostBurnIn, year) %>% 
@@ -196,7 +303,6 @@ ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "right")
 
 ##### Figure 2
 ```{r Figure 2 UYT2 IITA Breeding Scheme, fig.width=10, echo = FALSE, message = FALSE, warning = FALSE}
-forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA_UYT2.rds"))
 
 meanGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
               group_by(PostBurnIn, YearPostBurnIn, year) %>% 
@@ -215,19 +321,6 @@ sdGplot2 <- forSimPlot %>% filter(YearPostBurnIn >= -3) %>%
 ggarrange(meanGplot2, sdGplot2, common.legend = TRUE, legend = "right")
 ```
 
-#### Origin of the parents in each year
-
-```{r Origin Parents, echo = FALSE, message = FALSE, warning = FALSE}
-PO <- read.table(file = here::here("output", "ParentOrigin.csv"), sep = ",", header = T) %>%
-  filter(YearProgeny != 20)
-PO$StageParents <- factor(PO$StageParents, levels = c("CET", "PYT", "AYT"))
-
-
-PO %>% ggplot(aes(x = YearProgeny, fill = StageParents, y = NumberParents)) +
-  geom_bar(position = "fill", stat = "identity") + xlab("Year") + ylab("Percentage (%)") +
-  scale_x_continuous(breaks = seq(21,31,1))
-
-```
 
 <div id="BreedingScheme1-3" />
 

@@ -65,12 +65,8 @@ runSchemesPostBurnIn<-function(simulations,
       bsp[["populationImprovement"]] <- get(popImprovFunc)
       bsp[["selCritPipeAdv"]] <- get(selCritPipe)
       bsp[["selCritPopImprov"]] <- get(selCritPop)
-      if(!is.null(TrainingPopSel)) bsp[["TrainingPopSel"]] <- get(TrainingPopSel)
+      if(!is.null(bsp$TrainingPopSel)) bsp[["TrainingPopSel"]] <- get(TrainingPopSel)
       if(bsp$parentsFlowering > 100 | bsp$parentsFlowering <= 0) stop("parent flowering ratio should be between 1 to 100")
-
-      #timesP <<- rbind(timesP, c("FinishParSim",
-      #                           proc.time()[3],
-      #                           "NA"))
 
       # Post burn-in cycles
       cat("Post burn-in cycles"); cat("\n")
@@ -80,9 +76,6 @@ runSchemesPostBurnIn<-function(simulations,
         records <- bsp$populationImprovement(records, bsp, SP)
       }
 
-      #timesP <<- rbind(timesP, c("FinishSim",
-      #                           proc.time()[3],
-      #                           "NA"))
       p()
 
       # Finalize the stageOutputs
@@ -99,7 +92,6 @@ runSchemesPostBurnIn<-function(simulations,
     popImprovFunc=popImprovFunc,
     nBLASthreads=nBLASthreads,
     newBSP=newBSP,
-    #timesP=timesP,
     p=p))
   })
   plan(sequential)
