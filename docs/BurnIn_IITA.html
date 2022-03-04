@@ -400,7 +400,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -409,7 +409,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -418,10 +418,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-02-18
+<strong>Last updated:</strong> 2022-03-04
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>CassavaBreedingSim/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -437,12 +437,12 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -509,16 +509,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree268faa519d93265b28aa2396a2777c7512cda9b5targetblank268faa5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/268faa519d93265b28aa2396a2777c7512cda9b5" target="_blank">268faa5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree60e61c33362da0d2a40de52e9f361b1d16d0cef3targetblank60e61c3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/60e61c33362da0d2a40de52e9f361b1d16d0cef3" target="_blank">60e61c3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree268faa519d93265b28aa2396a2777c7512cda9b5targetblank268faa5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree60e61c33362da0d2a40de52e9f361b1d16d0cef3targetblank60e61c3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/268faa519d93265b28aa2396a2777c7512cda9b5" target="_blank">268faa5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/60e61c33362da0d2a40de52e9f361b1d16d0cef3" target="_blank">60e61c3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -531,21 +531,29 @@ Ignored files:
     Ignored:    output/.Rhistory
 
 Untracked files:
-    Untracked:  output/DataSimPlotIITA_Par.rds
-    Untracked:  output/IITA_F1.rds
-    Untracked:  output/ParentOriginGS.csv
-    Untracked:  output/ParentOriginGS.rds
+    Untracked:  analysis/DebugRes.Rmd
+    Untracked:  output/Accuracy.tiff
+    Untracked:  output/DataSimPlotIITA1_3_Acc.rds
+    Untracked:  output/DataSimPlotIITA1_3_Par.rds
+    Untracked:  output/F1 graph 1 to 3.tiff
+    Untracked:  output/ParentInfo.tiff
+    Untracked:  output/Parents graph 1 to 3.tiff
+    Untracked:  output/UYT2 graph 1 to 3.tiff
 
 Unstaged changes:
+    Modified:   analysis/BurnIn_IITA.Rmd
     Modified:   analysis/IITABS.Rmd
     Modified:   analysis/VD_Optimization.Rmd
-    Modified:   analysis/_site.yml
     Modified:   analysis/graphics.Rmd
+    Modified:   code/runBurnInSchemes.R
     Modified:   code/runSchemesPostBurnIn.R
-    Modified:   output/DataSimPlotIITA_F1.rds
-    Modified:   output/DataSimPlotIITA_UYT2.rds
-    Modified:   output/F1ResultsIITA.rds
-    Modified:   output/LastStageResultsIITA.rds
+    Modified:   output/DataSimPlotIITA1_3_F1.rds
+    Modified:   output/DataSimPlotIITA1_3_UYT2.rds
+    Deleted:    output/ParentOrigin.csv
+    Deleted:    output/ParentOrigin2Yrs.csv
+    Deleted:    output/ParentOrigin3Yrs.csv
+    Deleted:    output/ParentOriginGS.csv
+    Deleted:    output/ParentOriginGS.rds
 
 </code></pre>
 <p>
@@ -584,6 +592,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/CassavaBreedingSim/7f2d4afdc82da3a8717052b9a34c01a721409677/docs/BurnIn_IITA.html" target="_blank">7f2d4af</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-02-18
+</td>
+<td>
+Updates Results IITA Simulations
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -628,10 +653,15 @@ Add Burn in Web site, Origin of the parents, new results
 <div id="burnin-simulation-of-cassava-iita-breeding-scheme" class="section level2">
 <h2>BurnIn Simulation of Cassava IITA Breeding Scheme</h2>
 <pre class="r"><code>.libPaths(c(&quot;/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/&quot;, .libPaths(), &quot;/programs/R-4.1.2/library/&quot;))</code></pre>
-<pre class="r"><code>suppressMessages(library(tidyverse))
-suppressMessages(library(genomicMateSelectR))
+<pre class="r"><code>install.packages(&quot;nloptr&quot;, lib = &quot;/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/&quot;)
+install.packages(&quot;sommer&quot;, lib = &quot;/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/&quot;)
+install.packages(&quot;AlphaSimR&quot;, lib = &quot;/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/&quot;)
+withr::with_libpaths(new = &quot;/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/&quot;,
+              install_github(&quot;LucianoRogerio/AlphaSimHlpR&quot;, ref = &quot;MarninPkg&quot;, dependencies = T))
+library(tidyverse)
+library(genomicMateSelectR)
 library(AlphaSimHlpR)
-library(dplyr); library(furrr); library(here)
+library(dplyr); library(furrr); library(progressr); library(here)
 library(RhpcBLASctl)
 
 select &lt;- dplyr::select
@@ -640,21 +670,23 @@ mutate &lt;- dplyr::mutate</code></pre>
                      header = T, stringsAsFactors = F, sep = &quot;;&quot;)
 
 bsp1 &lt;- specifyBSP(schemeDF = schemeDF, 
-                   nTrainPopCycles = 4, nYrsAsCandidates = 3, maxTrainingPopSize = 1500,
+                   nTrainPopCycles = 5, nYrsAsCandidates = 3, maxTrainingPopSize = 5120,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = &quot;AYT&quot;, RmStagePhen = &quot;SDN&quot;,
                    nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
-                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
+                   parentsFlowering = 100,
+                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 4,
+                   TrainPopSel = NULL,
+                   nCyclesToKeepRecords = 5,
                    selCritPipeAdv = selCritIID,
                    selCritPopImprov =  selCritIID)
 
 source(here::here(&quot;code&quot;,&quot;runBurnInSchemes.R&quot;))</code></pre>
-<pre class="r"><code>Nrep &lt;- 5
+<pre class="r"><code>Nrep &lt;- 15
 NCT &lt;- RhpcBLASctl::get_num_procs()  ## 40 cores</code></pre>
 <pre class="r"><code>set.seed(501)
 
@@ -667,13 +699,15 @@ burnIn_1 &lt;- runBurnInSchemes(bsp = bsp1,
                              productFunc=&quot;productPipeline&quot;,
                              popImprovFunc=&quot;popImprovByParentSel&quot;,
                              nReplications=40,nSimCores=Nrep,
-                             nThreadsMacs2 = 10,
+                             nThreadsMacs2 = NULL,
                              nBLASthreads = ifelse(test = ((NCT %% Nrep) == 0),
                                                    yes = floor((NCT - 1) / Nrep),
                                                    no = floor(NCT / Nrep)))
 end &lt;- proc.time()[3]; print(paste0(floor((end - start)/60), &quot;mins &quot;, floor(((end - start)%%60)), &quot;s elapsed - bsp1&quot;))
 saveRDS(burnIn_1,file = here::here(&quot;output&quot;,&quot;BurnIn_IITA.rds&quot;))
 rm(start); rm(end)</code></pre>
+<pre><code> d[1] 
+</code></pre>
 <p><a href="VD_Optimization.html">Back</a></p>
 <br>
 <p>
@@ -683,11 +717,12 @@ rm(start); rm(end)</code></pre>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.1 (2021-08-10)
+<pre><code>R version 4.1.2 (2021-11-01)
 Platform: aarch64-apple-darwin20 (64-bit)
 Running under: macOS Big Sur 11.6.1
 
 Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.0.dylib
 LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
 
 locale:
@@ -699,13 +734,13 @@ attached base packages:
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.8       rstudioapi_0.13  whisker_0.4      knitr_1.37      
  [5] magrittr_2.0.2   workflowr_1.7.0  R6_2.5.1         rlang_1.0.1     
- [9] fastmap_1.1.0    fansi_1.0.2      stringr_1.4.0    tools_4.1.1     
+ [9] fastmap_1.1.0    fansi_1.0.2      stringr_1.4.0    tools_4.1.2     
 [13] xfun_0.29        utf8_1.2.2       cli_3.2.0        git2r_0.29.0    
 [17] jquerylib_0.1.4  htmltools_0.5.2  ellipsis_0.3.2   rprojroot_2.0.2 
-[21] yaml_2.2.2       digest_0.6.29    tibble_3.1.6     lifecycle_1.0.1 
+[21] yaml_2.3.4       digest_0.6.29    tibble_3.1.6     lifecycle_1.0.1 
 [25] crayon_1.5.0     later_1.3.0      sass_0.4.0       vctrs_0.3.8     
-[29] promises_1.2.0.1 fs_1.5.2         glue_1.6.1       evaluate_0.14   
-[33] rmarkdown_2.11   stringi_1.7.6    bslib_0.3.1      compiler_4.1.1  
+[29] promises_1.2.0.1 fs_1.5.2         glue_1.6.1       evaluate_0.15   
+[33] rmarkdown_2.11   stringi_1.7.6    bslib_0.3.1      compiler_4.1.2  
 [37] pillar_1.7.0     jsonlite_1.7.3   httpuv_1.6.5     pkgconfig_2.0.3 </code></pre>
 </div>
 </div>

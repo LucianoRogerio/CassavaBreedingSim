@@ -26,13 +26,15 @@ runBurnInSchemes<-function(bsp,
                            iniFunc="initializeScheme",
                            productFunc="productPipeline",
                            popImprovFunc="popImprov1Cyc",
+                           TrainingPopSel=NULL,
                            nReplications=1,nSimCores=1,
                            nBLASthreads=NULL,nThreadsMacs2=NULL){
 
   require(furrr); plan(multisession, workers = nSimCores)
+  require(progressr)
   options(future.globals.maxSize=+Inf); options(future.rng.onMisuse="ignore")
   with_progress({
-    p <- progressor(steps = length(simulations$SimRep))
+    p <- progressor(steps = nReplications)
 
   simulations<-tibble(SimRep=1:nReplications) %>%
     mutate(burnInSim=future_map(SimRep,function(SimRep,...){
@@ -43,14 +45,12 @@ runBurnInSchemes<-function(bsp,
       bsp[["initializeFunc"]] <- get(iniFunc)
       bsp[["productPipeline"]] <- get(productFunc)
       bsp[["populationImprovement"]] <- get(popImprovFunc)
-      if(!is.null(TrainingPopSel)) bsp[["TrainingPopSel"]] <- get(TrainingPopSel)
+      if(!is.null(TrainingPopSel)) {bsp[["TrainingPopSel"]] <- get(TrainingPopSel)}
       if(bsp$parentsFlowering > 100 | bsp$parentsFlowering <= 0) stop("parent flowering ratio should be between 1 to 100")
-
       initList <- bsp$initializeFunc(bsp,nThreadsForMacs=nThreadsMacs2)
-      SP <- initList$SP
+      SP <<- initList$SP
       bsp <- initList$bsp
       records <- initList$records
-
       ## set the selection criteria for burn-in
       bsp[["selCritPipeAdv"]] <- get(selCritPipe)
       bsp[["selCritPopImprov"]] <- get(selCritPop)
@@ -76,6 +76,7 @@ runBurnInSchemes<-function(bsp,
     popImprovFunc=popImprovFunc,
     nBLASthreads=nBLASthreads,
     nThreadsMacs2=nThreadsMacs2,
+    TrainingPopSel=TrainingPopSel,
     p=p))
   })
   plan(sequential)

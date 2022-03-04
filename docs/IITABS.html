@@ -345,6 +345,9 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="SingularityIm.html">Singularity Image</a>
+    </li>
+    <li>
       <a href="BurnIn_IITA.html">IITA BurnIn Breeding Scheme</a>
     </li>
     <li>
@@ -415,7 +418,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-02-11
+<strong>Last updated:</strong> 2022-03-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -506,16 +509,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreefed39b3b030a3d0ee517371897327254fd9c7f9btargetblankfed39b3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/fed39b3b030a3d0ee517371897327254fd9c7f9b" target="_blank">fed39b3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree60e61c33362da0d2a40de52e9f361b1d16d0cef3targetblank60e61c3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/60e61c33362da0d2a40de52e9f361b1d16d0cef3" target="_blank">60e61c3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreefed39b3b030a3d0ee517371897327254fd9c7f9btargetblankfed39b3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree60e61c33362da0d2a40de52e9f361b1d16d0cef3targetblank60e61c3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/fed39b3b030a3d0ee517371897327254fd9c7f9b" target="_blank">fed39b3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/60e61c33362da0d2a40de52e9f361b1d16d0cef3" target="_blank">60e61c3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -527,10 +530,32 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    output/.Rhistory
 
+Untracked files:
+    Untracked:  analysis/DebugRes.Rmd
+    Untracked:  output/Accuracy.tiff
+    Untracked:  output/DataSimPlotIITA1_3_Acc.rds
+    Untracked:  output/DataSimPlotIITA1_3_Par.rds
+    Untracked:  output/F1 graph 1 to 3.tiff
+    Untracked:  output/ParentInfo.tiff
+    Untracked:  output/Parents graph 1 to 3.tiff
+    Untracked:  output/UYT2 graph 1 to 3.tiff
+
 Unstaged changes:
+    Modified:   analysis/BurnIn_IITA.Rmd
     Modified:   analysis/IITABS.Rmd
     Modified:   analysis/VD_Optimization.Rmd
-    Modified:   output/ParentOrigin.csv
+    Modified:   analysis/graphics.Rmd
+    Modified:   code/runBurnInSchemes.R
+    Modified:   code/runSchemesPostBurnIn.R
+    Modified:   output/DataSimPlotIITA1_3_F1.rds
+    Modified:   output/DataSimPlotIITA1_3_UYT2.rds
+    Modified:   output/F1ResultsIITA.rds
+    Modified:   output/LastStageResultsIITA.rds
+    Deleted:    output/ParentOrigin.csv
+    Deleted:    output/ParentOrigin2Yrs.csv
+    Deleted:    output/ParentOrigin3Yrs.csv
+    Deleted:    output/ParentOriginGS.csv
+    Deleted:    output/ParentOriginGS.rds
 
 </code></pre>
 <p>
@@ -569,6 +594,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/7f2d4afdc82da3a8717052b9a34c01a721409677/analysis/IITABS.Rmd" target="_blank">7f2d4af</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-02-18
+</td>
+<td>
+Updates Results IITA Simulations
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/727209036522a3cc612c39ac31693230cd758c9b/analysis/IITABS.Rmd" target="_blank">7272090</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-02-11
+</td>
+<td>
+Update of results Feb 10
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/CassavaBreedingSim/727209036522a3cc612c39ac31693230cd758c9b/docs/IITABS.html" target="_blank">7272090</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-02-11
+</td>
+<td>
+Update of results Feb 10
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -790,13 +866,13 @@ salloc -n 8 --mem 80G;
 
 cd /workdir/lbraatz
 
-singularity shell -B /programs rocker3.sif
+singularity shell -B /programs rocker2.sif
 
 R</code></pre>
 </div>
 <div id="run-r-inside-a-singularity-container" class="section level4">
 <h4>Run R inside a singularity container</h4>
-<pre class="r"><code>.libPaths(.libPaths(), &quot;/programs/R-4.0.5/library/&quot;, &quot;/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.0/&quot;)
+<pre class="r"><code>.libPaths(c(.libPaths(), &quot;/programs/R-4.1.2/library/&quot;, &quot;/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/&quot;))
 
 
 library(devtools)
@@ -815,14 +891,14 @@ schemeDF &lt;- read.csv(here::here(&quot;data&quot;,&quot;baselineScheme - IITA.
                      header = T, stringsAsFactors = F, sep = &quot;;&quot;)
 
 bsp1 &lt;- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 3, nYrsAsCandidates = 3, maxTrainingPopSize = 1500,
+                   nTrainPopCycles = 8, nYrsAsCandidates = 3, maxTrainingPopSize = 6620,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = &quot;AYT&quot;,  RmStagePhen = &quot;SDN&quot;,
                    nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
-                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
+                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
                    nCyclesToKeepRecords = 4,
                    selCritPipeAdv = selCritIID,
@@ -832,7 +908,7 @@ source(here::here(&quot;code&quot;,&quot;runSchemesPostBurnIn.R&quot;))
 
 nRepT &lt;- readRDS(here::here(&quot;output&quot;, &quot;BurnIn_IITA.rds&quot;)) %&gt;% nrow()
 NCT &lt;- RhpcBLASctl::get_num_procs()
-nRepMap &lt;- 8
+nRepMap &lt;- 5
 reps &lt;- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
 
 
@@ -858,7 +934,14 @@ end &lt;- proc.time()[3]; print(paste0(floor((end - start)/60), &quot;mins &quot
 RdsName &lt;- paste(&quot;postBurnIn_IITA_PS&quot;, i, &quot;.rds&quot;, sep = &quot;&quot;)
 saveRDS(postBurnIn_IITA_PS,file = here::here(&quot;output&quot;, RdsName))
 rm(postBurnIn_IITA_PS); rm(RdsName); rm(burnIn_IITA_PS)
-}</code></pre>
+}
+
+xx &lt;- readRDS(here::here(&quot;output&quot;, &quot;postBurnIn_IITA_PS1.rds&quot;))
+
+xxx &lt;- xx$SimOutput[[1]]$records$PopImprov$grmData[[27]] %&gt;% filter(pop ==&quot;c&quot;)
+
+table(xxx$stage)
+sum(is.na(xxx$gebv))</code></pre>
 <pre><code> ****** 1 to 8
  [1] &quot;25mins 45s elapsed - bspP&quot;
 
@@ -877,7 +960,7 @@ rm(postBurnIn_IITA_PS); rm(RdsName); rm(burnIn_IITA_PS)
 <p>joint all the Results in a same rds File</p>
 <pre class="r"><code>suppressMessages(library(tidyverse))
 RhpcBLASctl::blas_set_num_threads(80)
-files &lt;- dir()[grep(pattern = &quot;postBurnIn_IITA_PS*&quot;, dir())]
+files &lt;- here::here(&quot;output&quot;, dir(&quot;output&quot;)[grep(pattern = &quot;postBurnIn_IITA_PS*&quot;, dir(&quot;output&quot;))])
 SimResults &lt;- NULL
 for(i in files){
   Results &lt;- readRDS(i)
@@ -885,8 +968,8 @@ for(i in files){
   rm(Results)
 }
 
-saveRDS(SimResults, file = &quot;postBurnIn_IITA_PS.rds&quot;)
-rm(SimResults)</code></pre>
+saveRDS(SimResults, file = here::here(&quot;output&quot;, &quot;postBurnIn_IITA_PS.rds&quot;))
+drm(SimResults)</code></pre>
 </div>
 <div id="with-genomic-selection" class="section level4">
 <h4>With Genomic Selection</h4>
@@ -924,31 +1007,50 @@ rm(SimResults)</code></pre>
 <div id="parameters-changuing-in-different-scenarios" class="section level6">
 <h6>Parameters Changuing in different scenarios</h6>
 <ul>
-<li>nTrainPoCycles -&gt; 4 to 5</li>
+<li>3 Yrs as Candidates - cbsu lm35 - screen IITA3Yr</li>
 </ul>
 <p><br /></p>
-<pre class="r"><code>schemeDF &lt;- read.csv(here::here(&quot;data&quot;,&quot;baselineScheme - IITA.csv&quot;), 
+<pre class="r"><code>.libPaths(c(.libPaths(), &quot;/programs/R-4.1.2/library/&quot;, &quot;/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/&quot;))
+
+
+library(devtools)
+library(AlphaSimR)
+library(AlphaSimHlpR)
+
+suppressMessages(library(tidyverse))
+suppressMessages(library(genomicMateSelectR))
+library(dplyr); library(furrr); library(here)
+library(RhpcBLASctl)
+
+select &lt;- dplyr::select
+mutate &lt;- dplyr::mutate
+AlphaSimHlpR::popImprovOutput
+
+schemeDF &lt;- read.csv(here::here(&quot;data&quot;,&quot;baselineScheme - IITA.csv&quot;), 
                      header = T, stringsAsFactors = F, sep = &quot;;&quot;)
 
 bsp1 &lt;- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 5, nYrsAsCandidates = 3, maxTrainingPopSize = 1500,
+                   nTrainPopCycles = 5, nYrsAsCandidates = 3, maxTrainingPopSize = 6620,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = &quot;CET&quot;,
+                   RmStagePhen = &quot;SDN&quot;,
                    nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
-                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
+                   parentsFlowering = 100,
+                   TrainPopSel = &quot;trainPopSelNew&quot;,
+                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 12,
+                   nCyclesToKeepRecords = 5,
                    selCritPipeAdv = selCritIID,
                    selCritPopImprov =  selCritIID)
 
-source(here::here(&quot;code&quot;,&quot;runBurnInSchemes.R&quot;))
+source(here::here(&quot;code&quot;,&quot;runSchemesPostBurnIn.R&quot;))
 
-nRepT &lt;- readRDS(here::here(&quot;output&quot;, &quot;BurnIn_IITA.rds&quot;)) %&gt;% nrow()
+nRepT &lt;- 40#readRDS(here::here(&quot;output&quot;, &quot;BurnIn_IITA.rds&quot;)) %&gt;% nrow()
 NCT &lt;- RhpcBLASctl::get_num_procs()
-nRepMap &lt;- 7
+nRepMap &lt;- 8
 reps &lt;- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
 
 for(i in 1:ceiling(nRepT/nRepMap)) {
@@ -968,31 +1070,27 @@ postBurnIn_IITA_GS &lt;- runSchemesPostBurnIn(simulations = burnIn_IITA_PS,
                                                             no = floor(NCT / nrow(burnIn_IITA_PS))))
 end &lt;- proc.time()[3]; print(paste0(floor((end - start)/60), &quot;mins &quot;, floor(((end - start)%%60)), &quot;s elapsed - bspP&quot;))
 
-RdsName &lt;- paste(&quot;postBurnIn_IITA_GS&quot;, i, &quot;.rds&quot;, sep = &quot;&quot;)
+RdsName &lt;- paste(&quot;postBurnIn_IITA_GS_3Yrs&quot;, i, &quot;.rds&quot;, sep = &quot;&quot;)
 saveRDS(postBurnIn_IITA_GS,file = here::here(&quot;output&quot;, RdsName))
 rm(postBurnIn_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
 }</code></pre>
-<pre><code> ****** 1 to 7
- [1] &quot;112mins 19s elapsed - bspP&quot;
+<pre><code> ****** 1 to 8
+ [1] &quot;195mins 55s elapsed - bspP&quot;
+ 
+ ****** 9 to 16
+  [1] &quot;158mins 32s elapsed - bspP&quot;
 
- ****** 8 to 14
- [1] &quot;102mins 12s elapsed - bspP&quot;
-
- ****** 15 to 21
- [1] &quot;106mins 50s elapsed - bspP&quot;
-
- ****** 22 to 28
- [1] &quot;120mins 1s elapsed - bspP&quot;
-
- ****** 29 to 35
- [1] &quot;118mins 11s elapsed - bspP&quot;
-
- ****** 36 to 40 
- [1] &quot;91mins 51s elapsed - bspP&quot;</code></pre>
+ ****** 17 to 24
+  [1] &quot;185mins 6s elapsed - bspP&quot;
+  
+ ****** 25 to 32
+ 
+ ****** 33 to 40
+</code></pre>
 <p>joint all the Results in a same rds File</p>
 <pre class="r"><code>suppressMessages(library(tidyverse))
-RhpcBLASctl::blas_set_num_threads(80)
-files &lt;- dir()[grep(pattern = &quot;postBurnIn_IITA_GS*&quot;, dir())]
+RhpcBLASctl::blas_set_num_threads(6060)
+files &lt;- dir()[grep(pattern = &quot;postBurnIn_IITA_GS_3Yrs*&quot;, dir())]
 SimResults &lt;- NULL
 for(i in files){
   Results &lt;- readRDS(i)
@@ -1000,7 +1098,7 @@ for(i in files){
   rm(Results)
 }
 
-saveRDS(SimResults, file = &quot;postBurnIn_IITA_GS.rds&quot;)
+saveRDS(SimResults, file = &quot;postBurnIn_IITA_GS_3Yrs.rds&quot;)
 rm(SimResults)</code></pre>
 </div>
 </div>
@@ -1010,37 +1108,315 @@ rm(SimResults)</code></pre>
 library(here)
 schemeDF &lt;- read.csv(here::here(&quot;data&quot;,&quot;baselineScheme - IITA.csv&quot;), 
                      header = T, stringsAsFactors = F, sep = &quot;;&quot;)
-simulations &lt;- readRDS(here::here(&quot;output&quot;, &quot;postBurnIn_IITA_GS.rds&quot;))
+simulations &lt;- readRDS(here::here(&quot;output&quot;, &quot;postBurnIn_IITA_GS_3Yrs.rds&quot;))
 
 RelPar &lt;- tibble()
 for(repl in 1:nrow(simulations)){
   
+  SP &lt;- simulations$SimOutput[[repl]]$SP
   F1s &lt;- tibble(id = simulations$SimOutput[[repl]]$records$F1@id,
                 mother = simulations$SimOutput[[repl]]$records$F1@mother,
                 father = simulations$SimOutput[[repl]]$records$F1@father,
-                Year = simulations$SimOutput[[repl]]$records$F1@fixEff)
+                Year = simulations$SimOutput[[repl]]$records$F1@fixEff,
+                gv = simulations$SimOutput[[repl]]$records$F1@gv,
+                bv = bv(simulations$SimOutput[[repl]]$records$F1))
   
   
   for(year in 1:length(simulations$SimOutput[[repl]]$records$SDN)){
     
     progeny &lt;- tibble(simulations$SimOutput[[repl]]$records$SDN[[year]],
                       Year = year) %&gt;% filter(isChk != &quot;check&quot;)
-    parents &lt;- tibble(id = unique(c(progeny$father,progeny$mother)) %&gt;% .[order(as.numeric(.))])
+    parents &lt;- tibble(id = unique(union(progeny$father,progeny$mother)) %&gt;% .[order(as.numeric(.))])
     
     ProgenyInfo &lt;- progeny %&gt;% select(id) %&gt;% left_join(F1s, by = &quot;id&quot;) %&gt;% select(c(id,Year))
-    ParentsInfo &lt;- parents %&gt;% left_join(F1s, by = &quot;id&quot;) %&gt;% select(c(id, Year))
+    ParentsInfo &lt;- parents %&gt;% left_join(F1s, by = &quot;id&quot;) %&gt;%
+      mutate(Stage = schemeDF$stageNames[unique(ProgenyInfo$Year) - as.numeric(Year)],
+             Year = unique(ProgenyInfo$Year),
+             Rep = repl) %&gt;% select(c(Rep, Year, Stage, id, bv, gv, mother, father))
     
-    RelParent &lt;- tibble(Replicate = repl, 
-                        YearProgeny = unique(ProgenyInfo$Year),
-                        StageParents = schemeDF$stageNames[unique(ProgenyInfo$Year) - as.numeric(names(table(ParentsInfo$Year)))],
-                        NumberParents = table(ParentsInfo$Year))
-    RelPar &lt;- bind_rows(RelPar, RelParent)
+    RelPar &lt;- bind_rows(RelPar, ParentsInfo)
+    rm(progeny); rm(parents); rm(ProgenyInfo); rm(ParentsInfo)
   }
+  rm(SP); rm(F1s)
 }
 
-write.table(x = RelPar, file = here::here(&quot;output&quot;, &quot;ParentOrigin.csv&quot;),
+write.table(x = RelPar, file = here::here(&quot;output&quot;, &quot;ParentOriginGS_3Yrs.csv&quot;),
             sep = &quot;,&quot;, quote = FALSE,
             row.names = FALSE, col.names = TRUE)</code></pre>
+<ul>
+<li>2 Yrs as Candidate - CBSU lm32 - screen IITA2Yr</li>
+</ul>
+<p><br /></p>
+<pre class="r"><code>.libPaths(c(.libPaths(), &quot;/programs/R-4.1.2/library/&quot;, &quot;/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/&quot;))
+
+
+library(devtools)
+library(AlphaSimR)
+library(AlphaSimHlpR)
+
+suppressMessages(library(tidyverse))
+suppressMessages(library(genomicMateSelectR))
+library(dplyr); library(furrr); library(here)
+library(RhpcBLASctl)
+
+select &lt;- dplyr::select
+mutate &lt;- dplyr::mutate
+
+schemeDF &lt;- read.csv(here::here(&quot;data&quot;,&quot;baselineScheme - IITA.csv&quot;), 
+                     header = T, stringsAsFactors = F, sep = &quot;;&quot;)
+
+bsp1 &lt;- specifyBSP(schemeDF = schemeDF,
+                   nTrainPopCycles = 5, nYrsAsCandidates = 2, maxTrainingPopSize = 6700,
+                   nChr = 18, effPopSize = 200, quickHaplo = F,
+                   segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
+                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
+                   meanDD = 0.23, varDD = 0.05, relAA = 0.5,
+                   stageToGenotype = &quot;CET&quot;,
+                   RmStagePhen = &quot;SDN&quot;,
+                   nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   parentsFlowering = 100,
+                   TrainPopSel = &quot;trainPopSelNew&quot;,
+                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
+                   useCurrentPhenoTrain = F,
+                   nCyclesToKeepRecords = 5,
+                   selCritPipeAdv = selCritIID,
+                   selCritPopImprov =  selCritIID)
+
+source(here::here(&quot;code&quot;,&quot;runSchemesPostBurnIn.R&quot;))
+
+nRepT &lt;- 40#readRDS(here::here(&quot;output&quot;, &quot;BurnIn_IITA.rds&quot;)) %&gt;% nrow()
+NCT &lt;- RhpcBLASctl::get_num_procs()
+nRepMap &lt;- 8
+reps &lt;- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
+
+for(i in 1:ceiling(nRepT/nRepMap)) {
+
+burnIn_IITA_PS &lt;- readRDS(here::here(&quot;output&quot;, &quot;BurnIn_IITA.rds&quot;)) %&gt;% .[reps==i,]
+start &lt;- proc.time()[3]
+postBurnIn_IITA_GS &lt;- runSchemesPostBurnIn(simulations = burnIn_IITA_PS,
+                                           newBSP = bsp1,
+                                           nPostBurnInCycles = 12,
+                                           selCritPop = &quot;parentSelCritGEBV&quot;,
+                                           selCritPipe = &quot;productSelCritBLUP&quot;,
+                                           productFunc = &quot;productPipelinePostBurnIn&quot;,
+                                           popImprovFunc = &quot;popImprovByParentSel&quot;,
+                                           nSimCores = nRepMap,
+                                           nBLASthreads = ifelse(test = ((NCT %% nrow(burnIn_IITA_PS)) == 0),
+                                                            yes = floor((NCT - 1) / nrow(burnIn_IITA_PS)),
+                                                            no = floor(NCT / nrow(burnIn_IITA_PS))))
+end &lt;- proc.time()[3]; print(paste0(floor((end - start)/60), &quot;mins &quot;, floor(((end - start)%%60)), &quot;s elapsed - bspP&quot;))
+
+RdsName &lt;- paste(&quot;postBurnIn_IITA_GS_2Yrs&quot;, i, &quot;.rds&quot;, sep = &quot;&quot;)
+saveRDS(postBurnIn_IITA_GS,file = here::here(&quot;output&quot;, RdsName))
+rm(postBurnIn_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
+}</code></pre>
+<pre><code> ****** 1 to 8
+  [1] &quot;182mins 20s elapsed - bspP&quot;
+
+ ****** 9 to 16
+  [1] &quot;179mins 0s elapsed - bspP&quot;
+  
+ ****** 17 to 24
+  [1] &quot;182mins 39s elapsed - bspP&quot;
+  
+ ****** 25 to 32
+
+ ****** 33 to 40
+</code></pre>
+<p>joint all the Results in a same rds File</p>
+<pre class="r"><code>suppressMessages(library(tidyverse))
+RhpcBLASctl::blas_set_num_threads(60)
+files &lt;- dir()[grep(pattern = &quot;postBurnIn_IITA_GS_2Yrs*&quot;, dir())]
+SimResults &lt;- NULL
+for(i in files){
+  Results &lt;- readRDS(i)
+  SimResults &lt;- rbind(SimResults, Results)  
+  rm(Results)
+}
+
+saveRDS(SimResults, file = &quot;postBurnIn_IITA_GS_2Yrs.rds&quot;)
+rm(SimResults)</code></pre>
+</div>
+<div id="obtain-the-ratio-of-parent-selected-per-stage-1" class="section level3">
+<h3>Obtain the ratio of Parent selected per stage</h3>
+<pre class="r"><code>library(tidyverse); library(AlphaSimR)
+library(here)
+schemeDF &lt;- read.csv(here::here(&quot;data&quot;,&quot;baselineScheme - IITA.csv&quot;), 
+                     header = T, stringsAsFactors = F, sep = &quot;;&quot;)
+simulations &lt;- readRDS(here::here(&quot;output&quot;, &quot;postBurnIn_IITA_GS_2Yrs.rds&quot;))
+
+RelPar &lt;- tibble()
+for(repl in 1:nrow(simulations)){
+  
+  SP &lt;- simulations$SimOutput[[repl]]$SP
+  F1s &lt;- tibble(id = simulations$SimOutput[[repl]]$records$F1@id,
+                mother = simulations$SimOutput[[repl]]$records$F1@mother,
+                father = simulations$SimOutput[[repl]]$records$F1@father,
+                Year = simulations$SimOutput[[repl]]$records$F1@fixEff,
+                gv = simulations$SimOutput[[repl]]$records$F1@gv,
+                bv = bv(simulations$SimOutput[[repl]]$records$F1))
+  
+  
+  for(year in 1:length(simulations$SimOutput[[repl]]$records$SDN)){
+    
+    progeny &lt;- tibble(simulations$SimOutput[[repl]]$records$SDN[[year]],
+                      Year = year) %&gt;% filter(isChk != &quot;check&quot;)
+    parents &lt;- tibble(id = unique(union(progeny$father,progeny$mother)) %&gt;% .[order(as.numeric(.))])
+    
+    ProgenyInfo &lt;- progeny %&gt;% select(id) %&gt;% left_join(F1s, by = &quot;id&quot;) %&gt;% select(c(id,Year))
+    ParentsInfo &lt;- parents %&gt;% left_join(F1s, by = &quot;id&quot;) %&gt;%
+      mutate(Stage = schemeDF$stageNames[unique(ProgenyInfo$Year) - as.numeric(Year)],
+             Year = unique(ProgenyInfo$Year),
+             Rep = repl) %&gt;% select(c(Rep, Year, Stage, id, bv, gv, mother, father))
+    
+    RelPar &lt;- bind_rows(RelPar, ParentsInfo)
+    rm(progeny); rm(parents); rm(ProgenyInfo); rm(ParentsInfo)
+  }
+  rm(SP); rm(F1s)
+}
+
+write.table(x = RelPar, file = here::here(&quot;output&quot;, &quot;ParentOriginGS_2Yrs.csv&quot;),
+            sep = &quot;,&quot;, quote = FALSE,
+            row.names = FALSE, col.names = TRUE)</code></pre>
+<ul>
+<li>1 Yrs as Candidate - CBSU lm31 - screen IITA1Yr</li>
+</ul>
+<p><br /></p>
+<pre class="r"><code>.libPaths(c(.libPaths(), &quot;/programs/R-4.1.2/library/&quot;, &quot;/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/&quot;))
+
+
+library(devtools)
+library(AlphaSimR)
+library(AlphaSimHlpR)
+
+suppressMessages(library(tidyverse))
+suppressMessages(library(genomicMateSelectR))
+library(dplyr); library(furrr); library(here)
+library(RhpcBLASctl)
+
+select &lt;- dplyr::select
+mutate &lt;- dplyr::mutate
+
+schemeDF &lt;- read.csv(here::here(&quot;data&quot;,&quot;baselineScheme - IITA.csv&quot;), 
+                     header = T, stringsAsFactors = F, sep = &quot;;&quot;)
+
+bsp1 &lt;- specifyBSP(schemeDF = schemeDF,
+                   nTrainPopCycles = 5, nYrsAsCandidates = 1, maxTrainingPopSize = 7500,
+                   nChr = 18, effPopSize = 200, quickHaplo = F,
+                   segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
+                   gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
+                   meanDD = 0.23, varDD = 0.05, relAA = 0.5,
+                   stageToGenotype = &quot;CET&quot;,
+                   RmStagePhen = &quot;SDN&quot;,
+                   nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   parentsFlowering = 100,
+                   TrainPopSel = &quot;trainPopSelNew&quot;,
+                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
+                   useCurrentPhenoTrain = F,
+                   nCyclesToKeepRecords = 5,
+                   selCritPipeAdv = selCritIID,
+                   selCritPopImprov =  selCritIID)
+
+source(here::here(&quot;code&quot;,&quot;runSchemesPostBurnIn.R&quot;))
+
+nRepT &lt;- 40#readRDS(here::here(&quot;output&quot;, &quot;BurnIn_IITA.rds&quot;)) %&gt;% nrow()
+NCT &lt;- RhpcBLASctl::get_num_procs()
+nRepMap &lt;- 8
+reps &lt;- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
+
+for(i in 1:ceiling(nRepT/nRepMap)) {
+
+burnIn_IITA_PS &lt;- readRDS(here::here(&quot;output&quot;, &quot;BurnIn_IITA.rds&quot;)) %&gt;% .[reps==i,]
+start &lt;- proc.time()[3]
+postBurnIn_IITA_GS &lt;- runSchemesPostBurnIn(simulations = burnIn_IITA_PS,
+                                           newBSP = bsp1,
+                                           nPostBurnInCycles = 12,
+                                           selCritPop = &quot;parentSelCritGEBV&quot;,
+                                           selCritPipe = &quot;productSelCritBLUP&quot;,
+                                           productFunc = &quot;productPipelinePostBurnIn&quot;,
+                                           popImprovFunc = &quot;popImprovByParentSel&quot;,
+                                           nSimCores = nRepMap,
+                                           nBLASthreads = ifelse(test = ((NCT %% nrow(burnIn_IITA_PS)) == 0),
+                                                            yes = floor((NCT - 1) / nrow(burnIn_IITA_PS)),
+                                                            no = floor(NCT / nrow(burnIn_IITA_PS))))
+end &lt;- proc.time()[3]; print(paste0(floor((end - start)/60), &quot;mins &quot;, floor(((end - start)%%60)), &quot;s elapsed - bspP&quot;))
+
+RdsName &lt;- paste(&quot;postBurnIn_IITA_GS_1Yrs&quot;, i, &quot;.rds&quot;, sep = &quot;&quot;)
+saveRDS(postBurnIn_IITA_GS,file = here::here(&quot;output&quot;, RdsName))
+rm(postBurnIn_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
+}</code></pre>
+<pre><code> ****** 1 to 8
+  [1] &quot;148mins 17s elapsed - bspP&quot;
+
+ ****** 9 to 16
+  [1] &quot;164mins 36s elapsed - bspP&quot;
+ 
+ ****** 17 to 24
+  [1] &quot;182mins 20s elapsed - bspP&quot;
+  
+ ****** 25 to 32
+ 
+ ****** 33 to 40</code></pre>
+<p>joint all the Results in a same rds File</p>
+<pre class="r"><code>suppressMessages(library(tidyverse))
+RhpcBLASctl::blas_set_num_threads(80)
+files &lt;- dir()[grep(pattern = &quot;postBurnIn_IITA_GS_1Yrs*&quot;, dir())]
+SimResults &lt;- NULL
+for(i in files){
+  Results &lt;- readRDS(i)
+  SimResults &lt;- rbind(SimResults, Results)  
+  rm(Results)
+}
+
+saveRDS(SimResults, file = &quot;postBurnIn_IITA_GS_1Yr.rds&quot;)
+rm(SimResults)</code></pre>
+</div>
+<div id="obtain-the-ratio-of-parent-selected-per-stage-2" class="section level3">
+<h3>Obtain the ratio of Parent selected per stage</h3>
+<pre class="r"><code>library(tidyverse); library(AlphaSimR)
+library(here)
+schemeDF &lt;- read.csv(here::here(&quot;baselineScheme - IITA.csv&quot;), 
+                     header = T, stringsAsFactors = F, sep = &quot;;&quot;)
+simulations &lt;- readRDS(here::here(&quot;postBurnIn_IITA_GS_1Yr.rds&quot;))
+
+RelPar &lt;- tibble()
+for(repl in 1:nrow(simulations)){
+  
+  SP &lt;- simulations$SimOutput[[repl]]$SP
+  F1s &lt;- tibble(id = simulations$SimOutput[[repl]]$records$F1@id,
+                mother = simulations$SimOutput[[repl]]$records$F1@mother,
+                father = simulations$SimOutput[[repl]]$records$F1@father,
+                year = simulations$SimOutput[[repl]]$records$F1@fixEff,
+                gv = simulations$SimOutput[[repl]]$records$F1@gv,
+                bv = bv(simulations$SimOutput[[repl]]$records$F1))
+  
+  
+  for(Year in 1:5){
+    
+    progeny &lt;- tibble(simulations$SimOutput[[repl]]$records$SDN[[Year]]) %&gt;% filter(isChk != &quot;check&quot;)
+    parents &lt;- tibble(id = unique(union(progeny$father,progeny$mother)) %&gt;% .[order(as.numeric(.))])
+    
+    ProgenyInfo &lt;- progeny %&gt;% select(id) %&gt;% left_join(F1s, by = &quot;id&quot;) %&gt;% select(c(id,year))
+    ParentsInfo &lt;- parents %&gt;% left_join(F1s, by = &quot;id&quot;) %&gt;%
+      mutate(Stage = schemeDF$stageNames[unique(ProgenyInfo$year) - (as.numeric(year))],
+             Year = unique(ProgenyInfo$year),
+             Rep = repl) %&gt;% select(c(Rep, Year, Stage, id, bv, gv, mother, father))
+    
+    RelPar &lt;- bind_rows(RelPar, ParentsInfo)
+    rm(progeny); rm(parents); rm(ProgenyInfo); rm(ParentsInfo)
+  }
+  rm(SP); rm(F1s)
+}
+
+write.table(x = RelPar, file = here::here(&quot;output&quot;, &quot;ParentOriginGS_1Yr.csv&quot;),
+            sep = &quot;,&quot;, quote = FALSE,
+            row.names = FALSE, col.names = TRUE)
+for(repl in 1:nrow(simulations)){
+  for(YEAR in length(simulations$SimOutput[[repl]]$records$PopImprov$grmData)){
+RelPar &lt;- rbind(RelPar,
+                simulations$SimOutput[[repl]]$records$PopImprov$grmData[[YEAR]][simulations$SimOutput[[repl]]$records$PopImprov$grmData[[YEAR]]$pop == &quot;c&quot;,])
+}
+}</code></pre>
 <p><a href="VD_Optimization.html">back</a></p>
 <br>
 <p>
@@ -1050,11 +1426,12 @@ write.table(x = RelPar, file = here::here(&quot;output&quot;, &quot;ParentOrigin
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.1 (2021-08-10)
+<pre><code>R version 4.1.2 (2021-11-01)
 Platform: aarch64-apple-darwin20 (64-bit)
 Running under: macOS Big Sur 11.6.1
 
 Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.0.dylib
 LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
 
 locale:
@@ -1066,13 +1443,13 @@ attached base packages:
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.8       rstudioapi_0.13  whisker_0.4      knitr_1.37      
  [5] magrittr_2.0.2   workflowr_1.7.0  R6_2.5.1         rlang_1.0.1     
- [9] fastmap_1.1.0    fansi_1.0.2      stringr_1.4.0    tools_4.1.1     
-[13] xfun_0.29        utf8_1.2.2       cli_3.1.1        git2r_0.29.0    
+ [9] fastmap_1.1.0    fansi_1.0.2      stringr_1.4.0    tools_4.1.2     
+[13] xfun_0.29        utf8_1.2.2       cli_3.2.0        git2r_0.29.0    
 [17] jquerylib_0.1.4  htmltools_0.5.2  ellipsis_0.3.2   rprojroot_2.0.2 
-[21] yaml_2.2.2       digest_0.6.29    tibble_3.1.6     lifecycle_1.0.1 
-[25] crayon_1.4.2     later_1.3.0      sass_0.4.0       vctrs_0.3.8     
-[29] promises_1.2.0.1 fs_1.5.2         glue_1.6.1       evaluate_0.14   
-[33] rmarkdown_2.11   stringi_1.7.6    bslib_0.3.1      compiler_4.1.1  
+[21] yaml_2.3.4       digest_0.6.29    tibble_3.1.6     lifecycle_1.0.1 
+[25] crayon_1.5.0     later_1.3.0      sass_0.4.0       vctrs_0.3.8     
+[29] promises_1.2.0.1 fs_1.5.2         glue_1.6.1       evaluate_0.15   
+[33] rmarkdown_2.11   stringi_1.7.6    bslib_0.3.1      compiler_4.1.2  
 [37] pillar_1.7.0     jsonlite_1.7.3   httpuv_1.6.5     pkgconfig_2.0.3 </code></pre>
 </div>
 </div>

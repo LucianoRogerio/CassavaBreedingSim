@@ -15,10 +15,15 @@ editor_options:
 ```
 
 ```{r Require packages, eval = FALSE}
-suppressMessages(library(tidyverse))
-suppressMessages(library(genomicMateSelectR))
+install.packages("nloptr", lib = "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/")
+install.packages("sommer", lib = "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/")
+install.packages("AlphaSimR", lib = "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/")
+withr::with_libpaths(new = "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/",
+              install_github("LucianoRogerio/AlphaSimHlpR", ref = "MarninPkg", dependencies = T))
+library(tidyverse)
+library(genomicMateSelectR)
 library(AlphaSimHlpR)
-library(dplyr); library(furrr); library(here)
+library(dplyr); library(furrr); library(progressr); library(here)
 library(RhpcBLASctl)
 
 select <- dplyr::select
@@ -31,16 +36,18 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"),
                      header = T, stringsAsFactors = F, sep = ";")
 
 bsp1 <- specifyBSP(schemeDF = schemeDF, 
-                   nTrainPopCycles = 4, nYrsAsCandidates = 3, maxTrainingPopSize = 1500,
+                   nTrainPopCycles = 5, nYrsAsCandidates = 3, maxTrainingPopSize = 5120,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "AYT", RmStagePhen = "SDN",
                    nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
-                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
+                   parentsFlowering = 100,
+                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
-                   nCyclesToKeepRecords = 4,
+                   TrainPopSel = NULL,
+                   nCyclesToKeepRecords = 5,
                    selCritPipeAdv = selCritIID,
                    selCritPopImprov =  selCritIID)
 
@@ -49,9 +56,8 @@ source(here::here("code","runBurnInSchemes.R"))
 
 
 ```{r , eval = FALSE}
-Nrep <- 5
+Nrep <- 15
 NCT <- RhpcBLASctl::get_num_procs()  ## 40 cores
-
 ```
 
 ```{r Burn in Simulation, eval = FALSE}
@@ -66,13 +72,19 @@ burnIn_1 <- runBurnInSchemes(bsp = bsp1,
                              productFunc="productPipeline",
                              popImprovFunc="popImprovByParentSel",
                              nReplications=40,nSimCores=Nrep,
-                             nThreadsMacs2 = 10,
+                             nThreadsMacs2 = NULL,
                              nBLASthreads = ifelse(test = ((NCT %% Nrep) == 0),
                                                    yes = floor((NCT - 1) / Nrep),
                                                    no = floor(NCT / Nrep)))
 end <- proc.time()[3]; print(paste0(floor((end - start)/60), "mins ", floor(((end - start)%%60)), "s elapsed - bsp1"))
 saveRDS(burnIn_1,file = here::here("output","BurnIn_IITA.rds"))
 rm(start); rm(end)
+
+```
+
+```
+ d[1] 
+
 ```
 
 [Back](VD_Optimization.html)

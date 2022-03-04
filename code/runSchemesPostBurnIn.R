@@ -28,7 +28,6 @@ runSchemesPostBurnIn<-function(simulations,
                                selCritPipe="productSelCritBLUP",
                                productFunc="productPipelinePostBurnIn",
                                popImprovFunc="popImprovByParentSel",
-                               TrainingPopSel=NULL,
                                nSimCores=1,
                                nBLASthreads=NULL){
 
@@ -65,7 +64,7 @@ runSchemesPostBurnIn<-function(simulations,
       bsp[["populationImprovement"]] <- get(popImprovFunc)
       bsp[["selCritPipeAdv"]] <- get(selCritPipe)
       bsp[["selCritPopImprov"]] <- get(selCritPop)
-      if(!is.null(bsp$TrainingPopSel)) bsp[["TrainingPopSel"]] <- get(TrainingPopSel)
+      if(!is.null(bsp$TrainPopSel)) {bsp[["TrainingPopSel"]] <- get(bsp$TrainPopSel)}
       if(bsp$parentsFlowering > 100 | bsp$parentsFlowering <= 0) stop("parent flowering ratio should be between 1 to 100")
 
       # Post burn-in cycles

@@ -1,0 +1,82 @@
+---
+title: "DebugRes"
+author: "LucianoRogerio"
+date: "2022-03-02"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Understand why the candidates after eight years are getting no gebvs
+
+I try to run the sommer genomic prediction again for the last year to see what is the answer of sommer for this issue.
+```{r, eval = FALSE}
+getwd()
+#[1] "/home/lbraatz/Desktop/NextGenSimulations/MarninPkg"
+xx <- readRDS(here::here("output", "postBurnIn_IITA_GS_1Yrs1.rds"))
+
+### Take the last objects to run the genomic prediction again
+records <- xx$SimOutput[[1]]$records
+bsp <- xx$SimOutput[[1]]$bsp
+SP <- xx$SimOutput[[1]]$SP
+```
+
+Then I start to run the popImprovByParentSel function to obtain the exact same data for the genomic prediction
+```{r, eval = FALSE}
+# stage to Genotype CET
+candidates <- records[[bsp$stageToGenotype]] %>%
+      # select the "id" clones from the stage that the clones are genotyped
+      tail(., n = 1) %>% map_df(., rbind) %$% unique(id) %>%
+      # exclude checks
+      setdiff(., bsp$checks@id) %>% .[order(as.integer(.))]
+
+# selection of the phenotypic data and all the clones phenotyped
+trainRec <- records
+trainRec[[bsp$RmStagePhen]] <- NULL
+  if (!bsp$useCurrentPhenoTrain) {
+    for (stage in bsp$stageNames[!bsp$stageNames %in% bsp$RmStagePhen]){
+      trainRec[[stage]] <- trainRec[[stage]][-length(trainRec[[stage]])]
+    }
+  }
+
+
+# obtaing the clones names phenotyped
+# max of nTrainPopCycles 8 years
+phenotypedLines <- trainRec[bsp$stageNames[!bsp$stageNames %in% bsp$RmStagePhen]] %>%
+    map(., ~tail(., n = bsp$nTrainPopCycles)) %>%
+    bind_rows %>% suppressWarnings %$%
+    unique(id) %>% .[order(as.integer(.))]
+
+
+phenotypedLines_notSelCands <- setdiff(phenotypedLines, c(candidates, bsp$checks@id))
+length(phenotypedLines_notSelCands)
+## maxTPsize is lesser of specified 'maxTrainingPopSize' and actual number of phenotyped lines not considered selection candidates
+maxTPsize <- min(bsp$maxTrainingPopSize, length(phenotypedLines_notSelCands))
+
+if(!is.null(bsp$TrainingPopSel)){
+    trainingpop<-bsp$TrainingPopSel(phenotypedLines_notSelCands, maxTPsize)
+  } else {
+    trainingpop <- sample(phenotypedLines_notSelCands,
+                        size = maxTPsize, replace = F) %>%
+      .[order(as.integer(.))]
+  }
+
+if(!is.null(bsp$checks)){
+    trainingpop <- c(trainingpop,bsp$checks@id) %>%
+      # vanity: order the ids
+      .[order(as.integer(.))]
+}
+
+#Then we came for the selCritPopImprov function parentSelCritGEBV
+#crit <- bsp$selCritPopImprov(trainRec, candidates, trainingpop, bsp, SP)
+#parentSelCritGEBV <- function(records, candidates, trainingpop, bsp, SP)
+indivs2keep<-union(candidates,trainingpop)
+
+grm <- make_grm(records, indivs2keep, bsp, SP, grmType="add")
+phenoDF <- framePhenoRec(records, bsp)
+phenoDF <- phenoDF[(phenoDF$id %in% rownames(grm) & !phenoDF$stage %in% bsp$RmStagePhen),]
+
+#Then we came for the genomic prediction
+#crit <- grmPhenoEval(phenoDF, grm)
+
+```
