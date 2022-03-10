@@ -41,6 +41,7 @@ runSchemesPostBurnIn<-function(simulations,
     dplyr::mutate(SimOutput=future_map2(SimRep,burnInSim,function(SimRep,burnInSim,...){
       # debug
       # burnInSim<-simulations$burnInSim[[1]]
+      # SimRep <- 1
       if(!is.null(nBLASthreads)) { RhpcBLASctl::blas_set_num_threads(nBLASthreads) }
       cat("\n", "\n", "******", SimRep, "\n")
 

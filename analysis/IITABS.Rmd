@@ -24,7 +24,7 @@ editor_options:
 
 #### Open R inside a singularity container
 
-```{bash, eval = F}
+```{bash Open singularity, eval = F}
 screen -R LucianoSim;
 
 # as I runned on Robbins Server I got to ask access to slurm
@@ -33,7 +33,7 @@ salloc -n 8 --mem 80G;
 
 cd /workdir/lbraatz
 
-singularity shell -B /programs rocker2.sif
+singularity shell rocker2.sif
 
 R
 ```
@@ -41,7 +41,7 @@ R
 
 #### Run R inside a singularity container
 
-```{r, eval = F}
+```{r PostBurnIn IITA PS, eval = F}
 
 .libPaths(c(.libPaths(), "/programs/R-4.1.2/library/", "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/"))
 
@@ -77,9 +77,9 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
 
 source(here::here("code","runSchemesPostBurnIn.R"))
 
-nRepT <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% nrow()
+nRepT <- 40#readRDS(here::here("output", "BurnIn_IITA.rds")) %>% nrow()
 NCT <- RhpcBLASctl::get_num_procs()
-nRepMap <- 5
+nRepMap <- 8
 reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
 
 
@@ -117,25 +117,25 @@ sum(is.na(xxx$gebv))
 
 ```
  ****** 1 to 8
- [1] "25mins 45s elapsed - bspP"
+ [1] "23mins 22s elapsed - bspP"
 
  ****** 9 to 16
- [1] "25mins 52s elapsed - bspP"
+ [1] "22mins 59s elapsed - bspP"
 
  ****** 17 to 24
-
+ [1] "23mins 39s elapsed - bspP"
 
  ****** 25 to 32
- [1] "26mins 18s elapsed - bspP"
+ [1] "22mins 59s elapsed - bspP"
 
  ****** 33 to 40
- [1] "25mins 54s elapsed - bspP"
+ [1] "23mins 30s elapsed - bspP"
  
 ```
 
 
 joint all the Results in a same rds File
-```{r, eval = FALSE}
+```{r Joint PostBurnIn IITA PS data, eval = FALSE}
 suppressMessages(library(tidyverse))
 RhpcBLASctl::blas_set_num_threads(80)
 files <- here::here("output", dir("output")[grep(pattern = "postBurnIn_IITA_PS*", dir("output"))])
@@ -147,8 +147,32 @@ for(i in files){
 }
 
 saveRDS(SimResults, file = here::here("output", "postBurnIn_IITA_PS.rds"))
-drm(SimResults)
+rm(SimResults)
 ```
+
+### Obtain the ratio of Parent selected per stage
+
+```{r Parent Selection origin PS, eval = FALSE}
+library(tidyverse); library(AlphaSimR)
+library(here)
+schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"), 
+                     header = T, stringsAsFactors = F, sep = ";")
+simulations <- readRDS(here::here("output", "postBurnIn_IITA_PS.rds"))
+
+RelPar <- tibble()
+for(repl in 1:nrow(SimResults)){
+  for(YEAR in length(SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData)){
+RelPar <- rbind(RelPar,
+                SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]][SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]]$pop == "c",])
+}
+}
+
+write.table(x = RelPar, file = here::here("output", "ParentOriginPS.csv"),
+            sep = ",", quote = FALSE,
+            row.names = FALSE, col.names = TRUE)
+```
+
+
 ####  With Genomic Selection
 <br />
 
@@ -162,11 +186,11 @@ drm(SimResults)
 
 ###### Parameters Changuing in different scenarios
 
-- 3 Yrs as Candidates - cbsu lm35 - screen IITA3Yr
+- 3 Yrs as Candidates - cbsu lm32 - screen IITA3Yr
 
 <br />
 
-```{r 3Yrs Cand, eval = F}
+```{r IITA GS 3Yrs Cand, eval = F}
 .libPaths(c(.libPaths(), "/programs/R-4.1.2/library/", "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/"))
 
 
@@ -235,24 +259,25 @@ rm(postBurnIn_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
 
 ```
  ****** 1 to 8
- [1] "195mins 55s elapsed - bspP"
+ [1] "142mins 8s elapsed - bspP"
  
  ****** 9 to 16
-  [1] "158mins 32s elapsed - bspP"
+ [1] "159mins 38s elapsed - bspP"
 
  ****** 17 to 24
-  [1] "185mins 6s elapsed - bspP"
   
  ****** 25 to 32
+ [1] "141mins 51s elapsed - bspP"
  
  ****** 33 to 40
+ [1] "160mins 26s elapsed - bspP"
 
 ```
 
 joint all the Results in a same rds File
-```{r Joint Simulation Results 3Yrs, eval = FALSE}
+```{r Joint Simulation Results IITA GS 3Yrs, eval = FALSE}
 suppressMessages(library(tidyverse))
-RhpcBLASctl::blas_set_num_threads(6060)
+RhpcBLASctl::blas_set_num_threads(60)
 files <- dir()[grep(pattern = "postBurnIn_IITA_GS_3Yrs*", dir())]
 SimResults <- NULL
 for(i in files){
@@ -267,7 +292,7 @@ rm(SimResults)
 
 ### Obtain the ratio of Parent selected per stage
 
-```{r Parent Selection origin 3Yrs, eval = FALSE}
+```{r Parent Selection origin IITA GS 3Yrs, eval = FALSE}
 library(tidyverse); library(AlphaSimR)
 library(here)
 schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"), 
@@ -275,33 +300,11 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"),
 simulations <- readRDS(here::here("output", "postBurnIn_IITA_GS_3Yrs.rds"))
 
 RelPar <- tibble()
-for(repl in 1:nrow(simulations)){
-  
-  SP <- simulations$SimOutput[[repl]]$SP
-  F1s <- tibble(id = simulations$SimOutput[[repl]]$records$F1@id,
-                mother = simulations$SimOutput[[repl]]$records$F1@mother,
-                father = simulations$SimOutput[[repl]]$records$F1@father,
-                Year = simulations$SimOutput[[repl]]$records$F1@fixEff,
-                gv = simulations$SimOutput[[repl]]$records$F1@gv,
-                bv = bv(simulations$SimOutput[[repl]]$records$F1))
-  
-  
-  for(year in 1:length(simulations$SimOutput[[repl]]$records$SDN)){
-    
-    progeny <- tibble(simulations$SimOutput[[repl]]$records$SDN[[year]],
-                      Year = year) %>% filter(isChk != "check")
-    parents <- tibble(id = unique(union(progeny$father,progeny$mother)) %>% .[order(as.numeric(.))])
-    
-    ProgenyInfo <- progeny %>% select(id) %>% left_join(F1s, by = "id") %>% select(c(id,Year))
-    ParentsInfo <- parents %>% left_join(F1s, by = "id") %>%
-      mutate(Stage = schemeDF$stageNames[unique(ProgenyInfo$Year) - as.numeric(Year)],
-             Year = unique(ProgenyInfo$Year),
-             Rep = repl) %>% select(c(Rep, Year, Stage, id, bv, gv, mother, father))
-    
-    RelPar <- bind_rows(RelPar, ParentsInfo)
-    rm(progeny); rm(parents); rm(ProgenyInfo); rm(ParentsInfo)
-  }
-  rm(SP); rm(F1s)
+for(repl in 1:nrow(SimResults)){
+  for(YEAR in length(SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData)){
+RelPar <- rbind(RelPar,
+                SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]][SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]]$pop == "c",])
+}
 }
 
 write.table(x = RelPar, file = here::here("output", "ParentOriginGS_3Yrs.csv"),
@@ -309,11 +312,11 @@ write.table(x = RelPar, file = here::here("output", "ParentOriginGS_3Yrs.csv"),
             row.names = FALSE, col.names = TRUE)
 ```
 
-- 2 Yrs as Candidate - CBSU lm32 - screen IITA2Yr
+- 2 Yrs as Candidate - CBSU lm34 - screen IITA2Yr
 
 <br />
 
-```{r 2Yrs Cand, eval = F}
+```{r IITA GS 2Yrs Cand, eval = F}
 .libPaths(c(.libPaths(), "/programs/R-4.1.2/library/", "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/"))
 
 
@@ -381,22 +384,23 @@ rm(postBurnIn_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
 
 ```
  ****** 1 to 8
-  [1] "182mins 20s elapsed - bspP"
+  [1] "143mins 15s elapsed - bspP"
 
  ****** 9 to 16
-  [1] "179mins 0s elapsed - bspP"
+  [1] "145mins 34s elapsed - bspP"
   
  ****** 17 to 24
-  [1] "182mins 39s elapsed - bspP"
   
  ****** 25 to 32
+ [1] "143mins 20s elapsed - bspP"
 
  ****** 33 to 40
+ [1] "165mins 55s elapsed - bspP"
 
 ```
 
 joint all the Results in a same rds File
-```{r Joint Simulations Results 2Yrs, eval = FALSE}
+```{r Joint Simulations Results IITA GS 2Yrs, eval = FALSE}
 suppressMessages(library(tidyverse))
 RhpcBLASctl::blas_set_num_threads(60)
 files <- dir()[grep(pattern = "postBurnIn_IITA_GS_2Yrs*", dir())]
@@ -413,7 +417,7 @@ rm(SimResults)
 
 ### Obtain the ratio of Parent selected per stage
 
-```{r Parent Selection origin 2Yrs, eval = FALSE}
+```{r Parent Selection origin IITA GS 2Yrs, eval = FALSE}
 library(tidyverse); library(AlphaSimR)
 library(here)
 schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"), 
@@ -421,33 +425,11 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"),
 simulations <- readRDS(here::here("output", "postBurnIn_IITA_GS_2Yrs.rds"))
 
 RelPar <- tibble()
-for(repl in 1:nrow(simulations)){
-  
-  SP <- simulations$SimOutput[[repl]]$SP
-  F1s <- tibble(id = simulations$SimOutput[[repl]]$records$F1@id,
-                mother = simulations$SimOutput[[repl]]$records$F1@mother,
-                father = simulations$SimOutput[[repl]]$records$F1@father,
-                Year = simulations$SimOutput[[repl]]$records$F1@fixEff,
-                gv = simulations$SimOutput[[repl]]$records$F1@gv,
-                bv = bv(simulations$SimOutput[[repl]]$records$F1))
-  
-  
-  for(year in 1:length(simulations$SimOutput[[repl]]$records$SDN)){
-    
-    progeny <- tibble(simulations$SimOutput[[repl]]$records$SDN[[year]],
-                      Year = year) %>% filter(isChk != "check")
-    parents <- tibble(id = unique(union(progeny$father,progeny$mother)) %>% .[order(as.numeric(.))])
-    
-    ProgenyInfo <- progeny %>% select(id) %>% left_join(F1s, by = "id") %>% select(c(id,Year))
-    ParentsInfo <- parents %>% left_join(F1s, by = "id") %>%
-      mutate(Stage = schemeDF$stageNames[unique(ProgenyInfo$Year) - as.numeric(Year)],
-             Year = unique(ProgenyInfo$Year),
-             Rep = repl) %>% select(c(Rep, Year, Stage, id, bv, gv, mother, father))
-    
-    RelPar <- bind_rows(RelPar, ParentsInfo)
-    rm(progeny); rm(parents); rm(ProgenyInfo); rm(ParentsInfo)
-  }
-  rm(SP); rm(F1s)
+for(repl in 1:nrow(SimResults)){
+  for(YEAR in length(SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData)){
+RelPar <- rbind(RelPar,
+                SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]][SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]]$pop == "c",])
+}
 }
 
 write.table(x = RelPar, file = here::here("output", "ParentOriginGS_2Yrs.csv"),
@@ -455,11 +437,11 @@ write.table(x = RelPar, file = here::here("output", "ParentOriginGS_2Yrs.csv"),
             row.names = FALSE, col.names = TRUE)
 ```
 
-- 1 Yrs as Candidate - CBSU lm31 - screen IITA1Yr
+- 1 Yrs as Candidate - CBSU lm35 - screen IITA1Yr
 
 <br />
 
-```{r 1Yr Cand, eval = F}
+```{r IITA GS 1Yr Cand, eval = F}
 .libPaths(c(.libPaths(), "/programs/R-4.1.2/library/", "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/"))
 
 
@@ -531,18 +513,20 @@ rm(postBurnIn_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
   [1] "148mins 17s elapsed - bspP"
 
  ****** 9 to 16
-  [1] "164mins 36s elapsed - bspP"
+  [1] "154mins 45s elapsed - bspP"
  
  ****** 17 to 24
-  [1] "182mins 20s elapsed - bspP"
+  [1] "134mins 54s elapsed - bspP"
   
  ****** 25 to 32
+  [1] "143mins 39s elapsed - bspP"
  
  ****** 33 to 40
+  [1] "139mins 1s elapsed - bspP"
 ```
 
 joint all the Results in a same rds File
-```{r Joint Simulations Results 1Yr, eval = FALSE}
+```{r Joint Simulations Results IITA GS 1Yr, eval = FALSE}
 suppressMessages(library(tidyverse))
 RhpcBLASctl::blas_set_num_threads(80)
 files <- dir()[grep(pattern = "postBurnIn_IITA_GS_1Yrs*", dir())]
@@ -554,56 +538,27 @@ for(i in files){
 }
 
 saveRDS(SimResults, file = "postBurnIn_IITA_GS_1Yr.rds")
-rm(SimResults)
 ```
 
 ### Obtain the ratio of Parent selected per stage
 
-```{r Parent Selection origin 1Yr, eval = FALSE}
+```{r Parent Selection origin IITA GS 1Yr, eval = FALSE}
 library(tidyverse); library(AlphaSimR)
 library(here)
 schemeDF <- read.csv(here::here("baselineScheme - IITA.csv"), 
                      header = T, stringsAsFactors = F, sep = ";")
-simulations <- readRDS(here::here("postBurnIn_IITA_GS_1Yr.rds"))
+SimResults <- readRDS(here::here("postBurnIn_IITA_GS_1Yr.rds"))
 
 RelPar <- tibble()
-for(repl in 1:nrow(simulations)){
-  
-  SP <- simulations$SimOutput[[repl]]$SP
-  F1s <- tibble(id = simulations$SimOutput[[repl]]$records$F1@id,
-                mother = simulations$SimOutput[[repl]]$records$F1@mother,
-                father = simulations$SimOutput[[repl]]$records$F1@father,
-                year = simulations$SimOutput[[repl]]$records$F1@fixEff,
-                gv = simulations$SimOutput[[repl]]$records$F1@gv,
-                bv = bv(simulations$SimOutput[[repl]]$records$F1))
-  
-  
-  for(Year in 1:5){
-    
-    progeny <- tibble(simulations$SimOutput[[repl]]$records$SDN[[Year]]) %>% filter(isChk != "check")
-    parents <- tibble(id = unique(union(progeny$father,progeny$mother)) %>% .[order(as.numeric(.))])
-    
-    ProgenyInfo <- progeny %>% select(id) %>% left_join(F1s, by = "id") %>% select(c(id,year))
-    ParentsInfo <- parents %>% left_join(F1s, by = "id") %>%
-      mutate(Stage = schemeDF$stageNames[unique(ProgenyInfo$year) - (as.numeric(year))],
-             Year = unique(ProgenyInfo$year),
-             Rep = repl) %>% select(c(Rep, Year, Stage, id, bv, gv, mother, father))
-    
-    RelPar <- bind_rows(RelPar, ParentsInfo)
-    rm(progeny); rm(parents); rm(ProgenyInfo); rm(ParentsInfo)
-  }
-  rm(SP); rm(F1s)
+for(repl in 1:nrow(SimResults)){
+  for(YEAR in length(SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData)){
+RelPar <- rbind(RelPar,
+                SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]][SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]]$pop == "c",])
 }
-
+}
 write.table(x = RelPar, file = here::here("output", "ParentOriginGS_1Yr.csv"),
             sep = ",", quote = FALSE,
             row.names = FALSE, col.names = TRUE)
-for(repl in 1:nrow(simulations)){
-  for(YEAR in length(simulations$SimOutput[[repl]]$records$PopImprov$grmData)){
-RelPar <- rbind(RelPar,
-                simulations$SimOutput[[repl]]$records$PopImprov$grmData[[YEAR]][simulations$SimOutput[[repl]]$records$PopImprov$grmData[[YEAR]]$pop == "c",])
-}
-}
 ```
 
 

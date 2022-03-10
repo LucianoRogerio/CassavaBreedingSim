@@ -226,81 +226,89 @@ saveRDS(LSRes, file = here::here("output", "LastStageResultsIITA.rds"))
 ## Simulations IITA Breeding Scheme - 1-3 Years as candidates
 ```{r Joint data of Sim 1-3 years, eval = FALSE}
 
+IITAPS  <- readRDS(here::here("postBurnIn_IITA_PS.rds"))
 IITA1Yr <- readRDS(here::here("postBurnIn_IITA_GS_1Yr.rds"))
 IITA2Yr <- readRDS(here::here("postBurnIn_IITA_GS_2Yrs.rds"))
 IITA3Yr <- readRDS(here::here("postBurnIn_IITA_GS_3Yrs.rds"))
 
-forSimPlotIITA_1_3_F1 <- IITA1Yr %>%
-              mutate(YearAsCand = 1) %>%
-              bind_rows(IITA2Yr %>% 
-              mutate(YearAsCand = 2)) %>%
-              bind_rows(IITA3Yr %>% 
-              mutate(YearAsCand = 3)) %>%
-              unnest_longer(SimOutput) %>%
-              filter(SimOutput_id == "records") %>%
-              mutate(records = SimOutput) %>%
-              select(SimRep, YearAsCand, records) %>% 
-              unnest_longer(records) %>%
-              filter(records_id == "stageOutputs") %>%
-              mutate(stageOutputs = records) %>%
-              select(SimRep, YearAsCand, stageOutputs) %>%
-              unnest(cols = stageOutputs) %>%
-              filter(stage == "F1") %>%
-              mutate(YearPostBurnIn = year - 20)
+forSimPlotIITA_1_3_F1 <- IITAPS %>%
+  mutate(YearAsCand = "PS") %>%
+  bind_rows(IITA1Yr %>%
+              mutate(YearAsCand = "1")) %>%
+  bind_rows(IITA2Yr %>% 
+              mutate(YearAsCand = "2")) %>%
+  bind_rows(IITA3Yr %>% 
+              mutate(YearAsCand = "3")) %>%
+  unnest_longer(SimOutput) %>%
+  filter(SimOutput_id == "records") %>%
+  mutate(records = SimOutput) %>%
+  select(SimRep, YearAsCand, records) %>% 
+  unnest_longer(records) %>%
+  filter(records_id == "stageOutputs") %>%
+  mutate(stageOutputs = records) %>%
+  select(SimRep, YearAsCand, stageOutputs) %>%
+  unnest(cols = stageOutputs) %>%
+  filter(stage == "F1") %>%
+  mutate(YearPostBurnIn = year - 20)
 
-forSimPlotIITA_1_3_UYT <- IITA1Yr %>%
-              mutate(YearAsCand = 1) %>%
-              bind_rows(IITA2Yr %>% 
-              mutate(YearAsCand = 2)) %>%
-              bind_rows(IITA3Yr %>% 
-              mutate(YearAsCand = 3)) %>%
-              unnest_longer(SimOutput) %>%
-              filter(SimOutput_id == "records") %>%
-              mutate(records = SimOutput) %>%
-              select(SimRep, YearAsCand, records) %>% 
-              unnest_longer(records) %>%
-              filter(records_id == "stageOutputs") %>%
-              mutate(stageOutputs = records) %>%
-              select(SimRep, YearAsCand, stageOutputs) %>%
-              unnest(cols = stageOutputs) %>%
-              filter(stage == "UYT2") %>%
-              mutate(YearPostBurnIn = year - 20)
+forSimPlotIITA_1_3_UYT <- IITAPS %>%
+  mutate(YearAsCand = "PS") %>%
+  bind_rows(IITA1Yr %>%
+              mutate(YearAsCand = "1")) %>%
+  bind_rows(IITA2Yr %>% 
+              mutate(YearAsCand = "2")) %>%
+  bind_rows(IITA3Yr %>% 
+              mutate(YearAsCand = "3")) %>%
+  unnest_longer(SimOutput) %>%
+  filter(SimOutput_id == "records") %>%
+  mutate(records = SimOutput) %>%
+  select(SimRep, YearAsCand, records) %>% 
+  unnest_longer(records) %>%
+  filter(records_id == "stageOutputs") %>%
+  mutate(stageOutputs = records) %>%
+  select(SimRep, YearAsCand, stageOutputs) %>%
+  unnest(cols = stageOutputs) %>%
+  filter(stage == "UYT2") %>%
+  mutate(YearPostBurnIn = year - 20)
 
-forSimPlotIITA_Acc <- IITA1Yr %>% 
-              mutate(YearAsCand = 1) %>% 
-              bind_rows(IITA2Yr %>% 
-              mutate(YearAsCand = 2)) %>% 
-              bind_rows(IITA2Yr %>% 
-              mutate(YearAsCand = 3)) %>% 
-              unnest_longer(SimOutput) %>%
-              filter(SimOutput_id == "records") %>%
-              mutate(records = SimOutput) %>%
-              select(SimRep, YearAsCand, records) %>% 
-              unnest_longer(records) %>%
-              filter(records_id == "PopImprov") %>%
-              select(SimRep, YearAsCand, records) %>% 
-              unnest(cols = records) %>% 
-              select(SimRep, YearAsCand, Year, cycle, grmSize, accAtSel) %>%
+forSimPlotIITA_Acc <- IITAPS %>%
+  mutate(YearAsCand = "PS") %>%
+  bind_rows(IITA1Yr %>% 
+              mutate(YearAsCand = "1")) %>% 
+  bind_rows(IITA2Yr %>% 
+              mutate(YearAsCand = "2")) %>% 
+  bind_rows(IITA2Yr %>% 
+              mutate(YearAsCand = "3")) %>% 
+  unnest_wider(SimOutput)  %>%
+  select(SimRep, YearAsCand, records) %>% 
+  unnest_wider(records) %>%
+  select(SimRep, YearAsCand, CrossingBlock) %>%
+  unnest(col = CrossingBlock) %>% 
+  select(SimRep, YearAsCand, Year, cycle, grmSize, accAtSel) %>%
   mutate(YearPostBurnIn = Year - 20)
-  
-forSimPlotIITA_Par <- IITA1Yr %>% 
-              mutate(YearAsCand = 1) %>% 
-              bind_rows(IITA2Yr %>% 
-              mutate(YearAsCand = 2)) %>% 
-              bind_rows(IITA2Yr %>% 
-              mutate(YearAsCand = 3)) %>% 
-              unnest_longer(SimOutput) %>%
-              filter(SimOutput_id == "records") %>%
-              mutate(records = SimOutput) %>%
-              select(SimRep, YearAsCand, records) %>% 
-              unnest_longer(records) %>%
-              filter(records_id == "PopImprov") %>%
-              select(SimRep, YearAsCand, records) %>% 
-              unnest(cols = records) %>% 
-              select(SimRep, YearAsCand, Year, cycle, grmData) %>%
-              unnest(grmData) %>%
-              mutate(YearPostBurnIn = Year - 20) %>%
-              filter(pop == "c", YearPostBurnIn >=0)
+
+ParIITAPS <- read.table(here::here("ParentOriginPS.csv"), header = T, sep = ",")
+ParIITA1Yr <- read.table(here::here("ParentOriginGS_1Yr.csv"), header = T, sep = ",")
+ParIITA2Yr <- read.table(here::here("ParentOriginGS_2Yrs.csv"), header = T, sep = ",")
+ParIITA3Yr <- read.table(here::here("ParentOriginGS_3Yrs.csv"), header = T, sep = ",") 
+
+forSimPlotIITA_Par <- IITAPS %>%
+  mutate(YearAsCand = "PS") %>%
+  bind_rows(IITA1Yr %>% 
+              mutate(YearAsCand = "1")) %>% 
+  bind_rows(IITA2Yr %>% 
+              mutate(YearAsCand = "2")) %>% 
+  bind_rows(IITA2Yr %>% 
+              mutate(YearAsCand = "3")) %>% 
+  unnest_wider(SimOutput) %>%
+  select(SimRep, YearAsCand, records) %>% 
+  unnest_wider(records) %>%
+  select(SimRep, YearAsCand, CrossingBlock) %>%
+  unnest(cols = CrossingBlock) %>% 
+  select(SimRep, YearAsCand, Year, cycle, grmData) %>%
+  unnest(grmData) %>%
+  mutate(YearPostBurnIn = Year - 20) %>%
+  filter(pop == "c", YearPostBurnIn >=-3)
 forSimPlotIITA_Par$stage <- schemeDF$stageNames[forSimPlotIITA_Par$stage]
 
 saveRDS(forSimPlotIITA_Acc, file = here::here("DataSimPlotIITA1_3_Acc.rds"))

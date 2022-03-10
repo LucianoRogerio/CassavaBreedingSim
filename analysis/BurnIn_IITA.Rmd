@@ -15,11 +15,6 @@ editor_options:
 ```
 
 ```{r Require packages, eval = FALSE}
-install.packages("nloptr", lib = "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/")
-install.packages("sommer", lib = "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/")
-install.packages("AlphaSimR", lib = "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/")
-withr::with_libpaths(new = "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/",
-              install_github("LucianoRogerio/AlphaSimHlpR", ref = "MarninPkg", dependencies = T))
 library(tidyverse)
 library(genomicMateSelectR)
 library(AlphaSimHlpR)
@@ -83,7 +78,7 @@ rm(start); rm(end)
 ```
 
 ```
- d[1] 
+[1] "380mins 29s elapsed - bsp1"
 
 ```
 

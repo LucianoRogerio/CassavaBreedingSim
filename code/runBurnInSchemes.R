@@ -48,7 +48,7 @@ runBurnInSchemes<-function(bsp,
       if(!is.null(TrainingPopSel)) {bsp[["TrainingPopSel"]] <- get(TrainingPopSel)}
       if(bsp$parentsFlowering > 100 | bsp$parentsFlowering <= 0) stop("parent flowering ratio should be between 1 to 100")
       initList <- bsp$initializeFunc(bsp,nThreadsForMacs=nThreadsMacs2)
-      SP <<- initList$SP
+      SP <- initList$SP
       bsp <- initList$bsp
       records <- initList$records
       ## set the selection criteria for burn-in
