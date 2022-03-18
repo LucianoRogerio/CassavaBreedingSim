@@ -37,7 +37,7 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "AYT", RmStagePhen = "SDN",
-                   nParents = 100, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
                    parentsFlowering = 100,
                    phenoF1toStage1 = F, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
@@ -56,11 +56,9 @@ NCT <- RhpcBLASctl::get_num_procs()  ## 40 cores
 ```
 
 ```{r Burn in Simulation, eval = FALSE}
-set.seed(501)
-
 start <- proc.time()[3]
 burnIn_1 <- runBurnInSchemes(bsp = bsp1,
-                             nBurnInCycles=20,
+                             nBurnInCycles=40,
                              selCritPop="parentSelCritBLUP",
                              selCritPipe="productSelCritBLUP",
                              iniFunc="initializeScheme",
@@ -78,7 +76,7 @@ rm(start); rm(end)
 ```
 
 ```
-[1] "380mins 29s elapsed - bsp1"
+[1] "469mins 3s elapsed - bsp1"
 
 ```
 

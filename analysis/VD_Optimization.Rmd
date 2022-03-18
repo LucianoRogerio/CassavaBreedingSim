@@ -108,13 +108,14 @@ While the Results of the simulations increasing the number of years [as candidat
 library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Par.rds")) %>%
-  mutate(YearPostBurnIn = Year - 20) %>%
   filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = ifelse(YearAsCand == 1, "CET",
+  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
-                                    ifelse(YearAsCand == 3, "CET-AYT", "AYT-UYT2"))),
-         YearAsCand = factor(YearAsCand, levels = c("CET", "CET-PYT",
-                                                    "CET-AYT", "AYT-UYT2"))) %>%
+                                    ifelse(YearAsCand == 3, "CET-AYT",
+                                           ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
+                             levels = c("CET", "CET-PYT",
+                                        "CET-AYT", "AYT-UYT2",
+                                        "AYT-UYT2B"))) %>%
   group_by(SimRep, YearAsCand, YearPostBurnIn) %>%
   summarise(bvMean = mean(bv),
             bvsd = sd(bv))
@@ -153,13 +154,14 @@ ggarrange(meanBVplot1, sdBVplot1, common.legend = TRUE, legend = "bottom") %>%
 library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Par.rds")) %>%
-  mutate(YearPostBurnIn = Year - 20) %>%
   filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = ifelse(YearAsCand == 1, "CET",
+  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
-                                    ifelse(YearAsCand == 3, "CET-AYT", "AYT-UYT2"))),
-         YearAsCand = factor(YearAsCand, levels = c("CET", "CET-PYT",
-                                                    "CET-AYT", "AYT-UYT2"))) %>%
+                                    ifelse(YearAsCand == 3, "CET-AYT",
+                                           ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
+                             levels = c("CET", "CET-PYT",
+                                        "CET-AYT", "AYT-UYT2",
+                                        "AYT-UYT2B"))) %>%
   group_by(SimRep, YearAsCand, YearPostBurnIn) %>%
   slice_max(gebv, n = 100) %>%
   summarise(bvMean = mean(bv),
@@ -187,11 +189,11 @@ sdBVplot1 <- forSimPlot %>%
             geom_line(aes(y = meanBVSD, color = YearAsCand)) + 
             theme_minimal()
 
-#tiff(filename = here::here("output", "Figures", "Parents graph 1 to 3.tiff"),
-#units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
+tiff(filename = here::here("output", "Figures", "Parents graph 1 to 3.tiff"),
+units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
 ggarrange(meanBVplot1, sdBVplot1, common.legend = TRUE, legend = "bottom") %>%
   annotate_figure(., top = "Parents Breeding Values")
-#dev.off()
+dev.off()
 ```
 
 
@@ -202,12 +204,12 @@ library(viridis)
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Par.rds")) %>%
   mutate(stage = factor(stage, levels = c("CET", "PYT", "AYT", "UYT1","UYT2")))
 
-BoxPlotPar <- forSimPlot %>% mutate(YearPostBurnIn = Year - 20) %>%
-  filter(YearPostBurnIn >= -3, YearAsCand != "PS") %>%
+BoxPlotPar <- forSimPlot %>% 
+  filter(YearPostBurnIn >= -3, !YearAsCand %in% c("PS", "PS+")) %>%
   mutate(YearAsCand = as.character(YearAsCand)) %>%
   group_by(SimRep, YearAsCand,YearPostBurnIn) %>%
   slice_max(gebv, n = 100) %>%
-  mutate(YearPostBurnIn = factor(YearPostBurnIn, levels = c(-3:12)),
+  mutate(YearPostBurnIn = factor(YearPostBurnIn, levels = c(-3:24)),
          YearAsCand = ifelse(YearAsCand == "1", "CET",
                              ifelse(YearAsCand == "2", "CET+PYT", "CET+PYT+AYT"))) %>%
   ggplot(aes(y = bv, x = YearPostBurnIn, fill = stage)) +
@@ -219,8 +221,8 @@ BoxPlotPar <- forSimPlot %>% mutate(YearPostBurnIn = Year - 20) %>%
 
 
 ```{r Origin Parents, echo = FALSE, warning = FALSE, message = FALSE}
-PO <- forSimPlot%>% mutate(YearPostBurnIn = Year - 20) %>%
-  filter(YearPostBurnIn >= -3, YearAsCand != "PS") %>%
+PO <- forSimPlot%>% 
+  filter(YearPostBurnIn >= -3, !YearAsCand %in% c("PS", "PS+")) %>%
   mutate(YearAsCand = as.character(YearAsCand)) %>%
   group_by(SimRep, YearAsCand,YearPostBurnIn) %>%
   slice_max(gebv, n = 100) %>%
@@ -256,13 +258,14 @@ ggarrange(BoxPlotPar, BarPlotPO, nrow = 2, ncol = 1, common.legend = TRUE, legen
 library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_F1.rds")) %>%
-  mutate(YearPostBurnIn = year - 20) %>%
               filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = ifelse(YearAsCand == 1, "CET",
+  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
-                                    ifelse(YearAsCand == 3, "CET-AYT", "AYT-UYT2"))),
-         YearAsCand = factor(YearAsCand, levels = c("CET", "CET-PYT",
-                                                    "CET-AYT", "AYT-UYT2")))
+                                    ifelse(YearAsCand == 3, "CET-AYT",
+                                           ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
+                             levels = c("CET", "CET-PYT",
+                                        "CET-AYT", "AYT-UYT2",
+                                        "AYT-UYT2B")))
 
 meanGplot1 <- forSimPlot %>% 
               group_by(YearAsCand, YearPostBurnIn, year) %>% 
@@ -301,11 +304,13 @@ library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_UYT2.rds")) %>%
   mutate(YearPostBurnIn = year - 20) %>%
               filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = ifelse(YearAsCand == 1, "CET",
+  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
-                                    ifelse(YearAsCand == 3, "CET-AYT", "AYT-UYT2"))),
-         YearAsCand = factor(YearAsCand, levels = c("CET", "CET-PYT",
-                                                    "CET-AYT", "AYT-UYT2")))
+                                    ifelse(YearAsCand == 3, "CET-AYT",
+                                           ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
+                             levels = c("CET", "CET-PYT",
+                                        "CET-AYT", "AYT-UYT2",
+                                        "AYT-UYT2B")))
 
 meanGplot1 <- forSimPlot %>%
               group_by(YearAsCand, YearPostBurnIn, year) %>% 
@@ -338,20 +343,22 @@ ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "bottom") %>%
 
 ##### Genomic Prediction Accuracy for the Candidates
 
-```{r Accuracies, echo = FALSE, message = FALSE, warning = FALSE}
+```{r Accuracies for gebv, echo = FALSE, message = FALSE, warning = FALSE}
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Acc.rds")) %>%
   filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = ifelse(YearAsCand == 1, "CET",
+  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
-                                    ifelse(YearAsCand == 3, "CET-AYT", "AYT-UYT2"))),
-         YearAsCand = factor(YearAsCand, levels = c("CET", "CET-PYT",
-                                                    "CET-AYT", "AYT-UYT2"))) 
+                                    ifelse(YearAsCand == 3, "CET-AYT",
+                                           ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
+                             levels = c("CET", "CET-PYT",
+                                        "CET-AYT", "AYT-UYT2",
+                                        "AYT-UYT2B")))
 
 Accuracyplot2 <- forSimPlot %>%
-  group_by(YearAsCand, YearPostBurnIn, Year) %>%
-  summarise(meanAcc = mean(accAtSel, na.rm = T),
-            sdAcc = sd(accAtSel, na.rm = T) / sqrt(n())) %>%
+  group_by(YearAsCand, YearPostBurnIn, year) %>%
+  summarise(meanAcc = mean(accPgSel, na.rm = T),
+            sdAcc = sd(accPgSel, na.rm = T) / sqrt(n())) %>%
   ggplot(., aes(x = YearPostBurnIn, color = YearAsCand)) +
   geom_ribbon(aes(ymin = meanAcc - sdAcc, 
                   ymax = meanAcc + sdAcc,
@@ -365,6 +372,45 @@ Accuracyplot2
 #dev.off()
 
 ```
+
+##### Genomic Prediction Accuracy for the CET
+
+```{r Accuracies for gegv, echo = FALSE, message = FALSE, warning = FALSE}
+
+forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Acc.rds")) %>%
+  filter(YearPostBurnIn >= -3) %>%
+  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
+                             ifelse(YearAsCand == 2, "CET-PYT",
+                                    ifelse(YearAsCand == 3, "CET-AYT",
+                                           ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
+                             levels = c("CET", "CET-PYT",
+                                        "CET-AYT", "AYT-UYT2",
+                                        "AYT-UYT2B")),
+         accProgSel = accClSel[,1],
+         accVDPSel = accAtSel[,1],
+         cycle = cycle.y, .keep = "unused") %>% 
+  select(SimRep, YearAsCand, YearPostBurnIn, year, cycle, accProgSel, accVDPSel) %>% 
+  reshape2::melt(data = ., id.vars = c("SimRep", "YearAsCand", "YearPostBurnIn", "year", "cycle"),
+                 variable.name = "Pred", value.name = "Acc")
+
+Accuracyplot2 <- forSimPlot %>%
+  group_by(YearAsCand, YearPostBurnIn, year, Pred) %>%
+  summarise(meanAcc = mean(Acc, na.rm = T),
+            sdAcc = sd(Acc, na.rm = T) / sqrt(n())) %>%
+  ggplot(., aes(x = YearPostBurnIn, color = YearAsCand)) +
+  geom_ribbon(aes(ymin = meanAcc - sdAcc, 
+                  ymax = meanAcc + sdAcc,
+                  fill = YearAsCand, linetype = Pred), alpha = 0.25) + 
+  geom_line(aes(y = meanAcc, linetype = Pred)) + ggtitle("Clone Selection Accuracy at CET") + 
+  theme_minimal() + theme(legend.position="bottom")
+
+#tiff(filename = here::here("output", "Figures", "Accuracy.tiff"),
+#units = "cm", compression = "lzw", width = 20, height = 10, res = 250)
+Accuracyplot2
+#dev.off()
+
+```
+
 
 
 <div id="BreedingScheme1-3" />
