@@ -404,7 +404,7 @@ Accuracyplot2 <- forSimPlot %>%
   geom_line(aes(y = meanAcc, linetype = Pred)) + ggtitle("Clone Selection Accuracy at CET") + 
   theme_minimal() + theme(legend.position="bottom")
 
-#tiff(filename = here::here("output", "Figures", "Accuracy.tiff"),
+#tiff(filename = here::here("output", "Figures", "AccuracyCET.tiff"),
 #units = "cm", compression = "lzw", width = 20, height = 10, res = 250)
 Accuracyplot2
 #dev.off()
