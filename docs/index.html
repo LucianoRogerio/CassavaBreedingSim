@@ -14,8 +14,8 @@
 
 <title>Cassava Breeding Scheme Simulations</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -36,7 +36,7 @@
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -73,6 +73,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -93,6 +94,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -245,7 +249,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -256,6 +260,39 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="VD_Optimization.html">VDs Simulations</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Simulations Scripts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="SingularityIm.html">Singularity Image</a>
+    </li>
+    <li>
+      <a href="BurnIn_IITA.html">IITA BurnIn Breeding Scheme</a>
+    </li>
+    <li>
+      <a href="IITABS.html">IITA Breeding Scheme</a>
+    </li>
+    <li>
+      <a href="NVDP1.html">IITA NVDP1</a>
+    </li>
+    <li>
+      <a href="NVD3.html">IITA NVDP2</a>
+    </li>
+    <li>
+      <a href="1-3YrsIITABS.html">1-3 Years Candidate</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="graphics.html">Figures</a>
 </li>
 <li>
   <a href="about.html">About</a>
@@ -307,7 +344,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-09-16
+<strong>Last updated:</strong> 2022-04-01
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -316,8 +353,8 @@ $(document).ready(function () {
 <strong>Knit directory:</strong> <code>CassavaBreedingSim/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -338,24 +375,44 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree646d847419fb76c0a38357edd6dd5d91c168832etargetblank646d847a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/646d847419fb76c0a38357edd6dd5d91c168832e" target="_blank">646d847</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree8bc5ff702f3b95b80e33bc06a365f65e1d081b8btargetblank8bc5ff7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/8bc5ff702f3b95b80e33bc06a365f65e1d081b8b" target="_blank">8bc5ff7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree646d847419fb76c0a38357edd6dd5d91c168832etargetblank646d847a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree8bc5ff702f3b95b80e33bc06a365f65e1d081b8btargetblank8bc5ff7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/646d847419fb76c0a38357edd6dd5d91c168832e" target="_blank">646d847</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/8bc5ff702f3b95b80e33bc06a365f65e1d081b8b" target="_blank">8bc5ff7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    output/.DS_Store
+    Ignored:    output/.Rhistory
+    Ignored:    output/DataSimPlotIITA1_3_Par.rds
+
+Untracked files:
+    Untracked:  data/Example2Play.rds
+    Untracked:  data/baselineScheme - IITA - NVDP2 copy.csv
+    Untracked:  output/Results.RData
+
+Unstaged changes:
+    Modified:   analysis/IITABS.Rmd
+    Modified:   analysis/VD_Optimization.Rmd
+    Modified:   analysis/graphics.Rmd
+    Modified:   output/Figures/ParentInfo.tiff
+    Modified:   output/Figures/Parents graph 1 to 3.tiff
+
+Staged changes:
+    Modified:   analysis/BurnIn_IITA.Rmd
+    New:        analysis/EstimatingBreendingValues.Rmd
 
 </code></pre>
 <p>
@@ -394,6 +451,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/CassavaBreedingSim/28ee3dc0dc324e72367db5dd839fa08ea7c4edf8/docs/index.html" target="_blank">28ee3dc</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-09-16
+</td>
+<td>
+Small Changes at index html file
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -537,7 +611,7 @@ Start workflowr project.
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->

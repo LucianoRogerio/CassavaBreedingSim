@@ -1,0 +1,98 @@
+---
+title: "EstimatingBreendingValues"
+author: "LucianoRogerio"
+date: "2022-03-25"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Obtain BVs and GVs from different populations
+
+I want to understand if these estimates are centered or not
+
+```{r collect BVs and GVs, eval = FALSE}
+library(AlphaSimR); library(tidyverse)
+
+SimResults <- readRDS(here::here("data", "Example2Play.rds"))
+
+SP <- SimResults$SimOutput[[1]]$SP
+AllF1 <- SimResults$SimOutput[[1]]$records$F1
+
+AllF1[AllF1@fixEff >= 52]
+bv(AllF1)
+AllF1@fixEff %>% min
+
+Years <- AllF1@fixEff %>% unique
+
+BVsLastIds <- tibble()
+BVsAllIds <- tibble()
+Info <- data.frame(Year = Years, NInd = NA)
+
+year <- Years[1]
+
+for(year in Years){
+  Pop <- AllF1[AllF1@fixEff >=year]
+  Info[Info$Year == year,2] <- Pop@id %>% length
+  Bvs <- tibble(Year = year - 40,
+                ID = Pop@id,
+                YearCreated = Pop@fixEff - 40,
+                BV = bv(Pop, simParam = SP)[,1],
+                GV = gv(Pop)[,1])
+  BVsLastIds <- rbind(BVsLastIds, Bvs[Bvs$YearCreated == 24,])
+  BVsAllIds <- rbind(BVsAllIds, Bvs)
+  rm(Bvs); rm(Pop)
+}
+save(Info, BVsAllIds, BVsLastIds, file = here::here("output", "Results.RData"))
+```
+
+### Table with the number of individuals in each Year
+
+```{r Table1, echo = FALSE}
+library(reactable)
+suppressMessages(library(tidyverse))
+load(here::here("output", "Results.RData"))
+
+Info <- Info %>% mutate(NTotalInd = NInd)
+
+for(i in 1:(nrow(Info) -1)){
+  Info$NInd[i] <- Info$NInd[i] - Info$NInd[i+1]
+}
+
+Info %>% reactable(defaultPageSize = 15)
+```
+
+### Boxplots from the BVs and GVs values estimated from different Pop objects
+
+#### Breeding Values
+
+```{r BVs figure}
+library(tidyverse)
+library(ggpubr)
+Graph1BV <- BVsLastIds %>% mutate(Year = as.factor(Year)) %>%
+  ggplot(aes(y = BV, x = Year)) + 
+  geom_boxplot() + ylab("BV - Ids LastYear")
+
+Graph2BV <- BVsAllIds %>% mutate(Year = as.factor(Year)) %>%
+  ggplot(aes(y = BV, x = Year)) + 
+  geom_boxplot() + ylab("BV - All Ids")
+
+ggarrange(Graph1BV, Graph2BV, ncol = 1)
+```
+
+
+#### Genotypic Values
+
+```{r GVs figure}
+library(tidyverse)
+library(ggpubr)
+Graph1GV <- BVsLastIds %>% mutate(Year = as.factor(Year)) %>%
+  ggplot(aes(y = GV, x = Year)) + 
+  geom_boxplot() + ylab("BV - Ids LastYear")
+
+Graph2GV <- BVsAllIds %>% mutate(Year = as.factor(Year)) %>%
+  ggplot(aes(y = GV, x = Year)) + 
+  geom_boxplot() + ylab("BV - All Ids")
+
+ggarrange(Graph1GV, Graph2GV, ncol = 1)
+```

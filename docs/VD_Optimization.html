@@ -15,7 +15,7 @@
 
 <title>Variety Development Product Optimization</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -83,6 +83,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -103,6 +104,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -328,7 +332,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -344,7 +348,7 @@ div.tocify {
   <a href="VD_Optimization.html">VDs Simulations</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Simulations Scripts
      
     <span class="caret"></span>
@@ -424,7 +428,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-03-18
+<strong>Last updated:</strong> 2022-03-31
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -515,16 +519,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreee3304e973c084523deefdf7923d75453b2ba295btargetblanke3304e9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/e3304e973c084523deefdf7923d75453b2ba295b" target="_blank">e3304e9</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree8bc5ff702f3b95b80e33bc06a365f65e1d081b8btargetblank8bc5ff7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/8bc5ff702f3b95b80e33bc06a365f65e1d081b8b" target="_blank">8bc5ff7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtreee3304e973c084523deefdf7923d75453b2ba295btargetblanke3304e9a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioCassavaBreedingSimtree8bc5ff702f3b95b80e33bc06a365f65e1d081b8btargetblank8bc5ff7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/e3304e973c084523deefdf7923d75453b2ba295b" target="_blank">e3304e9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/tree/8bc5ff702f3b95b80e33bc06a365f65e1d081b8b" target="_blank">8bc5ff7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -539,26 +543,17 @@ Ignored files:
     Ignored:    output/DataSimPlotIITA1_3_Par.rds
 
 Untracked files:
-    Untracked:  output/ParentOriginGS_1Yr.csv
-    Untracked:  output/ParentOriginGS_2Yrs.csv
-    Untracked:  output/ParentOriginGS_3Yrs.csv
-    Untracked:  output/ParentOriginPS.csv
-    Untracked:  output/ParentOriginPSPlus.csv
+    Untracked:  analysis/EstimatingBreendingValues.Rmd
+    Untracked:  data/Example2Play.rds
+    Untracked:  data/baselineScheme - IITA - NVDP2 copy.csv
+    Untracked:  output/Results.RData
 
 Unstaged changes:
     Modified:   analysis/BurnIn_IITA.Rmd
     Modified:   analysis/IITABS.Rmd
     Modified:   analysis/VD_Optimization.Rmd
-    Modified:   analysis/graphics.Rmd
-    Modified:   output/DataSimPlotIITA1_3_Acc.rds
-    Modified:   output/DataSimPlotIITA1_3_F1.rds
-    Modified:   output/DataSimPlotIITA1_3_UYT2.rds
-    Modified:   output/Figures/Accuracy.tiff
-    Modified:   output/Figures/Candidates graph 1 to 3.tiff
-    Modified:   output/Figures/F1 graph 1 to 3.tiff
     Modified:   output/Figures/ParentInfo.tiff
     Modified:   output/Figures/Parents graph 1 to 3.tiff
-    Modified:   output/Figures/UYT2 graph 1 to 3.tiff
 
 </code></pre>
 <p>
@@ -597,6 +592,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/8bc5ff702f3b95b80e33bc06a365f65e1d081b8b/analysis/VD_Optimization.Rmd" target="_blank">8bc5ff7</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+<td>
+Accuracy of clone selection at CET
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/a294aaea68c6186e87ce40605c40c0a975afa5cb/analysis/VD_Optimization.Rmd" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+<td>
+New results with time cycle fixed, with selection of 30 parents, and prediction of the selection accuracy for Clones at CET
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/CassavaBreedingSim/a294aaea68c6186e87ce40605c40c0a975afa5cb/docs/VD_Optimization.html" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+<td>
+New results with time cycle fixed, with selection of 30 parents, and prediction of the selection accuracy for Clones at CET
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1733,6 +1779,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/a294aaea68c6186e87ce40605c40c0a975afa5cb/docs/figure/VD_Optimization.Rmd/Figure 1 Candidates IITA Breeding Scheme 1 to 3 Yrs-1.png" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/e3304e973c084523deefdf7923d75453b2ba295b/docs/figure/VD_Optimization.Rmd/Figure 1 Candidates IITA Breeding Scheme 1 to 3 Yrs-1.png" target="_blank">e3304e9</a>
 </td>
 <td>
@@ -1749,8 +1806,55 @@ LucianoRogerio
 </div>
 <div id="parents-figure" class="section level4">
 <h4>Parents Figure</h4>
-<pre><code>quartz_off_screen 
-                2 </code></pre>
+<p><img src="figure/VD_Optimization.Rmd/Figure%201%20Parents%20IITA%20Breeding%20Scheme%201%20to%203%20Yrs-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-Figure-1-Parents-IITA-Breeding-Scheme-1-to-3-Yrs-1">
+Past versions of "Figure 1 Parents IITA Breeding Scheme 1 to 3 Yrs-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-Figure-1-Parents-IITA-Breeding-Scheme-1-to-3-Yrs-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/e3304e973c084523deefdf7923d75453b2ba295b/docs/figure/VD_Optimization.Rmd/Figure 1 Parents IITA Breeding Scheme 1 to 3 Yrs-1.png" target="_blank">e3304e9</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/3a65e6fc233298dc3214d7e178959267c2d5d1d3/docs/figure/VD_Optimization.Rmd/Figure 1 Parents IITA Breeding Scheme 1 to 3 Yrs-1.png" target="_blank">3a65e6f</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="origin-of-the-parents-in-each-year" class="section level4">
 <h4>Origin of the parents in each year</h4>
@@ -1777,6 +1881,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/a294aaea68c6186e87ce40605c40c0a975afa5cb/docs/figure/VD_Optimization.Rmd/Origin Parents-1.png" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/e3304e973c084523deefdf7923d75453b2ba295b/docs/figure/VD_Optimization.Rmd/Origin Parents-1.png" target="_blank">e3304e9</a>
@@ -1864,6 +1979,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/a294aaea68c6186e87ce40605c40c0a975afa5cb/docs/figure/VD_Optimization.Rmd/Figure 1 F1 IITA Breeding Scheme 1 to 3 Yrs-1.png" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/e3304e973c084523deefdf7923d75453b2ba295b/docs/figure/VD_Optimization.Rmd/Figure 1 F1 IITA Breeding Scheme 1 to 3 Yrs-1.png" target="_blank">e3304e9</a>
 </td>
 <td>
@@ -1916,6 +2042,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/a294aaea68c6186e87ce40605c40c0a975afa5cb/docs/figure/VD_Optimization.Rmd/Figure 1 UYT2 IITA Breeding Scheme 1 to 3 Yrs-1.png" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/e3304e973c084523deefdf7923d75453b2ba295b/docs/figure/VD_Optimization.Rmd/Figure 1 UYT2 IITA Breeding Scheme 1 to 3 Yrs-1.png" target="_blank">e3304e9</a>
 </td>
 <td>
@@ -1943,10 +2080,84 @@ LucianoRogerio
 <div id="genomic-prediction-accuracy-for-the-candidates" class="section level5">
 <h5>Genomic Prediction Accuracy for the Candidates</h5>
 <p><img src="figure/VD_Optimization.Rmd/Accuracies%20for%20gebv-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-Accuracies-for-gebv-1">
+Past versions of "Accuracies for gebv-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-Accuracies-for-gebv-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/a294aaea68c6186e87ce40605c40c0a975afa5cb/docs/figure/VD_Optimization.Rmd/Accuracies for gebv-1.png" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="genomic-prediction-accuracy-for-the-cet" class="section level5">
-<h5>Genomic Prediction Accuracy for the CET</h5>
+</div>
+</div>
+<div id="genomic-prediction-accuracy-for-clone-selection-at-the-cet" class="section level5">
+<h5>Genomic Prediction Accuracy for clone selection at the CET</h5>
 <p><img src="figure/VD_Optimization.Rmd/Accuracies%20for%20gegv-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-Accuracies-for-gegv-1">
+Past versions of "Accuracies for gegv-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-Accuracies-for-gegv-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/a294aaea68c6186e87ce40605c40c0a975afa5cb/docs/figure/VD_Optimization.Rmd/Accuracies for gegv-1.png" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="BreedingScheme1-3" />
 
 </div>
@@ -1978,6 +2189,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/a294aaea68c6186e87ce40605c40c0a975afa5cb/docs/figure/VD_Optimization.Rmd/unnamed-chunk-5-1.png" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/e3304e973c084523deefdf7923d75453b2ba295b/docs/figure/VD_Optimization.Rmd/unnamed-chunk-5-1.png" target="_blank">e3304e9</a>
@@ -2131,6 +2353,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/a294aaea68c6186e87ce40605c40c0a975afa5cb/docs/figure/VD_Optimization.Rmd/smooth graph F1-1.png" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/e3304e973c084523deefdf7923d75453b2ba295b/docs/figure/VD_Optimization.Rmd/smooth graph F1-1.png" target="_blank">e3304e9</a>
 </td>
 <td>
@@ -2192,6 +2425,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/a294aaea68c6186e87ce40605c40c0a975afa5cb/docs/figure/VD_Optimization.Rmd/unnamed-chunk-6-1.png" target="_blank">a294aae</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/LucianoRogerio/CassavaBreedingSim/blob/e3304e973c084523deefdf7923d75453b2ba295b/docs/figure/VD_Optimization.Rmd/unnamed-chunk-6-1.png" target="_blank">e3304e9</a>
@@ -2352,7 +2596,6 @@ Platform: aarch64-apple-darwin20 (64-bit)
 Running under: macOS Big Sur 11.6.1
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.0.dylib
 LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
 
 locale:
@@ -2370,24 +2613,24 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] nlme_3.1-155      fs_1.5.2          lubridate_1.8.0   httr_1.4.2       
  [5] rprojroot_2.0.2   tools_4.1.2       backports_1.4.1   bslib_0.3.1      
- [9] utf8_1.2.2        R6_2.5.1          mgcv_1.8-38       DBI_1.1.2        
-[13] colorspace_2.0-2  withr_2.5.0       tidyselect_1.1.2  gridExtra_2.3    
-[17] compiler_4.1.2    git2r_0.29.0      cli_3.2.0         rvest_1.0.2      
-[21] xml2_1.3.3        labeling_0.4.2    sass_0.4.0        scales_1.1.1     
-[25] digest_0.6.29     rmarkdown_2.11    pkgconfig_2.0.3   htmltools_0.5.2  
+ [9] utf8_1.2.2        R6_2.5.1          mgcv_1.8-39       DBI_1.1.2        
+[13] colorspace_2.0-3  withr_2.5.0       tidyselect_1.1.2  gridExtra_2.3    
+[17] compiler_4.1.2    git2r_0.30.1      cli_3.2.0         rvest_1.0.2      
+[21] xml2_1.3.3        labeling_0.4.2    sass_0.4.1        scales_1.1.1     
+[25] digest_0.6.29     rmarkdown_2.13    pkgconfig_2.0.3   htmltools_0.5.2  
 [29] dbplyr_2.1.1      fastmap_1.1.0     highr_0.9         htmlwidgets_1.5.4
-[33] rlang_1.0.2       readxl_1.3.1      rstudioapi_0.13   jquerylib_0.1.4  
-[37] generics_0.1.2    farver_2.1.0      jsonlite_1.8.0    crosstalk_1.2.0  
+[33] rlang_1.0.2       readxl_1.4.0      rstudioapi_0.13   jquerylib_0.1.4  
+[37] farver_2.1.0      generics_0.1.2    jsonlite_1.8.0    crosstalk_1.2.0  
 [41] car_3.0-12        magrittr_2.0.2    Matrix_1.4-0      Rcpp_1.0.8.3     
-[45] munsell_0.5.0     fansi_1.0.2       abind_1.4-5       lifecycle_1.0.1  
-[49] stringi_1.7.6     whisker_0.4       yaml_2.3.4        carData_3.0-5    
-[53] plyr_1.8.6        grid_4.1.2        promises_1.2.0.1  crayon_1.5.0     
+[45] munsell_0.5.0     fansi_1.0.3       abind_1.4-5       lifecycle_1.0.1  
+[49] stringi_1.7.6     whisker_0.4       yaml_2.3.5        carData_3.0-5    
+[53] plyr_1.8.7        grid_4.1.2        promises_1.2.0.1  crayon_1.5.1     
 [57] lattice_0.20-45   splines_4.1.2     haven_2.4.3       cowplot_1.1.1    
-[61] hms_1.1.1         knitr_1.37        pillar_1.7.0      ggsignif_0.6.3   
+[61] hms_1.1.1         knitr_1.38        pillar_1.7.0      ggsignif_0.6.3   
 [65] reshape2_1.4.4    reprex_2.0.1      glue_1.6.2        evaluate_0.15    
-[69] modelr_0.1.8      vctrs_0.3.8       tzdb_0.2.0        httpuv_1.6.5     
+[69] modelr_0.1.8      vctrs_0.3.8       tzdb_0.3.0        httpuv_1.6.5     
 [73] cellranger_1.1.0  gtable_0.3.0      reactR_0.4.4      assertthat_0.2.1 
-[77] xfun_0.29         broom_0.7.12      rstatix_0.7.0     later_1.3.0      
+[77] xfun_0.30         broom_0.7.12      rstatix_0.7.0     later_1.3.0      
 [81] workflowr_1.7.0   ellipsis_0.3.2   </code></pre>
 </div>
 </div>

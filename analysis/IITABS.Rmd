@@ -41,6 +41,8 @@ R
 
 #### Run R inside a singularity container
 
+- IITA PS - cbsu lm32 - screen IITAPS
+
 ```{r PostBurnIn IITA PS, eval = F}
 
 .libPaths(c(.libPaths(), "/programs/R-4.1.2/library/", "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/"))
@@ -69,8 +71,8 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "AYT",  RmStagePhen = "SDN",
                    nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
-                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
-                   useCurrentPhenoTrain = F,
+                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
+                   useCurrentPhenoTrain = T,
                    nCyclesToKeepRecords = 4,
                    selCritPipeAdv = selCritIID,
                    selCritPopImprov =  selCritIID)
@@ -167,7 +169,7 @@ write.table(x = RelPar, file = here::here("output", "ParentOriginPS.csv"),
             row.names = FALSE, col.names = TRUE)
 ```
 
-```{r PostBurnIn IITA PS, eval = F}
+```{r PostBurnIn IITA PS Extra, eval = F}
 
 .libPaths(c(.libPaths(), "/programs/R-4.1.2/library/", "/home/lbraatz/R/x86_64-pc-linux-gnu-library/4.1/"))
 
@@ -195,8 +197,8 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "AYT",  RmStagePhen = "SDN",
                    nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
-                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
-                   useCurrentPhenoTrain = F,
+                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
+                   useCurrentPhenoTrain = T,
                    nCyclesToKeepRecords = 4,
                    selCritPipeAdv = selCritIID,
                    selCritPopImprov =  selCritIID)
@@ -304,7 +306,7 @@ write.table(x = RelPar, file = here::here("output", "ParentOriginPSPlus.csv"),
 
 ###### Parameters Changuing in different scenarios
 
-- 3 Yrs as Candidates - cbsu lm30 - screen IITA3Yr
+- 3 Yrs as Candidates - cbsu lm34 - screen BurnIn
 
 <br />
 
@@ -339,7 +341,7 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
                    parentsFlowering = 100,
                    TrainPopSel = "trainPopSelNew",
-                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
+                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
                    nCyclesToKeepRecords = 5,
                    selCritPipeAdv = selCritIID,
@@ -349,7 +351,7 @@ source(here::here("code","runSchemesPostBurnIn.R"))
 
 nRepT <- 40#readRDS(here::here("output", "BurnIn_IITA.rds")) %>% nrow()
 NCT <- RhpcBLASctl::get_num_procs()
-nRepMap <- 8
+nRepMap <- 5
 reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
 
 for(i in 1:ceiling(nRepT/nRepMap)) {
@@ -431,7 +433,7 @@ write.table(x = RelPar, file = here::here("output", "ParentOriginGS_3Yrs.csv"),
             row.names = FALSE, col.names = TRUE)
 ```
 
-- 2 Yrs as Candidate - CBSU lm34 - screen IITA2Yr
+- 2 Yrs as Candidate - CBSU lm35 - screen IITA3Yr
 
 <br />
 
@@ -465,7 +467,7 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
                    parentsFlowering = 100,
                    TrainPopSel = "trainPopSelNew",
-                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
+                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
                    nCyclesToKeepRecords = 5,
                    selCritPipeAdv = selCritIID,
@@ -557,7 +559,7 @@ write.table(x = RelPar, file = here::here("output", "ParentOriginGS_2Yrs.csv"),
             row.names = FALSE, col.names = TRUE)
 ```
 
-- 1 Yrs as Candidate - CBSU lm31 - screen IITA1Yr
+- 1 Yrs as Candidate - CBSU lm30 - screen IITA1Yr
 
 <br />
 
@@ -591,7 +593,7 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
                    parentsFlowering = 100,
                    TrainPopSel = "trainPopSelNew",
-                   phenoF1toStage1 = F, errVarPreStage1 = 17500,
+                   phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = F,
                    nCyclesToKeepRecords = 5,
                    selCritPipeAdv = selCritIID,

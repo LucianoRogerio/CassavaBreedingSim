@@ -283,14 +283,8 @@ forSimPlotIITA_1_3_UYT <- IITAPS %>%
 
 forSimPlotIITA_Acc <- IITAPS %>%
   mutate(YearAsCand = "PS") %>%
-  bind_rows(IITAPSPlus %>%
-              mutate(YearAsCand = "PS+")) %>% 
-  bind_rows(IITA1Yr %>% 
-              mutate(YearAsCand = "1")) %>% 
   bind_rows(IITA2Yr %>% 
               mutate(YearAsCand = "2")) %>% 
-  bind_rows(IITA2Yr %>% 
-              mutate(YearAsCand = "3")) %>% 
   unnest_wider(SimOutput)  %>%
   select(SimRep, YearAsCand, records) %>% 
   unnest_wider(records) %>%

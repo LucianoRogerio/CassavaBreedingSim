@@ -109,42 +109,46 @@ library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Par.rds")) %>%
   filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
+  mutate(CandPop = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
                                     ifelse(YearAsCand == 3, "CET-AYT",
                                            ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
-                                        "AYT-UYT2B"))) %>%
-  group_by(SimRep, YearAsCand, YearPostBurnIn) %>%
+                                        "AYT-UYT2B")),
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "REML/BLUP", "GBLUP"))) %>%
+  group_by(SimRep, CandPop, SelMethod, YearPostBurnIn) %>%
   summarise(bvMean = mean(bv),
             bvsd = sd(bv))
 
 meanBVplot1 <- forSimPlot %>% 
-              group_by(YearAsCand, YearPostBurnIn) %>%
+              group_by(CandPop, SelMethod, YearPostBurnIn) %>%
               summarize(meanBVMean = mean(bvMean),
                         seBVMean = sd(bvMean) / sqrt(n())) %>% 
-              ggplot(., aes(x = YearPostBurnIn)) + 
+              ggplot(., aes(x = YearPostBurnIn, linetype = SelMethod)) + 
               geom_ribbon(aes(ymin = meanBVMean - seBVMean, 
                               ymax = meanBVMean + seBVMean,
-                              fill = YearAsCand), alpha = 0.25) + 
-              geom_line(aes(y = meanBVMean, color = YearAsCand)) + 
-              theme_minimal() 
+                              fill = CandPop), alpha = 0.25,) + 
+              geom_line(aes(y = meanBVMean, color = CandPop)) + 
+              theme_minimal() + ylab("Year") + theme(legend.position = "bottom") +
+              labs(x = "Year",
+                   y = expression(italic(mu[TBV] - "Pop")))
 
-sdBVplot1 <- forSimPlot %>% 
-              group_by(YearAsCand, YearPostBurnIn) %>%
-              summarize(meanBVsd = mean(bvsd),
-                        seBVsd = sd(bvsd) / sqrt(n())) %>% 
-              ggplot(., aes(x = YearPostBurnIn)) + 
-              geom_ribbon(aes(ymin = meanBVsd - seBVsd, 
-                              ymax = meanBVsd + seBVsd,
-                              fill = YearAsCand), alpha = 0.25) + 
-              geom_line(aes(y = meanBVsd, color = YearAsCand)) + 
-              theme_minimal() 
+meanBVplot1
+#sdBVplot1 <- forSimPlot %>% 
+#              group_by(YearAsCand, YearPostBurnIn) %>%
+#              summarize(meanBVsd = mean(bvsd),
+#                        seBVsd = sd(bvsd) / sqrt(n())) %>% 
+#              ggplot(., aes(x = YearPostBurnIn)) + 
+#              geom_ribbon(aes(ymin = meanBVsd - seBVsd, 
+#                              ymax = meanBVsd + seBVsd,
+#                              fill = YearAsCand), alpha = 0.25) + 
+#              geom_line(aes(y = meanBVsd, color = YearAsCand)) + 
+#              theme_minimal() + ylab("Year")
 #tiff(filename = here::here("output", "Figures", "Candidates graph 1 to 3.tiff"),
 #units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
-ggarrange(meanBVplot1, sdBVplot1, common.legend = TRUE, legend = "bottom") %>%
-  annotate_figure(., top = "Candidates Breeding Values")
+#ggarrange(meanBVplot1, common.legend = TRUE, legend = "bottom") %>%
+#  annotate_figure(., top = "Candidates Breeding Values")
 #dev.off()
 ```
 
@@ -155,45 +159,48 @@ library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Par.rds")) %>%
   filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
+  mutate(CandPop = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
                                     ifelse(YearAsCand == 3, "CET-AYT",
                                            ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
-                                        "AYT-UYT2B"))) %>%
-  group_by(SimRep, YearAsCand, YearPostBurnIn) %>%
-  slice_max(gebv, n = 100) %>%
+                                        "AYT-UYT2B")),
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "REML/BLUP", "GBLUP"))) %>%
+  group_by(SimRep, CandPop, SelMethod, YearPostBurnIn) %>%
+  slice_max(gebv, n = 30) %>%
   summarise(bvMean = mean(bv),
             bvsd = sd(bv))
 
 meanBVplot1 <- forSimPlot %>% 
-              group_by(YearAsCand, YearPostBurnIn) %>%
+              group_by(CandPop, SelMethod, YearPostBurnIn) %>%
               summarize(meanBVMean = mean(bvMean),
                         seBVMean = sd(bvMean) / sqrt(n())) %>% 
-              ggplot(., aes(x = YearPostBurnIn)) +
+              ggplot(., aes(x = YearPostBurnIn, linetype = SelMethod)) +
               geom_ribbon(aes(ymin = meanBVMean - seBVMean, 
                               ymax = meanBVMean + seBVMean,
-                              fill = YearAsCand), alpha = 0.25) + 
-              geom_line(aes(y = meanBVMean, color = YearAsCand)) + 
-              theme_minimal() 
-
-sdBVplot1 <- forSimPlot %>% 
-            group_by(YearAsCand, YearPostBurnIn) %>% 
-            summarize(meanBVSD = mean(bvsd),
-                      seBVSD = sd(bvsd) / sqrt(n())) %>% 
-            ggplot(., aes(x = YearPostBurnIn)) +
-            geom_ribbon(aes(ymin = meanBVSD - seBVSD, 
-                            ymax = meanBVSD + seBVSD,
-                            fill = YearAsCand), alpha = 0.25) + 
-            geom_line(aes(y = meanBVSD, color = YearAsCand)) + 
-            theme_minimal()
-
-tiff(filename = here::here("output", "Figures", "Parents graph 1 to 3.tiff"),
-units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
-ggarrange(meanBVplot1, sdBVplot1, common.legend = TRUE, legend = "bottom") %>%
-  annotate_figure(., top = "Parents Breeding Values")
-dev.off()
+                              fill = CandPop), alpha = 0.25) + 
+              geom_line(aes(y = meanBVMean, color = CandPop)) + 
+              theme_minimal() + ylab("Year") + theme(legend.position = "bottom") +
+              labs(x = "Year",
+                   y = expression(italic(mu[TBV]) - "Top 30"))
+meanBVplot1
+#sdBVplot1 <- forSimPlot %>% 
+#            group_by(CandPop, YearPostBurnIn) %>% 
+#            summarize(meanBVSD = mean(bvsd),
+#                      seBVSD = sd(bvsd) / sqrt(n())) %>% 
+#            ggplot(., aes(x = YearPostBurnIn)) +
+#            geom_ribbon(aes(ymin = meanBVSD - seBVSD, 
+#                            ymax = meanBVSD + seBVSD,
+#                            fill = CandPop), alpha = 0.25) + 
+#            geom_line(aes(y = meanBVSD, color = CandPop)) + 
+#            theme_minimal()
+#
+#tiff(filename = here::here("output", "Figures", "Parents graph 1 to 3.tiff"),
+#units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
+#ggarrange(meanBVplot1, sdBVplot1, common.legend = TRUE, legend = "bottom") %>%
+#  annotate_figure(., top = "Parents Breeding Values")
+#dev.off()
 ```
 
 
@@ -206,16 +213,16 @@ forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Par.rds")) %>%
 
 BoxPlotPar <- forSimPlot %>% 
   filter(YearPostBurnIn >= -3, !YearAsCand %in% c("PS", "PS+")) %>%
-  mutate(YearAsCand = as.character(YearAsCand)) %>%
-  group_by(SimRep, YearAsCand,YearPostBurnIn) %>%
-  slice_max(gebv, n = 100) %>%
+  mutate(CandPop = as.character(YearAsCand)) %>%
+  group_by(SimRep, CandPop,YearPostBurnIn) %>%
+  slice_max(gebv, n = 30) %>%
   mutate(YearPostBurnIn = factor(YearPostBurnIn, levels = c(-3:24)),
-         YearAsCand = ifelse(YearAsCand == "1", "CET",
-                             ifelse(YearAsCand == "2", "CET+PYT", "CET+PYT+AYT"))) %>%
+         CandPop = ifelse(CandPop == "1", "CET",
+                             ifelse(CandPop == "2", "CET+PYT", "CET+PYT+AYT"))) %>%
   ggplot(aes(y = bv, x = YearPostBurnIn, fill = stage)) +
-  geom_boxplot() + facet_wrap(~YearAsCand, scales = "free_x") +
+  geom_boxplot() + facet_wrap(~CandPop, scales = "free_x") +
   scale_fill_viridis(discrete = TRUE, option = "viridis") +
-  theme_bw()
+  theme_bw() + labs(y = expression(italic(TGV)) , x = "Year")
 
 ```
 
@@ -223,14 +230,14 @@ BoxPlotPar <- forSimPlot %>%
 ```{r Origin Parents, echo = FALSE, warning = FALSE, message = FALSE}
 PO <- forSimPlot%>% 
   filter(YearPostBurnIn >= -3, !YearAsCand %in% c("PS", "PS+")) %>%
-  mutate(YearAsCand = as.character(YearAsCand)) %>%
-  group_by(SimRep, YearAsCand,YearPostBurnIn) %>%
-  slice_max(gebv, n = 100) %>%
-  mutate(YearPostBurnIn = factor(YearPostBurnIn, levels = c(-3:12)),
-         YearAsCand = ifelse(YearAsCand == "1", "CET",
-                             ifelse(YearAsCand == "2", "CET+PYT", "CET+PYT+AYT"))) %>%
-  group_by(YearAsCand, YearPostBurnIn, stage, SimRep) %>%
-  summarise(NParSel = n()) %>% group_by(YearAsCand, YearPostBurnIn, stage) %>%
+  mutate(CandPop = as.character(YearAsCand)) %>%
+  group_by(SimRep, CandPop,YearPostBurnIn) %>%
+  slice_max(gebv, n = 30) %>%
+  mutate(YearPostBurnIn = factor(YearPostBurnIn, levels = c(-3:23)),
+         CandPop = ifelse(CandPop == "1", "CET",
+                             ifelse(CandPop == "2", "CET+PYT", "CET+PYT+AYT"))) %>%
+  group_by(CandPop, YearPostBurnIn, stage, SimRep) %>%
+  summarise(NParSel = n()) %>% group_by(CandPop, YearPostBurnIn, stage) %>%
   summarise(NParSelM = median(NParSel),
             NParSelMin = min(NParSel, na.rm = TRUE),
             NParSelMax = max(NParSel, na.rm = TRUE),
@@ -239,9 +246,11 @@ PO <- forSimPlot%>%
 
 BarPlotPO <- PO %>%
   ggplot(aes(x = YearPostBurnIn, fill = stage, y = NParSelM)) +
-  geom_bar(position = "fill", stat = "identity") + xlab("Year Post Burn in") + ylab("Percentage (%)") +
-  facet_wrap(~YearAsCand, scales = "free_x") +
-  scale_fill_viridis(discrete = TRUE, option = "viridis") + theme_bw()
+  geom_bar(position = "fill", stat = "identity", width = 0.7) + xlab("Year Post Burn in") +
+  facet_wrap(~CandPop, scales = "free_x") +
+  scale_fill_viridis(discrete = TRUE, option = "viridis") + theme_bw() +
+  labs(y = expression(italic("Parent stage origin")),
+       x = "Year")
 
 #tiff(filename = here::here("output", "Figures", "ParentInfo.tiff"),
 #units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
@@ -259,35 +268,38 @@ library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_F1.rds")) %>%
               filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
+  mutate(CandPop = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
                                     ifelse(YearAsCand == 3, "CET-AYT",
                                            ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
-                                        "AYT-UYT2B")))
+                                        "AYT-UYT2B")),
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "REML/BLUP", "GBLUP")))
 
 meanGplot1 <- forSimPlot %>% 
-              group_by(YearAsCand, YearPostBurnIn, year) %>% 
+              group_by(CandPop, SelMethod, YearPostBurnIn, year) %>% 
               summarize(meanGenMean = mean(genValMean),
                         seGenMean = sd(genValMean) / sqrt(n())) %>% 
-              ggplot(., aes(x = YearPostBurnIn)) +
+              ggplot(., aes(x = YearPostBurnIn, linetype = SelMethod)) +
               geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
                               ymax = meanGenMean + seGenMean,
-                              fill = YearAsCand), alpha = 0.25) + 
-              geom_line(aes(y = meanGenMean, color = YearAsCand)) + 
-              theme_minimal()
+                              fill = CandPop), alpha = 0.25) + 
+              geom_line(aes(y = meanGenMean, color = CandPop)) + 
+              theme_minimal() + labs(y = expression(italic(TGV)),
+                                     x = "Year")
 
 sdGplot1 <- forSimPlot %>% 
-            group_by(YearAsCand, YearPostBurnIn, year) %>% 
+            group_by(CandPop, SelMethod, YearPostBurnIn, year) %>% 
             summarize(meanGenSD = mean(genValSD),
                       seGenSD = sd(genValSD) / sqrt(n())) %>% 
-            ggplot(., aes(x = YearPostBurnIn)) +
+            ggplot(., aes(x = YearPostBurnIn, linetype = SelMethod)) +
             geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
                             ymax = meanGenSD + seGenSD,
-                            fill = YearAsCand), alpha = 0.25) + 
-            geom_line(aes(y = meanGenSD, color = YearAsCand)) + 
-            theme_minimal()
+                            fill = CandPop), alpha = 0.25) + 
+            geom_line(aes(y = meanGenSD, color = CandPop)) + 
+            theme_minimal() + labs(y = expression(italic(sigma[TGV]^2)),
+                                     x = "Year")
 
 #tiff(filename = here::here("output","Figures", "F1 graph 1 to 3.tiff"),
 #units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
@@ -304,35 +316,38 @@ library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_UYT2.rds")) %>%
   mutate(YearPostBurnIn = year - 20) %>%
               filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
+  mutate(CandPop = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
                                     ifelse(YearAsCand == 3, "CET-AYT",
                                            ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
-                                        "AYT-UYT2B")))
+                                        "AYT-UYT2B")),
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "REML/BLUP", "GBLUP")))
 
 meanGplot1 <- forSimPlot %>%
-              group_by(YearAsCand, YearPostBurnIn, year) %>% 
+              group_by(CandPop, SelMethod, YearPostBurnIn, year) %>% 
               summarize(meanGenMean = mean(genValMean),
                         seGenMean = sd(genValMean) / sqrt(n())) %>% 
-              ggplot(., aes(x = YearPostBurnIn)) +
+              ggplot(., aes(x = YearPostBurnIn, linetype = SelMethod)) +
               geom_ribbon(aes(ymin = meanGenMean - seGenMean, 
                               ymax = meanGenMean + seGenMean,
-                              fill = YearAsCand), alpha = 0.25) + 
-              geom_line(aes(y = meanGenMean, color = YearAsCand)) + 
-              theme_minimal()
+                              fill = CandPop), alpha = 0.25) + 
+              geom_line(aes(y = meanGenMean, color = CandPop)) + 
+              theme_minimal() + labs(y = expression(italic(TGV)),
+                                     x = "Year")
 
 sdGplot1 <- forSimPlot %>%
-            group_by(YearAsCand, YearPostBurnIn, year) %>% 
+            group_by(CandPop, SelMethod, YearPostBurnIn, year) %>% 
             summarize(meanGenSD = mean(genValSD),
                       seGenSD = sd(genValSD) / sqrt(n())) %>% 
-            ggplot(., aes(x = YearPostBurnIn)) +
+            ggplot(., aes(x = YearPostBurnIn, linetype = SelMethod)) +
             geom_ribbon(aes(ymin = meanGenSD - seGenSD, 
                             ymax = meanGenSD + seGenSD,
-                            fill = YearAsCand), alpha = 0.25) + 
-            geom_line(aes(y = meanGenSD, color = YearAsCand)) + 
-            theme_minimal()
+                            fill = CandPop), alpha = 0.25) + 
+            geom_line(aes(y = meanGenSD, color = CandPop)) + 
+            theme_minimal() + labs(y = expression(italic(sigma[TGV]^2)),
+                                   x = "Year")
 
 #tiff(filename = here::here("output", "Figures", "UYT2 graph 1 to 3.tiff"),
 #units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
@@ -347,24 +362,27 @@ ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "bottom") %>%
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Acc.rds")) %>%
   filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
+  mutate(CandPop = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
                                     ifelse(YearAsCand == 3, "CET-AYT",
                                            ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
-                                        "AYT-UYT2B")))
+                                        "AYT-UYT2B")),
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "REML/BLUP", "GBLUP")))
 
 Accuracyplot2 <- forSimPlot %>%
-  group_by(YearAsCand, YearPostBurnIn, year) %>%
+  group_by(CandPop, SelMethod, YearPostBurnIn, year) %>%
   summarise(meanAcc = mean(accPgSel, na.rm = T),
             sdAcc = sd(accPgSel, na.rm = T) / sqrt(n())) %>%
-  ggplot(., aes(x = YearPostBurnIn, color = YearAsCand)) +
+  ggplot(., aes(x = YearPostBurnIn, color = CandPop, linetype = SelMethod)) +
   geom_ribbon(aes(ymin = meanAcc - sdAcc, 
                   ymax = meanAcc + sdAcc,
-                  fill = YearAsCand), alpha = 0.25) + 
+                  fill = CandPop), alpha = 0.25) + 
   geom_line(aes(y = meanAcc)) + ggtitle("Parent Selection Accuracy") + 
-  theme_minimal() + theme(legend.position="bottom")
+  theme_minimal() + theme(legend.position="bottom") + ylim(0,0.75) +
+  labs(y = expression(italic(hat("r")["GEBV,TBV"])),
+       x = "Year")
 
 #tiff(filename = here::here("output", "Figures", "Accuracy.tiff"),
 #units = "cm", compression = "lzw", width = 20, height = 10, res = 250)
@@ -373,36 +391,48 @@ Accuracyplot2
 
 ```
 
-##### Genomic Prediction Accuracy for the CET
+##### Genomic Prediction Accuracy for clone selection at the CET
 
 ```{r Accuracies for gegv, echo = FALSE, message = FALSE, warning = FALSE}
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Acc.rds")) %>%
   filter(YearPostBurnIn >= -3) %>%
-  mutate(YearAsCand = factor(ifelse(YearAsCand == 1, "CET",
+  mutate(CandPop = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
                                     ifelse(YearAsCand == 3, "CET-AYT",
                                            ifelse(YearAsCand == "PS", "AYT-UYT2", "AYT-UYT2B")))),
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
                                         "AYT-UYT2B")),
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "REML/BLUP", "GBLUP")),
          accProgSel = accClSel[,1],
          accVDPSel = accAtSel[,1],
          cycle = cycle.y, .keep = "unused") %>% 
-  select(SimRep, YearAsCand, YearPostBurnIn, year, cycle, accProgSel, accVDPSel) %>% 
-  reshape2::melt(data = ., id.vars = c("SimRep", "YearAsCand", "YearPostBurnIn", "year", "cycle"),
+  select(SimRep, CandPop, SelMethod, YearPostBurnIn, year, cycle, accProgSel, accVDPSel) %>% 
+  reshape2::melt(data = ., id.vars = c("SimRep", "CandPop", "SelMethod", "YearPostBurnIn", "year", "cycle"),
                  variable.name = "Pred", value.name = "Acc")
 
-Accuracyplot2 <- forSimPlot %>%
-  group_by(YearAsCand, YearPostBurnIn, year, Pred) %>%
+forSimPlot2 <- forSimPlot %>% filter(!(CandPop == "AYT-UYT2" & Pred == "accProgSel"),
+                                     !(CandPop == "AYT-UYT2B" & Pred == "accProgSel"),
+                                     !(CandPop == "CET" & Pred == "accProgSel" & YearPostBurnIn < 0),
+                                     !(CandPop == "CET-PYT" & Pred == "accProgSel" & YearPostBurnIn < 0),
+                                     !(CandPop == "CET-AYT" & Pred == "accProgSel" & YearPostBurnIn < 0),
+                                     !(CandPop == "CET" & Pred == "accVDPSel" & YearPostBurnIn >= 0),
+                                     !(CandPop == "CET-PYT" & Pred == "accVDPSel" & YearPostBurnIn >= 0),
+                                     !(CandPop == "CET-AYT" & Pred == "accVDPSel" & YearPostBurnIn >= 0))
+
+Accuracyplot2 <- forSimPlot2 %>%
+  group_by(CandPop, SelMethod, YearPostBurnIn, year, Pred) %>%
   summarise(meanAcc = mean(Acc, na.rm = T),
             sdAcc = sd(Acc, na.rm = T) / sqrt(n())) %>%
-  ggplot(., aes(x = YearPostBurnIn, color = YearAsCand)) +
+  ggplot(., aes(x = YearPostBurnIn, color = CandPop, linetype = SelMethod)) +
   geom_ribbon(aes(ymin = meanAcc - sdAcc, 
                   ymax = meanAcc + sdAcc,
-                  fill = YearAsCand, linetype = Pred), alpha = 0.25) + 
-  geom_line(aes(y = meanAcc, linetype = Pred)) + ggtitle("Clone Selection Accuracy at CET") + 
-  theme_minimal() + theme(legend.position="bottom")
+                  fill = CandPop), alpha = 0.25) + 
+  geom_line(aes(y = meanAcc)) + ggtitle("Clone Selection Accuracy at CET") + 
+  theme_minimal() + theme(legend.position="bottom") + ylim(0,0.75) +
+  labs(y = expression(italic(hat("r")["GEBV,TGV"])),
+       x = "Year")
 
 #tiff(filename = here::here("output", "Figures", "AccuracyCET.tiff"),
 #units = "cm", compression = "lzw", width = 20, height = 10, res = 250)
