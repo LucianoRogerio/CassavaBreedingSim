@@ -225,7 +225,8 @@ saveRDS(LSRes, file = here::here("output", "LastStageResultsIITA.rds"))
 
 ## Simulations IITA Breeding Scheme - 1-3 Years as candidates
 ```{r Joint data of Sim 1-3 years, eval = FALSE}
-
+library(tidyverse); library(AlphaSimR); library(here)
+RhpcBLASctl::blas_set_num_threads(60)
 schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"), 
                      header = T, stringsAsFactors = F, sep = ";")
 
@@ -291,19 +292,12 @@ forSimPlotIITA_Acc <- IITAPS %>%
   select(SimRep, YearAsCand, CrossingBlock) %>%
   unnest(col = CrossingBlock) %>% 
   select(SimRep, YearAsCand, Year, cycle, grmSize, accPgSel, accClSel) %>%
-  mutate(YearPostBurnIn = Year - 40, year = Year, .keep = "unused") %>% 
+  mutate(YearPostBurnIn = Year - 40, year = Year,
+         SimStage = "PopImprov", .keep = "unused") %>% 
   filter(YearPostBurnIn >= -5)
 
-forSimPlotIITA_1_3_CET <- IITAPS %>%
-  mutate(YearAsCand = "PS") %>%
-  bind_rows(IITAPSPlus %>%
-              mutate(YearAsCand = "PS+")) %>% 
-  bind_rows(IITA1Yr %>%
-              mutate(YearAsCand = "1")) %>%
-  bind_rows(IITA2Yr %>% 
-              mutate(YearAsCand = "2")) %>%
-  bind_rows(IITA3Yr %>% 
-              mutate(YearAsCand = "3")) %>%
+forSimPlotIITA_1_3_Trials <- IITA2Yr %>% 
+              mutate(YearAsCand = "2") %>%
   unnest_longer(SimOutput) %>%
   filter(SimOutput_id == "records") %>%
   mutate(records = SimOutput) %>%
@@ -313,13 +307,27 @@ forSimPlotIITA_1_3_CET <- IITAPS %>%
   mutate(stageOutputs = records) %>%
   select(SimRep, YearAsCand, stageOutputs) %>%
   unnest(cols = stageOutputs) %>%
-  mutate(YearPostBurnIn = year - 40) %>% 
-  filter(stage == "CET", YearPostBurnIn >= -5) %>%
-  select(SimRep, YearAsCand, year, cycle, stage, accAtSel, YearPostBurnIn)
+  mutate(YearPostBurnIn = year - 40, SimStage = "VDP") %>% 
+  filter(!(stage %in% c("F1", "SDN")), YearPostBurnIn >= -5) %>%
+  select(SimRep, year, YearPostBurnIn, cycle, stage, SimStage, accAtSel) %>%
+  mutate(accAtSel = accAtSel[,1], .keep = "unused")
 
 forSimPlotIITA_Acc2 <- forSimPlotIITA_Acc %>%
-  left_join(forSimPlotIITA_1_3_CET,
-            by = c("SimRep", "YearAsCand", "year", "YearPostBurnIn"))
+  filter(YearAsCand != "PS") %>%
+  select(SimRep, year, YearPostBurnIn, cycle, SimStage, accClSel) %>%
+  unnest(accClSel) %>% mutate(SDN = accClSel[,1],
+                              CET = accClSel[,2],
+                              PYT = accClSel[,3],
+                              AYT = accClSel[,4],
+                              UYT1 = accClSel[,5],
+                              UYT2 = accClSel[,6],
+                              .keep = "unused") %>%
+  reshape2::melt(data = .,
+                 id.vars = c("SimRep", "year", "YearPostBurnIn",
+                             "cycle", "SimStage"),
+                 variable.name = "stage", value.name = "accAtSel") %>%
+  bind_rows(forSimPlotIITA_1_3_Trials) %>%
+  filter(!is.na(accAtSel))
 
 forSimPlotIITA_Par <- IITAPS %>%
   mutate(YearAsCand = "PS") %>%
@@ -345,10 +353,11 @@ forSimPlotIITA_Par$stage <- schemeDF$stageNames[forSimPlotIITA_Par$stage]
 
 
 
-saveRDS(forSimPlotIITA_Acc2, file = here::here("DataSimPlotIITA1_3_Acc.rds"))
-saveRDS(forSimPlotIITA_Par, file = here::here("DataSimPlotIITA1_3_Par.rds"))
-saveRDS(forSimPlotIITA_1_3_F1, file = here::here("DataSimPlotIITA1_3_F1.rds"))
-saveRDS(forSimPlotIITA_1_3_UYT, file = here::here("DataSimPlotIITA1_3_UYT2.rds"))
+saveRDS(forSimPlotIITA_Acc, file = here::here("output/DataSimPlotIITA1_3_AccPg.rds"))
+saveRDS(forSimPlotIITA_Acc2, file = here::here("output/DataSimPlotIITA1_3_AccCl.rds"))
+saveRDS(forSimPlotIITA_Par, file = here::here("output/DataSimPlotIITA1_3_Par.rds"))
+saveRDS(forSimPlotIITA_1_3_F1, file = here::here("output/DataSimPlotIITA1_3_F1.rds"))
+saveRDS(forSimPlotIITA_1_3_UYT, file = here::here("output/DataSimPlotIITA1_3_UYT2.rds"))
 ```
 
 [Home](VD_Optimization.html)

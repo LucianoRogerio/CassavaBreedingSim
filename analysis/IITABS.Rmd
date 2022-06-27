@@ -64,13 +64,13 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"),
                      header = T, stringsAsFactors = F, sep = ";")
 
 bsp1 <- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 8, nYrsAsCandidates = 3, maxTrainingPopSize = 6620,
+                   nTrainPopCycles = 4, nYrsAsCandidates = 3, maxTrainingPopSize = 6620,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "AYT",  RmStagePhen = "SDN",
-                   nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   nParents = 30, nCrosses = 400, nProgeny = 35, nClonesToNCRP = 3,
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = T,
                    nCyclesToKeepRecords = 4,
@@ -108,7 +108,7 @@ rm(postBurnIn_IITA_PS); rm(RdsName); rm(burnIn_IITA_PS)
 
 xx <- readRDS(here::here("output", "postBurnIn_IITA_PS1.rds"))
 
-xxx <- xx$SimOutput[[1]]$records$PopImprov$grmData[[27]] %>% filter(pop =="c")
+xxx <- xx$SimOutput[[1]]$records$CrossingBlock$grmData[[27]] %>% filter(pop =="c")
 
 table(xxx$stage)
 sum(is.na(xxx$gebv))
@@ -116,18 +116,18 @@ sum(is.na(xxx$gebv))
 
 ```
  ****** 1 to 8
+ [1] "33mins 1s elapsed - bspP"
 
  ****** 9 to 16
- [1] "42mins 24s elapsed - bspP"
+ [1] "33mins 16s elapsed - bspP"
 
  ****** 17 to 24
- [1] "42mins 5s elapsed - bspP"
 
  ****** 25 to 32
- [1] "42mins 30s elapsed - bspP"
+ [1] "32mins 59s elapsed - bspP"
 
  ****** 33 to 40
- [1] "43mins 8s elapsed - bspP"
+ [1] "32mins 26s elapsed - bspP"
 ```
 
 
@@ -190,13 +190,13 @@ schemeDF <- read.csv(here::here("data","baselineScheme - IITAPSExtra.csv"),
                      header = T, stringsAsFactors = F, sep = ";")
 
 bsp1 <- specifyBSP(schemeDF = schemeDF,
-                   nTrainPopCycles = 8, nYrsAsCandidates = 3, maxTrainingPopSize = 6620,
+                   nTrainPopCycles = 4, nYrsAsCandidates = 3, maxTrainingPopSize = 6620,
                    nChr = 18, effPopSize = 200, quickHaplo = F,
                    segSites = 1650, nQTL = 1000, nSNP = 500, genVar = 1500,
                    gxeVar = NULL, gxyVar = 1500, gxlVar = 750, gxyxlVar = 300,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "AYT",  RmStagePhen = "SDN",
-                   nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   nParents = 30, nCrosses = 400, nProgeny = 35, nClonesToNCRP = 3,
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = T,
                    nCyclesToKeepRecords = 4,
@@ -238,15 +238,15 @@ rm(postBurnIn_IITA_PS); rm(RdsName); rm(burnIn_IITA_PS)
 
 ```
  ****** 1 to 8
- [1] "47mins 16s elapsed - bspP"
+ [1] "39mins 39s elapsed - bspP"
 
  ****** 9 to 16
- [1] "47mins 57s elapsed - bspP"
+ [1] "40mins 33s elapsed - bspP"
 
  ****** 17 to 24
+ [1] "40mins 22s elapsed - bspP"
 
  ****** 25 to 32
- [1] "47mins 32s elapsed - bspP"
 
  ****** 33 to 40
  [1] "47mins 3s elapsed - bspP"
@@ -255,7 +255,7 @@ rm(postBurnIn_IITA_PS); rm(RdsName); rm(burnIn_IITA_PS)
 
 
 joint all the Results in a same rds File
-```{r Joint PostBurnIn IITA PS data, eval = FALSE}
+```{r Joint PostBurnIn IITA PS Extra data, eval = FALSE}
 suppressMessages(library(tidyverse))
 RhpcBLASctl::blas_set_num_threads(80)
 files <- here::here("output", dir("output")[grep(pattern = "postBurnIn_IITA_PSPlus*", dir("output"))])
@@ -270,27 +270,6 @@ saveRDS(SimResults, file = here::here("output", "postBurnIn_IITA_PSPlus.rds"))
 rm(SimResults)
 ```
 
-### Obtain the ratio of Parent selected per stage
-
-```{r Parent Selection origin PS, eval = FALSE}
-library(tidyverse); library(AlphaSimR)
-library(here)
-schemeDF <- read.csv(here::here("data","baselineScheme - IITAExtra.csv"), 
-                     header = T, stringsAsFactors = F, sep = ";")
-SimResults <- readRDS(here::here("output", "postBurnIn_IITA_PS.rds"))
-
-RelPar <- tibble()
-for(repl in 1:nrow(SimResults)){
-  for(YEAR in length(SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData)){
-RelPar <- rbind(RelPar,
-                SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]][SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]]$pop == "c",])
-}
-}
-
-write.table(x = RelPar, file = here::here("output", "ParentOriginPSPlus.csv"),
-            sep = ",", quote = FALSE,
-            row.names = FALSE, col.names = TRUE)
-```
 
 
 ####  With Genomic Selection
@@ -338,7 +317,7 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "CET",
                    RmStagePhen = "SDN",
-                   nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   nParents = 30, nCrosses = 400, nProgeny = 35, nClonesToNCRP = 3,
                    parentsFlowering = 100,
                    TrainPopSel = "trainPopSelNew",
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
@@ -378,20 +357,26 @@ rm(postBurnIn_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
 ```
 
 ```
- ****** 1 to 8
- [1] "467mins 37s elapsed - bspP"
+ ****** 1 to 5
+ [1] "650mins 3s elapsed - bspP"
  
- ****** 9 to 16
- [1] "517mins 7s elapsed - bspP"
+ ****** 6 to 10
+ [1] "327mins 59s elapsed - bspP"
 
- ****** 17 to 24
- [1] "490mins 22s elapsed - bspP"
+ ****** 11 to 15
+ [1] "366mins 4s elapsed - bspP"
   
- ****** 25 to 32
- [1] "481mins 1s elapsed - bspP"
+ ****** 20 to 25
+ [1] "371mins 9s elapsed - bspP"
  
- ****** 33 to 40
- [1] "551mins 11s elapsed - bspP"
+ ****** 26 to 30
+ [1] "333mins 40s elapsed - bspP"
+ 
+ ****** 31 to 35
+ [1] "366mins 29s elapsed - bspP"
+ 
+ ****** 36 to 40
+ [1] "362mins 18s elapsed - bspP"
 
 ```
 
@@ -399,7 +384,7 @@ joint all the Results in a same rds File
 ```{r Joint Simulation Results IITA GS 3Yrs, eval = FALSE}
 suppressMessages(library(tidyverse))
 RhpcBLASctl::blas_set_num_threads(60)
-files <- dir()[grep(pattern = "postBurnIn_IITA_GS_3Yrs*", dir())]
+files <- here::here("output", dir("output")[grep(pattern = "postBurnIn_IITA_GS_3Yrs*", dir("output"))])
 SimResults <- NULL
 for(i in files){
   Results <- readRDS(i)
@@ -407,30 +392,8 @@ for(i in files){
   rm(Results)
 }
 
-saveRDS(SimResults, file = "postBurnIn_IITA_GS_3Yrs.rds")
+saveRDS(SimResults, file = "output/postBurnIn_IITA_GS_3Yrs.rds")
 rm(SimResults)
-```
-
-### Obtain the ratio of Parent selected per stage
-
-```{r Parent Selection origin IITA GS 3Yrs, eval = FALSE}
-library(tidyverse); library(AlphaSimR)
-library(here)
-schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"), 
-                     header = T, stringsAsFactors = F, sep = ";")
-simulations <- readRDS(here::here("output", "postBurnIn_IITA_GS_3Yrs.rds"))
-
-RelPar <- tibble()
-for(repl in 1:nrow(SimResults)){
-  for(YEAR in length(SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData)){
-RelPar <- rbind(RelPar,
-                SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]][SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]]$pop == "c",])
-}
-}
-
-write.table(x = RelPar, file = here::here("output", "ParentOriginGS_3Yrs.csv"),
-            sep = ",", quote = FALSE,
-            row.names = FALSE, col.names = TRUE)
 ```
 
 - 2 Yrs as Candidate - CBSU lm35 - screen IITA3Yr
@@ -464,7 +427,7 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "CET",
                    RmStagePhen = "SDN",
-                   nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   nParents = 30, nCrosses = 400, nProgeny = 35, nClonesToNCRP = 3,
                    parentsFlowering = 100,
                    TrainPopSel = "trainPopSelNew",
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
@@ -477,10 +440,10 @@ source(here::here("code","runSchemesPostBurnIn.R"))
 
 nRepT <- 40#readRDS(here::here("output", "BurnIn_IITA.rds")) %>% nrow()
 NCT <- RhpcBLASctl::get_num_procs()
-nRepMap <- 8
+nRepMap <- 5
 reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
 
-for(i in 1:ceiling(nRepT/nRepMap)) {
+for(i in 5:ceiling(nRepT/nRepMap)) {
 
 burnIn_IITA_PS <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% .[reps==i,]
 start <- proc.time()[3]
@@ -505,19 +468,19 @@ rm(postBurnIn_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
 
 ```
  ****** 1 to 8
-  [1] "445mins 59s elapsed - bspP"
+  [1] "557mins 43s elapsed - bspP"
 
  ****** 9 to 16
-  [1] "431mins 33s elapsed - bspP"
+  [1] "526mins 55s elapsed - bspP"
   
  ****** 17 to 24
-  [1] "454mins 7s elapsed - bspP"
+ 1] "544mins 32s elapsed - bspP"
   
  ****** 25 to 32
-  [1] "441mins 20s elapsed - bspP"
+ [1] "575mins 20s elapsed - bspP"
 
  ****** 33 to 40
-  [1] "539mins 2s elapsed - bspP"
+ [1] "576mins 29s elapsed - bspP"
 
 ```
 
@@ -525,7 +488,7 @@ joint all the Results in a same rds File
 ```{r Joint Simulations Results IITA GS 2Yrs, eval = FALSE}
 suppressMessages(library(tidyverse))
 RhpcBLASctl::blas_set_num_threads(60)
-files <- dir()[grep(pattern = "postBurnIn_IITA_GS_2Yrs*", dir())]
+files <- here::here("output", dir("output")[grep(pattern = "postBurnIn_IITA_GS_2Yrs*", dir("output"))])
 SimResults <- NULL
 for(i in files){
   Results <- readRDS(i)
@@ -533,30 +496,8 @@ for(i in files){
   rm(Results)
 }
 
-saveRDS(SimResults, file = "postBurnIn_IITA_GS_2Yrs.rds")
+saveRDS(SimResults, file = "output/postBurnIn_IITA_GS_2Yrs.rds")
 rm(SimResults)
-```
-
-### Obtain the ratio of Parent selected per stage
-
-```{r Parent Selection origin IITA GS 2Yrs, eval = FALSE}
-library(tidyverse); library(AlphaSimR)
-library(here)
-schemeDF <- read.csv(here::here("data","baselineScheme - IITA.csv"), 
-                     header = T, stringsAsFactors = F, sep = ";")
-simulations <- readRDS(here::here("output", "postBurnIn_IITA_GS_2Yrs.rds"))
-
-RelPar <- tibble()
-for(repl in 1:nrow(SimResults)){
-  for(YEAR in length(SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData)){
-RelPar <- rbind(RelPar,
-                SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]][SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]]$pop == "c",])
-}
-}
-
-write.table(x = RelPar, file = here::here("output", "ParentOriginGS_2Yrs.csv"),
-            sep = ",", quote = FALSE,
-            row.names = FALSE, col.names = TRUE)
 ```
 
 - 1 Yrs as Candidate - CBSU lm30 - screen IITA1Yr
@@ -590,7 +531,7 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    meanDD = 0.23, varDD = 0.05, relAA = 0.5,
                    stageToGenotype = "CET",
                    RmStagePhen = "SDN",
-                   nParents = 30, nCrosses = 400, nProgeny = 30, nClonesToNCRP = 3,
+                   nParents = 30, nCrosses = 400, nProgeny = 35, nClonesToNCRP = 3,
                    parentsFlowering = 100,
                    TrainPopSel = "trainPopSelNew",
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
@@ -606,7 +547,7 @@ NCT <- RhpcBLASctl::get_num_procs()
 nRepMap <- 8
 reps <- c(rep(1:ceiling(nRepT/nRepMap), each = nRepMap))[1:nRepT]
 
-for(i in 1:ceiling(nRepT/nRepMap)) {
+for(i in 4:ceiling(nRepT/nRepMap)) {
 
 burnIn_IITA_PS <- readRDS(here::here("output", "BurnIn_IITA.rds")) %>% .[reps==i,]
 start <- proc.time()[3]
@@ -632,26 +573,26 @@ rm(postBurnIn_IITA_GS); rm(RdsName); rm(burnIn_IITA_PS)
 
 ```
  ****** 1 to 8
-  [1] "321mins 25s elapsed - bspP"
+  [1] "383mins 9s elapsed - bspP"
 
  ****** 9 to 16
-  [1] "338mins 45s elapsed - bspP"
+ [1] "359mins 5s elapsed - bspP"
  
  ****** 17 to 24
-  [1] "322mins 16s elapsed - bspP"
+ [1] "375mins 35s elapsed - bspP"
   
  ****** 25 to 32
-  [1] "330mins 51s elapsed - bspP"
+ [1] "323mins 7s elapsed - bspP"
  
  ****** 33 to 40
-  [1] "402mins 42s elapsed - bspP"
+ [1] "380mins 24s elapsed - bspP"
 ```
 
 joint all the Results in a same rds File
 ```{r Joint Simulations Results IITA GS 1Yr, eval = FALSE}
 suppressMessages(library(tidyverse))
 RhpcBLASctl::blas_set_num_threads(80)
-files <- dir()[grep(pattern = "postBurnIn_IITA_GS_1Yrs*", dir())]
+files <- here::here("output", dir("output")[grep(pattern = "postBurnIn_IITA_GS_1Yrs*", dir("output"))])
 SimResults <- NULL
 for(i in files){
   Results <- readRDS(i)
@@ -659,28 +600,7 @@ for(i in files){
   rm(Results)
 }
 
-saveRDS(SimResults, file = "postBurnIn_IITA_GS_1Yr.rds")
-```
-
-### Obtain the ratio of Parent selected per stage
-
-```{r Parent Selection origin IITA GS 1Yr, eval = FALSE}
-library(tidyverse); library(AlphaSimR)
-library(here)
-schemeDF <- read.csv(here::here("baselineScheme - IITA.csv"), 
-                     header = T, stringsAsFactors = F, sep = ";")
-SimResults <- readRDS(here::here("postBurnIn_IITA_GS_1Yr.rds"))
-
-RelPar <- tibble()
-for(repl in 1:nrow(SimResults)){
-  for(YEAR in length(SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData)){
-RelPar <- rbind(RelPar,
-                SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]][SimResults$SimOutput[[repl]]$records$CrossingBlock$grmData[[YEAR]]$pop == "c",])
-}
-}
-write.table(x = RelPar, file = here::here("output", "ParentOriginGS_1Yr.csv"),
-            sep = ",", quote = FALSE,
-            row.names = FALSE, col.names = TRUE)
+saveRDS(SimResults, file = "output/postBurnIn_IITA_GS_1Yr.rds")
 ```
 
 
