@@ -48,6 +48,7 @@ cd home/lbraatz/Desktop/;
 mkdr Singularity;
 
 singularity pull rocker2.sif docker://rocker/tidyverse:latest;
+singularity pull rocker405.sif docker://rocker/tidyverse:4.0.5;
 
 cp rocker2.sif /workdir/lbraatz/.
 
