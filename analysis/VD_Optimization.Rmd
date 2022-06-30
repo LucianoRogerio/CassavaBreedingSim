@@ -134,7 +134,6 @@ meanBVplot1 <- forSimPlot %>%
               labs(x = "Year",
                    y = expression(italic(mu[TBV] - "Pop"))) + xlim(-3, 20)
 
-meanBVplot1
 #sdBVplot1 <- forSimPlot %>% 
 #              group_by(YearAsCand, YearPostBurnIn) %>%
 #              summarize(meanBVsd = mean(bvsd),
@@ -147,6 +146,7 @@ meanBVplot1
 #              theme_minimal() + ylab("Year")
 #tiff(filename = here::here("output", "Figures", "Candidates graph 1 to 3.tiff"),
 #units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
+meanBVplot1
 #ggarrange(meanBVplot1, common.legend = TRUE, legend = "bottom") %>%
 #  annotate_figure(., top = "Candidates Breeding Values")
 #dev.off()
@@ -184,7 +184,7 @@ meanBVplot1 <- forSimPlot %>%
               theme_minimal() + ylab("Year") + theme(legend.position = "bottom") +
               labs(x = "Year",
                    y = expression(italic(mu[TBV]) - "Top 30")) + xlim(-3, 20)
-meanBVplot1
+
 #sdBVplot1 <- forSimPlot %>% 
 #            group_by(CandPop, YearPostBurnIn) %>% 
 #            summarize(meanBVSD = mean(bvsd),
@@ -198,6 +198,7 @@ meanBVplot1
 #
 #tiff(filename = here::here("output", "Figures", "Parents graph 1 to 3.tiff"),
 #units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
+meanBVplot1
 #ggarrange(meanBVplot1, sdBVplot1, common.legend = TRUE, legend = "bottom") %>%
 #  annotate_figure(., top = "Parents Breeding Values")
 #dev.off()
