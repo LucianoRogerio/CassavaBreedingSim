@@ -116,7 +116,7 @@ forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Par.rds")) %>%
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
                                         "AYT-UYT2B")),
-         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "indBLUP", "GBLUP"))) %>%
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "iidBLUP", "GEBV"))) %>%
   group_by(SimRep, CandPop, SelMethod, YearPostBurnIn) %>%
   summarise(bvMean = mean(bv),
             bvsd = sd(bv))
@@ -132,7 +132,7 @@ meanBVplot1 <- forSimPlot %>%
               geom_line(aes(y = meanBVMean, color = CandPop)) + 
               theme_minimal() + ylab("Year") + theme(legend.position = "bottom") +
               labs(x = "Year",
-                   y = expression(italic(mu[TBV] - "Pop")))
+                   y = expression(italic(mu[TBV] - "Pop"))) + xlim(-3, 20)
 
 meanBVplot1
 #sdBVplot1 <- forSimPlot %>% 
@@ -166,7 +166,7 @@ forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Par.rds")) %>%
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
                                         "AYT-UYT2B")),
-         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "indBLUP", "GBLUP"))) %>%
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "iidBLUP", "GEBV"))) %>%
   group_by(SimRep, CandPop, SelMethod, YearPostBurnIn) %>%
   slice_max(gebv, n = 30) %>%
   summarise(bvMean = mean(bv),
@@ -183,7 +183,7 @@ meanBVplot1 <- forSimPlot %>%
               geom_line(aes(y = meanBVMean, color = CandPop)) + 
               theme_minimal() + ylab("Year") + theme(legend.position = "bottom") +
               labs(x = "Year",
-                   y = expression(italic(mu[TBV]) - "Top 30"))
+                   y = expression(italic(mu[TBV]) - "Top 30")) + xlim(-3, 20)
 meanBVplot1
 #sdBVplot1 <- forSimPlot %>% 
 #            group_by(CandPop, YearPostBurnIn) %>% 
@@ -212,11 +212,11 @@ forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_Par.rds")) %>%
   mutate(stage = factor(stage, levels = c("CET", "PYT", "AYT", "UYT1","UYT2")))
 
 BoxPlotPar <- forSimPlot %>% 
-  filter(YearPostBurnIn >= -3, !YearAsCand %in% c("PS", "PS+")) %>%
+  filter(YearPostBurnIn >= -3, YearPostBurnIn <=20, !YearAsCand %in% c("PS", "PS+")) %>%
   mutate(CandPop = as.character(YearAsCand)) %>%
   group_by(SimRep, CandPop,YearPostBurnIn) %>%
   slice_max(gebv, n = 30) %>%
-  mutate(YearPostBurnIn = factor(YearPostBurnIn, levels = c(-3:24)),
+  mutate(YearPostBurnIn = factor(YearPostBurnIn, levels = c(-3:20)),
          CandPop = ifelse(CandPop == "1", "CET",
                              ifelse(CandPop == "2", "CET+PYT", "CET+PYT+AYT"))) %>%
   ggplot(aes(y = bv, x = YearPostBurnIn, fill = stage)) +
@@ -229,11 +229,11 @@ BoxPlotPar <- forSimPlot %>%
 
 ```{r Origin Parents, echo = FALSE, warning = FALSE, message = FALSE}
 PO <- forSimPlot%>% 
-  filter(YearPostBurnIn >= -3, !YearAsCand %in% c("PS", "PS+")) %>%
+  filter(YearPostBurnIn >= -3, YearPostBurnIn <= 20, !YearAsCand %in% c("PS", "PS+")) %>%
   mutate(CandPop = as.character(YearAsCand)) %>%
   group_by(SimRep, CandPop,YearPostBurnIn) %>%
   slice_max(gebv, n = 30) %>%
-  mutate(YearPostBurnIn = factor(YearPostBurnIn, levels = c(-3:23)),
+  mutate(YearPostBurnIn = factor(YearPostBurnIn, levels = c(-3:20)),
          CandPop = ifelse(CandPop == "1", "CET",
                              ifelse(CandPop == "2", "CET+PYT", "CET+PYT+AYT"))) %>%
   group_by(CandPop, YearPostBurnIn, stage, SimRep) %>%
@@ -275,7 +275,7 @@ forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_F1.rds")) %>%
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
                                         "AYT-UYT2B")),
-         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "indBLUP", "GEBV")))
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "iidBLUP", "GEBV")))
 
 meanGplot1 <- forSimPlot %>% 
               group_by(CandPop, SelMethod, YearPostBurnIn, year) %>% 
@@ -287,7 +287,7 @@ meanGplot1 <- forSimPlot %>%
                               fill = CandPop), alpha = 0.25) + 
               geom_line(aes(y = meanGenMean, color = CandPop)) + 
               theme_minimal() + labs(y = expression(italic("True GV")),
-                                     x = "Year") + xlim(-3, 24) + ylim(400, 800)
+                                     x = "Year") + xlim(-3, 20) + ylim(400, 800)
 
 sdGplot1 <- forSimPlot %>% 
             group_by(CandPop, SelMethod, YearPostBurnIn, year) %>% 
@@ -299,7 +299,7 @@ sdGplot1 <- forSimPlot %>%
                             fill = CandPop), alpha = 0.25) + 
             geom_line(aes(y = meanGenSD, color = CandPop)) + 
             theme_minimal() + labs(y = expression(italic(sigma[TGV]^2)),
-                                     x = "Year") + xlim(-3, 24)
+                                     x = "Year") + xlim(-3, 20)
 
 #tiff(filename = here::here("output","Figures", "F1 graph 1 to 3.tiff"),
 #units = "cm", compression = "lzw", width = 25, height = 15, res = 250)
@@ -314,8 +314,7 @@ ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "bottom") %>%
 library(here); suppressMessages(library(tidyverse)); library(ggpubr)
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_UYT2.rds")) %>%
-  mutate(YearPostBurnIn = year - 20) %>%
-              filter(YearPostBurnIn >= -3) %>%
+              filter(YearPostBurnIn >= -3, YearPostBurnIn <= 20) %>%
   mutate(CandPop = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
                                     ifelse(YearAsCand == 3, "CET-AYT",
@@ -323,7 +322,7 @@ forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_UYT2.rds")) %>%
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
                                         "AYT-UYT2B")),
-         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "indBLUP", "GEBV")))
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "iidBLUP", "GEBV")))
 
 meanGplot1 <- forSimPlot %>%
               group_by(CandPop, SelMethod, YearPostBurnIn, year) %>% 
@@ -361,7 +360,7 @@ ggarrange(meanGplot1, sdGplot1, common.legend = TRUE, legend = "bottom") %>%
 ```{r Accuracies for gebv, echo = FALSE, message = FALSE, warning = FALSE}
 
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_AccPg.rds")) %>%
-  filter(YearPostBurnIn >= -3) %>%
+  filter(YearPostBurnIn >= -3, YearPostBurnIn <= 20) %>%
   mutate(CandPop = factor(ifelse(YearAsCand == 1, "CET",
                              ifelse(YearAsCand == 2, "CET-PYT",
                                     ifelse(YearAsCand == 3, "CET-AYT",
@@ -369,18 +368,19 @@ forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_AccPg.rds")) %>%
                              levels = c("CET", "CET-PYT",
                                         "CET-AYT", "AYT-UYT2",
                                         "AYT-UYT2B")),
-         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "indBLUP", "GBLUP")))
+         SelMethod = factor(ifelse(CandPop %in% c("AYT-UYT2", "AYT-UYT2B"), "iidBLUP", "GEBV")))
 
 Accuracyplot2 <- forSimPlot %>%
   group_by(CandPop, SelMethod, YearPostBurnIn, year) %>%
   summarise(meanAcc = mean(accPgSel, na.rm = T),
             sdAcc = sd(accPgSel, na.rm = T) / sqrt(n())) %>%
+  filter(!(CandPop == "CET-PYT" & YearPostBurnIn < 0)) %>% 
   ggplot(., aes(x = YearPostBurnIn, color = CandPop, linetype = SelMethod)) +
   geom_ribbon(aes(ymin = meanAcc - sdAcc, 
                   ymax = meanAcc + sdAcc,
                   fill = CandPop), alpha = 0.25) + 
   geom_line(aes(y = meanAcc)) + ggtitle("Parent Selection Accuracy") + 
-  theme_minimal() + theme(legend.position="bottom") + ylim(0,0.75) +
+  theme_minimal() + theme(legend.position="bottom") + ylim(0,0.75) + xlim(-3,20)+
   labs(y = expression(italic("Correlation - True BV")),
        x = "Year")
 
@@ -396,7 +396,7 @@ Accuracyplot2
 ```{r Accuracies for gegv, echo = FALSE, message = FALSE, warning = FALSE}
 library(tidyverse); library(ggpubr)
 forSimPlot <- readRDS(here::here("output", "DataSimPlotIITA1_3_AccCl.rds")) %>%
-  filter(YearPostBurnIn >= -3, year != 64, stage != "UYT2") %>%
+  filter(YearPostBurnIn >= -3, YearPostBurnIn <= 20, year != 64, stage != "UYT2") %>%
   mutate(Pred = ifelse(SimStage == "PopImprov", "GEBV", "indBLUP"),
          stage = factor(stage, levels = c("CET", "PYT", "AYT", "UYT1")), .keep = "unused") %>% 
   select(SimRep, YearPostBurnIn, year, cycle, Pred, stage, accAtSel) %>%
@@ -413,7 +413,7 @@ Accuracyplot2 <- forSimPlot %>%
                   ymax = meanAcc + sdAcc,
                   fill = Pred), alpha = 0.25) + 
   geom_line(aes(y = meanAcc)) + facet_wrap(~stage, ncol = 2) + ggtitle("Clone Selection Accuracy") + 
-  theme_minimal() + theme(legend.position="bottom") + ylim(0,0.75) + xlim(-3, 24) +
+  theme_minimal() + theme(legend.position="bottom") + ylim(0,0.75) + xlim(-3, 20) +
   labs(y = expression(italic("Correlation - True GV")),
        x = "Year")
 

@@ -57,6 +57,8 @@ runSchemesPostBurnIn<-function(simulations,
         # years are indexed starting at year==0,
         ## so for 10 burn-in cycles, max value should be 9, store for later
         bsp[["maxYearBurnInStage"]]<-max(burnInSim$records$stageOutputs$year)
+        rmstage <- bsp[["burnInBSP"]]$stageNames[!bsp[["burnInBSP"]]$stageNames %in% bsp$stageNames]
+        burnInSim$records[[rmstage]] <- NULL
       } else { bsp<-burnInSim$bsp }
       ## 'historical' records from burn-in
       records<-burnInSim$records

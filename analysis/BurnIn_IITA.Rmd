@@ -41,7 +41,6 @@ bsp1 <- specifyBSP(schemeDF = schemeDF,
                    parentsFlowering = 100,
                    phenoF1toStage1 = T, errVarPreStage1 = 17500,
                    useCurrentPhenoTrain = T,
-                   TrainPopSel = NULL,
                    nCyclesToKeepRecords = 4,
                    selCritPipeAdv = selCritIID,
                    selCritPopImprov =  selCritIID)
@@ -51,7 +50,7 @@ source(here::here("code","runBurnInSchemes.R"))
 
 
 ```{r , eval = FALSE}
-Nrep <- 20
+Nrep <- 40
 NCT <- RhpcBLASctl::get_num_procs()  ## 40 cores
 ```
 
